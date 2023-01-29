@@ -1,0 +1,8 @@
+.slow-moves {
+    transition: 0.3s;
+  }
+  
+  .sidebar-inactive {
+    transform: translateX(-100%);
+  }
+  

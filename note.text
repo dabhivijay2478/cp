@@ -1,1 +1,64 @@
 mongodb+srv://vijaydabhi04:<password>@cluster0.sqx4dpl.mongodb.net/?retryWrites=true&w=majority
+
+
+  // const history = useNavigate();
+  // const [formData, setFormData] = useState({
+  //   email: "",
+  //   password: "",
+  //   confirmpassword: "",
+  // });
+
+  // let { email, password, confirmpassword } = formData;
+
+  // const onChange = (e) =>
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  //   const addUserHandler = async () => {
+  //     console.log(formData);
+      
+  //       const config = {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       };
+  //       const body=JSON.stringify({ email, password, confirmpassword });
+        
+  //      const res= await axios.post('/signup',body, config, {
+  //           email: email,
+  //          password:password,
+  //          confirmpassword:confirmpassword,
+  //       })
+        
+  //       const data = res.json();
+  //       if (res.status === 400 || !data) {
+  //         window.alert("Invaild");
+  //       } else {
+  //         window.alert("Sucess");
+  //         history("/Admindash");
+  //       }
+      
+     
+  // }
+  // const PostData = async (e) => {
+  //   e.preventDefault();
+
+  //   const { email, confirmpassword } = formData;
+  //   const res = await fetch("/signup", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ email, confirmpassword }),
+  //   });
+  //   const data = await res.json();
+
+  //   if (data.status == 422 || !data) {
+  //     window.alert("Invalid");
+  //     console.log("Invalid");
+  //   } else {
+  //     window.alert("sucess");
+  //     console.log("sucess");
+  //     // history("/login")
+  //     // this.clear()
+  //   }
+  // };

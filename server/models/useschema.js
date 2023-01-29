@@ -4,23 +4,17 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 dotenv.config({ path: "./config.env" });
 const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
+ 
   email: {
     type: String,
     required: true,
   },
-  phone: {
-    type: Number,
-    required: true,
-  },
+ 
   password: {
     type: String,
     required: true,
   },
-  Proffesion: {
+  confirmpassword: {
     type: String,
     required: true,
   },
@@ -35,8 +29,8 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", async function (next) {
-  if (this.isModified("password")) {
-    this.password = await bycrypt.hash(this.password, 12);
+  if (this.isModified("confirmpassword")) {
+    this.confirmpassword = await bycrypt.hash(this.confirmpassword, 12);
   }
   next();
 });
