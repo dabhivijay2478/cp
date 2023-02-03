@@ -1,20 +1,17 @@
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
 import Register from "./component/Register";
-
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./component/Login";
 import Admindash from "./component/Admin/Admindash";
 import Errorpage from "./component/Errorpage";
 import Adduser from "./component/common/Adduser";
 import Addclub from "./component/Admin/Addclub";
-import Registerdetails from "./component/common/Registerdetails";
-import Toast from "./component/Toast";
 import AdminHome from "./component/Admin/AdminHome";
 import Adminpostevent from "./component/common/Adminpostevent";
 import Adminpostcertificate from "./component/common/Adminpostcertificate";
 import Postnotice from "./component/common/Postnotice";
 import Reportuser from "./component/common/Reportuser";
-import Edituser from "./component/common/Edituser";
+import { ProtectedRoute } from "./Route/protected.route";
 
 function App() {
   return (
@@ -23,18 +20,32 @@ function App() {
         <Route exact path="/" element={<Login />} />
         <Route exact path="/Register" element={<Register />} />
 
-      
         <Route exact path="/Admindash" element={<Admindash />}>
-          <Route exact path="Adminhome" element={<AdminHome />} />
-          <Route exact path="Addclub" element={<Addclub />} />
-          <Route exact path="Adduser" element={<Adduser />} />
-          <Route exact path="Adminpostevent" element={<Adminpostevent />} />
-          <Route exact path="Adminpostcertificate" element={<Adminpostcertificate />} />
-          <Route exact path="Adminpostnotice" element={<Postnotice />} />
-        
-          <Route exact path="Adminreportuser" element={<Reportuser />} />
-        </Route>
+          <ProtectedRoute exact path="Adminhome" element={<AdminHome />} />
+          <ProtectedRoute exact path="Addclub" element={<Addclub />} />
+          <ProtectedRoute exact path="Adduser" element={<Adduser />} />
+          <ProtectedRoute
+            exact
+            path="Adminpostevent"
+            element={<Adminpostevent />}
+          />
+          <ProtectedRoute
+            exact
+            path="Adminpostcertificate"
+            element={<Adminpostcertificate />}
+          />
+          <ProtectedRoute
+            exact
+            path="Adminpostnotice"
+            element={<Postnotice />}
+          />
 
+          <ProtectedRoute
+            exact
+            path="Adminreportuser"
+            element={<Reportuser />}
+          />
+        </Route>
 
         <Route path="*" element={<Errorpage />} />
       </Routes>
