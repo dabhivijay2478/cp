@@ -10,6 +10,11 @@ import Addclub from "./component/Admin/Addclub";
 import Registerdetails from "./component/common/Registerdetails";
 import Toast from "./component/Toast";
 import AdminHome from "./component/Admin/AdminHome";
+import Adminpostevent from "./component/common/Adminpostevent";
+import Adminpostcertificate from "./component/common/Adminpostcertificate";
+import Postnotice from "./component/common/Postnotice";
+import Reportuser from "./component/common/Reportuser";
+import Edituser from "./component/common/Edituser";
 
 function App() {
   return (
@@ -22,7 +27,12 @@ function App() {
         <Route exact path="/Admindash" element={<Admindash />}>
           <Route exact path="Adminhome" element={<AdminHome />} />
           <Route exact path="Addclub" element={<Addclub />} />
-          <Route exact path="Registerdeatils" element={<Registerdetails />} />
+          <Route exact path="Adduser" element={<Adduser />} />
+          <Route exact path="Adminpostevent" element={<Adminpostevent />} />
+          <Route exact path="Adminpostcertificate" element={<Adminpostcertificate />} />
+          <Route exact path="Adminpostnotice" element={<Postnotice />} />
+          <Route exact path="Adminedituser" element={<Edituser />} />
+          <Route exact path="Adminreportuser" element={<Reportuser />} />
         </Route>
 
 

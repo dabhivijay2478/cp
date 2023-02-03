@@ -19,7 +19,7 @@ const authenticate = async (req, res, next) => {
       next();
     }
   } catch (err) {
-    res.status(401).send("Token Error");
+    res.status(401).send("token");
     console.log(err);
   }
 };

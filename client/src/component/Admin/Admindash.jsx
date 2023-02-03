@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import menu from "./menu.png";
-import adduser from "./assets/new.png";
-import addclub from "./assets/add-event.png";
+// import adduser from "./assets/new.png";
+// import addclub from "./assets/add-event.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import "./admindash.css"
+
 export default function Admindash() {
   const notify = () => toast("Welcome Admin");
   const history = useNavigate();
@@ -28,7 +30,7 @@ export default function Admindash() {
 
   useEffect(() => {
     loadData();
-  }, [notify()]);
+  }, []);
   return (
     <>
       <div>
@@ -164,83 +166,86 @@ export default function Admindash() {
             </div>
             <div class="offcanvas-body flex-grow p-4 overflow-y-auto">
               <div class="flex justify-center">
-                <ul class="w-full rounded-lg mt-2 mb-3 text-blue-800">
-                  <li class="mb-1">
-                    <NavLink
-                      to="/Admindash/Adminhome"
-                      class="w-fill flex p-3 pl-3 bg-gray-100 hover:bg-gray-200 rounded-lg"
-                    >
-                      <img class="flex-none w-6 h-full" src={adduser} />
-                      <span
-                        class="ml-2 truncate"
-                        title="Test with a very really long name (resize the browser to see it truncate)"
+                <div className="sd-body">
+                  <ul>
+                    <li>
+                      <NavLink to="/Admindash/Adminhome" className="sd-link bg-white  dark:hover:bg-green-400 dark:hover:text-blue-900 text-gray-700">
+                        Home
+                      </NavLink>
+                    </li>
+
+                    <li>
+                      <NavLink to="/Admindash/Adduser" className="sd-link  bg-white dark:hover:bg-green-400 dark:hover:text-blue-900 text-gray-700">
+                        Add User
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/Admindash/Addclub" className="sd-link  bg-white dark:hover:bg-green-400 dark:hover:text-blue-900 text-gray-700">
+                        Add Club
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/Admindash/Adminpostevent"
+                        className="sd-link  bg-white dark:hover:bg-green-400 dark:hover:text-blue-900 text-gray-700"
                       >
-                        adduser
-                      </span>
-                    </NavLink>
-                  </li>
-                  <li class="mb-1">
-                    <NavLink
-                      to="/Admindash/Addclub"
-                      class="w-fill flex p-3 bg-gray-100 hover:bg-gray-200 rounded-lg"
-                    >
-                      <img class="flex-none w-6 h-full" src={adduser} />
-                      <span class="ml-2 truncate">addclub</span>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/Admindash/Adminhome"
-                      class="w-fill flex p-3 bg-gray-100 hover:bg-gray-200 rounded-lg"
-                    >
-                      <img class="flex-none w-6 h-full" src={adduser} />
-                      <span class="ml-2 truncate">report</span>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/Admindash/Adminhome"
-                      class="w-fill flex p-3 bg-gray-100 hover:bg-gray-200 rounded-lg"
-                    >
-                      <img class="flex-none w-6 h-full" src={adduser} />
-                      <span class="ml-2 truncate">report</span>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/Admindash/Adminhome"
-                      class="w-fill flex p-3 bg-gray-100 hover:bg-gray-200 rounded-lg"
-                    >
-                      <img class="flex-none w-6 h-full" src={adduser} />
-                      <span class="ml-2 truncate">report</span>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/Admindash/Adminhome"
-                      class="w-fill flex p-3 bg-gray-100 hover:bg-gray-200 rounded-lg"
-                    >
-                      <img class="flex-none w-6 h-full" src={adduser} />
-                      <span class="ml-2 truncate">report</span>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/Admindash/Adminhome"
-                      class="w-fill flex p-3 bg-gray-100 hover:bg-gray-200 rounded-lg"
-                    >
-                      <img class="flex-none w-6 h-full" src={adduser} />
-                      <span class="ml-2 truncate">report</span>
-                    </NavLink>
-                  </li>
-                </ul>
+                        Post Event
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/Admindash/Adminpostcertificate"
+                        className="sd-link  bg-white dark:hover:bg-green-400 dark:hover:text-blue-900 text-gray-700"
+                      >
+                      Post Certificate
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/Admindash/Adminpostnotice"
+                        className="sd-link  bg-white dark:hover:bg-green-400 dark:hover:text-blue-900 text-gray-700"
+                      >
+                       Post Notice
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/Admindash/Adminedituser"
+                        className="sd-link  bg-white dark:hover:bg-green-400 dark:hover:text-blue-900 text-gray-700"
+                      >
+                       Edit User
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/Admindash/Adminreportuser"
+                        className="sd-link  bg-white dark:hover:bg-green-400 dark:hover:text-blue-900 text-gray-700"
+                      >
+                        User Report
+                      </NavLink>
+                    </li>
+
+                    <li>
+                    <a href="#_" class="relative inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold text-indigo-600 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group">
+                    <span class="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-rose-500 group-hover:h-full"></span>
+                    <span class="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
+                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
+                    <span class="absolute left-0 pl-2.5 -translate-x-12 group-hover:translate-x-0 ease-out duration-200">
+                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
+                    <span class="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-white">Log Out</span>
+                    </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="max-w-screen-xl mt-10 mb-10 px-8 grid gap-8 grid-cols-1 md:grid-cols-2 md:px-12 lg:px-16 xl:px-32 py-16 mx-auto bg-gray-100 text-gray-900 rounded-lg shadow-lg ">
+      <div class=" ">
         <Outlet />
         <ToastContainer />
       </div>

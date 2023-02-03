@@ -1,20 +1,28 @@
-import React from 'react'
+import React, { useEffect } from "react";
 
 export default function Adduser() {
+  // useEffect(() => {
+  //   first;
+
+  //   return () => {
+  //     second;
+  //   };
+  // }, [third]);
+
   return (
-   <>
-   <>
-      <div class="flex justify-center">
-        <div class="mb-3 xl:w-96">
-          <label
-            for="exampleFormControlInput1"
-            class="form-label inline-block mb-2 text-gray-700"
-          >
-            Example label
-          </label>
-          <input
-            type="text"
-            class="
+    <>
+      <div className="max-w-screen-xl mt-10 mb-10 px-8 grid gap-8 grid-cols-1 md:grid-cols-2 md:px-12 lg:px-16 xl:px-32 py-16 mx-auto bg-gray-100 text-gray-900 rounded-lg shadow-lg">
+        <div class="flex justify-center ">
+          <div class="mb-3 xl:w-96">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label inline-block mb-2 text-gray-700"
+            >
+              Enter The Student Name
+            </label>
+            <input
+              type="text"
+              class="
         form-control
         block
         w-full
@@ -31,78 +39,223 @@ export default function Adduser() {
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
       "
-            id="exampleFormControlInput1"
-            placeholder="Example label"
-          />
+              id="Studentname"
+              placeholder="Enter The Student Name"
+            />
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <div class="mb-3 xl:w-96">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label inline-block mb-2 text-gray-700"
+            >
+              Enter The Student Email ID
+            </label>
+            <input
+              type="email"
+              class="
+        form-control
+        block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+      "
+              id="Studentemail"
+              placeholder=" Enter The Student Email ID"
+            />
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <div class="mb-3 xl:w-96">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label inline-block mb-2 text-gray-700"
+            >
+              Enter The Password
+            </label>
+            <input
+              type="text"
+              class="
+        form-control
+        block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+      "
+              id="Studentpassword"
+              placeholder=" Enter The Password"
+            />
+            <span>password</span>
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <div class="mb-3 xl:w-96">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label inline-block mb-2 text-gray-700"
+            >
+              Enter The Class
+            </label>
+            <input
+              type="text"
+              class="
+      form-control
+      block
+      w-full
+      px-3
+      py-1.5
+      text-base
+      font-normal
+      text-gray-700
+      bg-white bg-clip-padding
+      border border-solid border-gray-300
+      rounded
+      transition
+      ease-in-out
+      m-0
+      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+    "
+              id="Studentclass"
+              placeholder=" Enter The Class"
+            />
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <div class="mb-3 xl:w-96">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label inline-block mb-2 text-gray-700"
+            >
+              Enter The Batch
+            </label>
+            <input
+              type="text"
+              class="
+    form-control
+    block
+    w-full
+    px-3
+    py-1.5
+    text-base
+    font-normal
+    text-gray-700
+    bg-white bg-clip-padding
+    border border-solid border-gray-300
+    rounded
+    transition
+    ease-in-out
+    m-0
+    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+  "
+              id="Studentbatch"
+              placeholder="Enter The Batch"
+            />
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <div class="mb-3 xl:w-96">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label inline-block mb-2 text-gray-700"
+            >
+              Enter The Club Name
+            </label>
+            <input
+              type="text"
+              class="
+  form-control
+  block
+  w-full
+  px-3
+  py-1.5
+  text-base
+  font-normal
+  text-gray-700
+  bg-white bg-clip-padding
+  border border-solid border-gray-300
+  rounded
+  transition
+  ease-in-out
+  m-0
+  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+"
+              id="Studentclubname"
+              placeholder="Enter The Club Name"
+            />
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <div class="mb-3 xl:w-96">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label inline-block mb-2 text-gray-700"
+            >
+              Enter The Fav Techonology
+            </label>
+            <input
+              type="text"
+              class="
+        form-control
+        block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+      "
+              id="Studentfavtech"
+              placeholder="Enter The Fav Techonology"
+            />
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+        <div class="mb-3 xl:w-96">
+        <a href="#_" class="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-cyan-500 rounded-full shadow-md group">
+        <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-green-500 group-hover:translate-x-0 ease">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </span>
+        <span class="absolute flex items-center justify-center w-full h-full text-purple-500 transition-all duration-300 transform group-hover:translate-x-full ease">Add User</span>
+        <span class="relative invisible">Add User</span>
+        </a>
         </div>
       </div>
-
-      <div class="flex justify-center">
-        <div class="mb-3 xl:w-96">
-          <label
-            for="exampleFormControlInput1"
-            class="form-label inline-block mb-2 text-gray-700"
-          >
-            Example label
-          </label>
-          <input
-            type="text"
-            class="
-        form-control
-        block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-      "
-            id="exampleFormControlInput1"
-            placeholder="Example label"
-          />
-        </div>
-      </div>
-
-      <div class="flex justify-center">
-        <div class="mb-3 xl:w-96">
-          <label
-            for="exampleFormControlInput1"
-            class="form-label inline-block mb-2 text-gray-700"
-          >
-            Example label
-          </label>
-          <input
-            type="text"
-            class="
-        form-control
-        block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-      "
-            id="exampleFormControlInput1"
-            placeholder="Example label"
-          />
-        </div>
       </div>
     </>
-   </>
-  )
+  );
 }
