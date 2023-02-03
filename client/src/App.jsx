@@ -31,7 +31,7 @@ function App() {
           <Route exact path="Adminpostevent" element={<Adminpostevent />} />
           <Route exact path="Adminpostcertificate" element={<Adminpostcertificate />} />
           <Route exact path="Adminpostnotice" element={<Postnotice />} />
-          <Route exact path="Adminedituser" element={<Edituser />} />
+        
           <Route exact path="Adminreportuser" element={<Reportuser />} />
         </Route>
 
