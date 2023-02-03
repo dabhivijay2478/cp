@@ -1,33 +1,54 @@
 import React, { useState } from "react";
 import add from "../assets/working.png";
 import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Register() {
+  const notify = () => toast("SucessFully Register");
 
+  const [User, setUSer] = useState({
+    email: "",
+    password: "",
+  });
   const history = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmpassword, setCPassword] = useState("");
-  const registeruser = async (e) => {
+  let name, value;
+  const Inputs = (e) => {
+    console.log(e);
+
+    name = e.target.name;
+    value = e.target.value;
+
+    setUSer({ ...User, [name]: value });
+  };
+
+  const PostData = async (e) => {
     e.preventDefault();
-    const res = await fetch("/signupserver", {
+    const { email, password } = User;
+    const res = await fetch("/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email:email,
-        password:password,
-        confirmpassword:confirmpassword,
+        email,
+        password,
       }),
     });
-    const data = res.json();
+    const data = await res.json();
 
     if (res.status === 400 || !data) {
+      toast("Invaild");
       window.alert("Invaild");
+      console.log("Invaild ");
+    } else if (res.status === 422) {
+      toast("Email Exits");
+      console.log("Email Exits");
+      // window.alert("Email Exits")
     } else {
-      window.alert("Sucess");
-      history("/Login");
+      notify();
+      window.alert("SucessFully");
+      console.log("Sucess");
+      history("/");
     }
   };
 
@@ -45,11 +66,12 @@ export default function Register() {
                 Create and account
               </h1>
               <form
-              onSubmit={registeruser}
                 className="space-y-4 md:space-y-6"
                 method="POST"
                 name="register"
                 id="register"
+                onSubmit={PostData}
+                
               >
                 <div>
                   <label
@@ -65,8 +87,8 @@ export default function Register() {
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="abc@email.com"
                     required=""
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={User.email}
+                    onChange={Inputs}
                   />
                 </div>
                 <div>
@@ -83,8 +105,8 @@ export default function Register() {
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required=""
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={User.password}
+                    onChange={Inputs}
                   />
                 </div>
                 <div>
@@ -101,14 +123,12 @@ export default function Register() {
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required=""
-                    value={confirmpassword}
-                    onChange={(e) => setCPassword(e.target.value)}
                   />
                 </div>
 
                 <button
                   type="submit"
-                  // onClick={PostData}
+                  // onClick={notify}
                   className="w-full text-white bg-primary-600 hover:bg-primary-700 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
                   Create an account
@@ -116,7 +136,7 @@ export default function Register() {
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Already have an account?{" "}
                   <NavLink
-                    to="/Login"
+                    to="/"
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
                     Login here
@@ -127,6 +147,7 @@ export default function Register() {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </>
   );
 }

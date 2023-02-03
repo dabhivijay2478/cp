@@ -16,11 +16,12 @@ const middlware = (req, res, next) => {
 app.get("/", (req, res) => {
   res.send("vijay");
 });
-app.get("/home", middlware, (req, res) => {
-  res.send("home");
+app.get("/about", middlware, (req, res) => {
+  res.send("Admindash");
 });
 app.get("/contact", (req, res) => {
-  res.send("contact");
+  res.cookie("jwttoken","Vijay")
+  res.send("contact server");
 });
 
 app.listen(port, () => {

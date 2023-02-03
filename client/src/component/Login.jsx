@@ -1,29 +1,49 @@
 import React, { useState } from "react";
 import Loginimg from "../assets/login.png";
 import { NavLink, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Login() {
   const history = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const notify = () => toast("SucessFully Login");
+  const [User, setUSer] = useState({
+    email: "",
+    password: "",
+  });
+
+  let name, value;
+  const loginInputs = (e) => {
+    console.log(e);
+
+    name = e.target.name;
+    value = e.target.value;
+
+    setUSer({ ...User, [name]: value });
+  };
 
   const loginuser = async (e) => {
+    const { email, password } = User;
     e.preventDefault();
-    const res = await fetch("/loginserver", {
+    const response = await fetch("/loginuser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
+      body: JSON.stringify({ email, password }),
     });
-    const data = res.json();
+    const data = await response.json();
+    console.log(data);
 
-    if (res.status === 400 || !data) {
-      window.alert("Invaild");
+    if (response.status === 400) {
+      window.alert("Bad Request");
+    } else if (!response) {
+      window.alert("Error");
     } else {
-      window.alert("Sucess");
+      localStorage.setItem("jwttoken", data.token);
+      localStorage.getItem("jwttoken");
+      
+      window.alert("sucess Login");
+      console.log("sucess Login");
       history("/Admindash");
     }
   };
@@ -43,7 +63,7 @@ export default function Login() {
               </h1>
               <form
                 class="space-y-4 md:space-y-6"
-                action="#"
+                method="POST"
                 onSubmit={loginuser}
               >
                 <div>
@@ -58,8 +78,8 @@ export default function Login() {
                     name="email"
                     id="email"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={User.email}
+                    onChange={loginInputs}
                     placeholder="name@company.com"
                     required=""
                   />
@@ -69,28 +89,22 @@ export default function Login() {
                     for="password"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Password
+                    password
                   </label>
                   <input
                     type="password"
                     name="password"
                     id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={User.password}
+                    onChange={loginInputs}
                     placeholder="••••••••"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required=""
                   />
                 </div>
-                <div class="flex items-center justify-between">
-                  <NavLink
-                    to="#"
-                    class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-                  >
-                    Forgot password?
-                  </NavLink>
-                </div>
+
                 <button
+                  onClick={notify}
                   type="submit"
                   class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 hover:bg-green-500 dark:focus:ring-primary-800"
                 >
@@ -110,6 +124,7 @@ export default function Login() {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </>
   );
 }
