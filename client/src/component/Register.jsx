@@ -3,7 +3,6 @@ import add from "../assets/working.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 export default function Register() {
-
   const history = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,13 +11,13 @@ export default function Register() {
     e.preventDefault();
     const res = await fetch("/signupserver", {
       method: "POST",
+      changeOrigin: true,
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email:email,
-        password:password,
-        confirmpassword:confirmpassword,
+        email: email,
+        password: password,
       }),
     });
     const data = res.json();
@@ -45,7 +44,7 @@ export default function Register() {
                 Create and account
               </h1>
               <form
-              onSubmit={registeruser}
+                onSubmit={registeruser}
                 className="space-y-4 md:space-y-6"
                 method="POST"
                 name="register"

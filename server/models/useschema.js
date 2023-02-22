@@ -14,10 +14,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  confirmpassword: {
-    type: String,
-    required: true,
-  },
+  
   tokens: [
     {
       token: {
@@ -29,8 +26,8 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", async function (next) {
-  if (this.isModified("confirmpassword")) {
-    this.confirmpassword = await bycrypt.hash(this.confirmpassword, 12);
+  if (this.isModified("password")) {
+    this.password = await bycrypt.hash(this.password, 12);
   }
   next();
 });

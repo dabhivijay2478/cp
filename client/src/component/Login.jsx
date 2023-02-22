@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Loginimg from "../assets/login.png";
 import { NavLink, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 export default function Login() {
   const history = useNavigate();
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ export default function Login() {
     e.preventDefault();
     const res = await fetch("/loginserver", {
       method: "POST",
+      changeOrigin: true,
       headers: {
         "Content-Type": "application/json",
       },
@@ -23,6 +25,7 @@ export default function Login() {
     if (res.status === 400 || !data) {
       window.alert("Invaild");
     } else {
+      Cookies.set("isLoggedIn", true, { expires: 1 });
       window.alert("Sucess");
       history("/Admindash");
     }

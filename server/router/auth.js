@@ -8,8 +8,8 @@ router.get("/", (req, res) => {
   res.send("vijay router");
 });
 router.post("/signupserver", async (req, res) => {
-  const { email, password, confirmpassword } = req.body;
-  if (!email ||  !password || !confirmpassword) {
+  const { email, password} = req.body;
+  if (!email ||  !password ) {
     return res.status(422).json({ error: "Something Error" });
   }
 
@@ -20,7 +20,7 @@ router.post("/signupserver", async (req, res) => {
           return res.status(422).json({ error: "email exits" });
         }
 
-        const user = new User({ email, password, confirmpassword });
+        const user = new User({ email, password });
         await user.save();
 
         // if (userRegister) {
@@ -39,14 +39,14 @@ router.post("/signupserver", async (req, res) => {
 
 router.post("/loginserver", async (req, res) => {
   try {
-    const { email, confirmpassword } = req.body;
-    if (!email || !confirmpassword) {
+    const { email, password } = req.body;
+    if (!email || !password) {
       return res.status(400).json({ error: "filled the data" });
     }
     const userlogin = await User.findOne({ email: email });
 
     if (userlogin) {
-      const iMatch = await bycrypt.compare(confirmpassword, userlogin.confirmpassword);
+      const iMatch = await bycrypt.compare(password, userlogin.password);
       let token = await userlogin.generateAuthToken();
       res.cookie("jwttokens", token, {
         expires: new Date(Date.now() + 25892000000),
