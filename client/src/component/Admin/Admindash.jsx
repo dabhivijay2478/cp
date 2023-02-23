@@ -50,7 +50,7 @@ export default function Admindash() {
             <li>
               <NavLink
                 to=""
-                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg hover:bg-green-400  overflow-hidden"
+                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
                 <i className="fa-solid fa-house"></i>
                 <span className="ml-3">Dashboard</span>
@@ -59,7 +59,7 @@ export default function Admindash() {
             <li>
               <NavLink
                 to="/Admindash/Adduser"
-                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg hover:bg-green-400  overflow-hidden"
+                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
                 <i className="fa-solid fa-user-plus"></i>
                 <span className=" ml-3 ">Add User</span>
@@ -68,7 +68,7 @@ export default function Admindash() {
             <li>
               <NavLink
                 to="/Admindash/Addclub"
-                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg hover:bg-green-400  overflow-hidden"
+                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
                 <i className="fa-solid fa-square-plus"></i>
                 <span className=" ml-3 ">Add Club</span>
@@ -77,7 +77,7 @@ export default function Admindash() {
             <li>
               <NavLink
                 to="/Admindash/Addevent"
-                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg hover:bg-green-400  overflow-hidden"
+                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
                 <i className="fa-solid fa-calendar-plus"></i>
                 <span className=" ml-3 ">Add Event</span>
@@ -86,7 +86,7 @@ export default function Admindash() {
             <li>
               <NavLink
                 to="/Admindash/Postcertificates"
-                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg hover:bg-green-400  overflow-hidden"
+                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
                 <i className="fa-solid fa-certificate"></i>
                 <span className=" ml-3 ">Post Certificate's</span>
@@ -97,11 +97,17 @@ export default function Admindash() {
               <NavLink
                 to="/"
                 onClick={handleLogout}
-                className="flex items-center px-3 text-white py-2 dark:text-white hover:bg-green-400 rounded-lg overflow-hidden"
+                className="flex items-center px-3 text-white py-2 dark:text-white hover:bg-green-400 rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
                 <i className="fa-solid fa-right-from-bracket"></i>
                 <span className="flex-1 ml-3 ">Sign Up</span>
               </NavLink>
+            </li>
+            <li>
+              <div className="flex items-center px-3 text-white py-2 dark:text-white hover:bg-green-400 rounded-lg dark:hover:bg-cyan-400 overflow-hidden">
+                <span className="flex-1 ml-3 ">Dark Mode</span>
+                <input type="checkbox" class="toggle toggle-accent" />
+              </div>
             </li>
           </ul>
         </div>
