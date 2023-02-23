@@ -6,7 +6,7 @@ import Admindash from "./component/Admin/Admindash";
 import Errorpage from "./component/Errorpage";
 import Homepage from "./component/Homepage";
 import Adduser from "./component/Common/Adduser";
-import Addclub from "./component/Common/Adduser";
+import Addclub from "./component/Admin/Addclub";
 import Addevent from "./component/Common/Addevent";
 import Postcertificates from "./component/Common/Postcertificates";
 import Adminhome from "./component/Admin/Adminhome";

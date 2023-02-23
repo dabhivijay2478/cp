@@ -1,0 +1,9 @@
+.feature-box {
+    border-radius: 1cm;
+    transition: background-color 0.3s;
+    position: relative;
+
+
+}:hover{
+    border-radius: blue;
+}

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import "./Admindash.css";
 export default function Admindash() {
   const nav = useNavigate();
 
@@ -21,11 +22,11 @@ export default function Admindash() {
         data-drawer-toggle="separator-sidebar"
         aria-controls="separator-sidebar"
         type="button"
-        class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        className="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       >
-        <span class="sr-only">Open sidebar</span>
+        <span className="sr-only">Open sidebar</span>
         <svg
-          class="w-6 h-6"
+          className="w-6 h-6"
           aria-hidden="true"
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -41,54 +42,54 @@ export default function Admindash() {
 
       <aside
         id="separator-sidebar"
-        class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar"
       >
-        <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-          <ul class="space-y-2">
+        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 text-white dark:bg-gray-800">
+          <ul>
             <li>
               <NavLink
                 to=""
-                class="flex items-center px-0 text-white mt-5 dark:text-white hover:bg-green-400 rounded-lg"
+                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg hover:bg-green-400  overflow-hidden"
               >
-                <i class="fa-solid fa-house"></i>
-                <span class="ml-3">Dashboard</span>
+                <i className="fa-solid fa-house"></i>
+                <span className="ml-3">Dashboard</span>
               </NavLink>
             </li>
             <li>
               <NavLink
                 to="/Admindash/Adduser"
-                class="flex items-center px-0 text-white mt-5 dark:text-white hover:bg-green-400 rounded-lg"
+                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg hover:bg-green-400  overflow-hidden"
               >
-                <i class="fa-solid fa-user-plus"></i>
-                <span class="flex-1 ml-3 ">Add User</span>
+                <i className="fa-solid fa-user-plus"></i>
+                <span className=" ml-3 ">Add User</span>
               </NavLink>
             </li>
             <li>
               <NavLink
                 to="/Admindash/Addclub"
-                class="flex items-center px-0 text-white mt-5 dark:text-white hover:bg-green-400 rounded-lg"
+                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg hover:bg-green-400  overflow-hidden"
               >
-                <i class="fa-solid fa-square-plus"></i>
-                <span class="flex-1 ml-3 ">Add Club</span>
+                <i className="fa-solid fa-square-plus"></i>
+                <span className=" ml-3 ">Add Club</span>
               </NavLink>
             </li>
             <li>
               <NavLink
                 to="/Admindash/Addevent"
-                class="flex items-center px-0 text-white mt-5 dark:text-white hover:bg-green-400 rounded-lg"
+                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg hover:bg-green-400  overflow-hidden"
               >
-                <i class="fa-solid fa-calendar-plus"></i>
-                <span class="flex-1 ml-3 ">Add Event</span>
+                <i className="fa-solid fa-calendar-plus"></i>
+                <span className=" ml-3 ">Add Event</span>
               </NavLink>
             </li>
             <li>
               <NavLink
                 to="/Admindash/Postcertificates"
-                class="flex items-center px-0 text-white mt-5 dark:text-white hover:bg-green-400 rounded-lg"
+                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg hover:bg-green-400  overflow-hidden"
               >
-                <i class="fa-solid fa-certificate"></i>
-                <span class="flex-1 ml-3 ">Post Certificate's</span>
+                <i className="fa-solid fa-certificate"></i>
+                <span className=" ml-3 ">Post Certificate's</span>
               </NavLink>
             </li>
 
@@ -96,18 +97,18 @@ export default function Admindash() {
               <NavLink
                 to="/"
                 onClick={handleLogout}
-                class="flex items-center px-0 text-white mt-5 dark:text-white hover:bg-green-400 rounded-lg"
+                className="flex items-center px-3 text-white py-2 dark:text-white hover:bg-green-400 rounded-lg overflow-hidden"
               >
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span class="flex-1 ml-3 ">Sign Up</span>
+                <i className="fa-solid fa-right-from-bracket"></i>
+                <span className="flex-1 ml-3 ">Sign Up</span>
               </NavLink>
             </li>
           </ul>
         </div>
       </aside>
 
-      <div class="p-4 sm:ml-64">
-        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+      <div className="p-4 sm:ml-64">
+        <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
           <Outlet />
         </div>
       </div>
