@@ -1,6 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Adduser() {
+  const history = useNavigate();
+
+  const [Name, setName] = useState("");
+  const [Password, setPassword] = useState("");
+  const [Email, setEmail] = useState("");
+  const [PhoneNO, setPhoneNO] = useState("");
+  const [Class, setClass] = useState("");
+  const [Batch, setBatch] = useState("");
+  const [ClubName, setClubName] = useState("");
+  const [FavTech, setFavTech] = useState("");
+
+  const adduser = async (e) => {
+    e.preventDefault();
+    const res = await fetch("/addnewuser", {
+      method: "POST",
+      changeOrigin: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Name,
+        Password,
+        Email,
+        PhoneNO,
+        Class,
+        Batch,
+        ClubName,
+        FavTech,
+      }),
+    });
+    const data = res.json();
+
+    if (res.status === 400 || !data) {
+      window.alert("Invaild");
+    } else {
+      window.alert("SucessFully Add");
+      history("/Admindash");
+    }
+  };
+
   return (
     <>
       <section class="bg-white text-gray-900 border border-solid border-emerald-600 rounded-lg ">
@@ -25,13 +66,20 @@ export default function Adduser() {
             </div>
 
             <div class="rounded-lg bg-white p-8 shadow-lg border dark:hover:border-blue-600 border-solid shadow-blue-500 lg:col-span-3 lg:p-12">
-              <form action="" class="space-y-4">
+              <form
+                action="#"
+                onSubmit={adduser}
+                method="POST"
+                class="space-y-4"
+              >
                 <span>User Id:20220</span>
                 <div>
                   <label class="sr-only" for="name">
                     Name
                   </label>
                   <input
+                    value={Name}
+                    onChange={(e) => setName(e.target.value)}
                     class="w-full rounded-lg bg-white border-solid border border-blue-400   p-3 input input-bordered  input-primary text-sm"
                     placeholder="Name"
                     type="text"
@@ -47,7 +95,9 @@ export default function Adduser() {
                     placeholder="password"
                     type="text"
                     id="password"
-                    readOnly
+                    value={Password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    // readOnly
                   />
                 </div>
 
@@ -61,6 +111,8 @@ export default function Adduser() {
                       placeholder="Email address"
                       type="email"
                       id="email"
+                      value={Email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
 
@@ -73,6 +125,8 @@ export default function Adduser() {
                       placeholder="Phone Number"
                       type="tel"
                       id="phone"
+                      value={PhoneNO}
+                      onChange={(e) => setPhoneNO(e.target.value)}
                     />
                   </div>
                 </div>
@@ -87,6 +141,8 @@ export default function Adduser() {
                       placeholder="class"
                       type="text"
                       id="phone"
+                      value={Class}
+                      onChange={(e) => setClass(e.target.value)}
                     />
                   </div>
 
@@ -99,6 +155,8 @@ export default function Adduser() {
                       placeholder="Batch"
                       type="text"
                       id="phone"
+                      value={Batch}
+                      onChange={(e) => setBatch(e.target.value)}
                     />
                   </div>
 
@@ -111,6 +169,8 @@ export default function Adduser() {
                       placeholder="Club Name"
                       type="tel"
                       id="phone"
+                      value={ClubName}
+                      onChange={(e) => setClubName(e.target.value)}
                     />
                   </div>
                 </div>
@@ -124,12 +184,15 @@ export default function Adduser() {
                     class="w-full rounded-lg bg-white border-solid border border-blue-400 p-3 input input-bordered  input-primary text-sm"
                     placeholder="Fav Tech"
                     id="Fav Tech"
+                    value={FavTech}
+                    onChange={(e) => setFavTech(e.target.value)}
                   ></input>
                 </div>
 
                 <div class="mt-4">
                   <button
                     type="submit"
+                    onClick={adduser}
                     class="inline-block w-full rounded-lg dark:hover:bg-green-400  border-solid border border-blue-400 bg-blue-400 px-5 py-3 font-medium text-white sm:w-auto"
                   >
                     Add User

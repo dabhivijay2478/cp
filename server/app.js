@@ -7,6 +7,7 @@ const User = require("./models/useschema");
 app.use(express.json());
 //Middelware
 app.use(require("./router/auth"));
+app.use(require("./router/adduser"));
 const port = process.env.port;
 
 app.get("/", (req, res) => {
