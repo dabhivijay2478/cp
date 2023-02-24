@@ -2,13 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const Addnewclub = require("../models/addclubschema");
-router.get("/vijay", (req, res) => {
-  res.send("vijay router2");
-});
-router.post("/addnewclub", async (req, res) => {
-  const { ClubName, Factulty, Student, Date } = req.body;
 
-  if (!ClubName || !Factulty || !Student || !Date) {
+router.post("/addnewclub", async (req, res) => {
+  const { ClubName, Factulty, Student, Dates } = req.body;
+
+  if (!ClubName || !Factulty || !Student || !Dates) {
     return res.status(422).json({ error: "Something Error" });
   }
 
@@ -23,7 +21,7 @@ router.post("/addnewclub", async (req, res) => {
           ClubName,
           Factulty,
           Student,
-          Date,
+          Dates,
         });
         await user.save();
 

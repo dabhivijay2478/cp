@@ -13,8 +13,8 @@ const addclubchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Date: {
-    type: String,
+  Dates: {
+    type: Object,
     required: true,
   },
 });

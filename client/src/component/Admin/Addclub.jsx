@@ -5,13 +5,12 @@ import { useNavigate } from "react-router-dom";
 export default function Addclub() {
   const history = useNavigate();
 
-  const [value, setValue] = useState({
-    startDate: new Date(),
-    endDate: new Date().setMonth(11),
+  const [Dates, setDates] = useState({
+    startDate: null,
   });
-  const handleValueChange = (newValue) => {
-    console.log("newValue:", newValue);
-    setValue(newValue);
+  const handleDatesChange = (newDates) => {
+    console.log("newDates:", newDates);
+    setDates(newDates);
   };
 
   const [Factulty, setFactulty] = useState("");
@@ -30,7 +29,7 @@ export default function Addclub() {
         ClubName,
         Factulty,
         Student,
-        value,
+        Dates,
       }),
     });
     const data = res.json();
@@ -46,7 +45,7 @@ export default function Addclub() {
     setClubName("");
     setFactulty("");
     setStudent("");
-    setValue("");
+    setDates("DD-MM-YYYY");
   };
 
   return (
@@ -89,8 +88,8 @@ export default function Addclub() {
                 inputClassName="font-normal  dark:bg-white  datepickertext dark:placeholder:input-primary dark:placeholder:text-gray-700"
                 displayFormat={"DD-MM-YYYY"}
                 primaryColor={"teal"}
-                value={value}
-                onChange={handleValueChange}
+                value={Dates}
+                onChange={handleDatesChange}
                 // showShortcuts={true}
               />
             </div>
