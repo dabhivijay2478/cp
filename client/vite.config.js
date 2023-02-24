@@ -6,7 +6,19 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
+      "/signupserver": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
+      "/loginserver": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
       "/addnewuser": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
+      "/addnewclub": {
         target: "http://localhost:5000",
         changeOrigin: true,
       },
