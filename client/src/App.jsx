@@ -10,6 +10,7 @@ import Addclub from "./component/Admin/Addclub";
 import Addevent from "./component/Common/Addevent";
 import Postcertificates from "./component/Common/Postcertificates";
 import Adminhome from "./component/Admin/Adminhome";
+import StudentReport from "./component/Common/StudentReport";
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
           <Route exact path="Addclub" element={<Addclub />} />
           <Route exact path="Addevent" element={<Addevent />} />
           <Route exact path="Postcertificates" element={<Postcertificates />} />
+          <Route exact path="StudentReport" element={<StudentReport />} />
+
           <Route exact path="*" element={<Errorpage />} />
         </Route>
         <Route path="*" element={<Errorpage />} />

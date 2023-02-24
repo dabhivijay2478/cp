@@ -92,6 +92,15 @@ export default function Admindash() {
                 <span className=" ml-3 ">Post Certificate's</span>
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/Admindash/StudentReport"
+                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
+              >
+                <i class="fa-solid fa-chart-simple"></i>
+                <span className=" ml-3 ">StudentReport</span>
+              </NavLink>
+            </li>
 
             <li>
               <NavLink
