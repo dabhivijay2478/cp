@@ -1,8 +1,4 @@
-const bycrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-dotenv.config({ path: "./config.env" });
 
 const reportschema = new mongoose.Schema({
   Name: {

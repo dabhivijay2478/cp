@@ -1,11 +1,15 @@
 const bycrypt = require("bcrypt");
 const express = require("express");
 const mongoose = require("mongoose");
-
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 require("../db/connect");
+
+
 const User = require("../models/useschema");
+const data = require("../models/adduserchema");
+
+
 router.get("/", (req, res) => {
   res.send("vijay router");
 });
@@ -109,7 +113,6 @@ router.post("/addnewevent", async (req, res) => {
   }
 });
 
-const data = require("../models/reportschema");
 router.get("/data", async (req, res) => {
   const result = await data.find({});
 
