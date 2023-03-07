@@ -119,8 +119,6 @@ router.get("/data", async (req, res) => {
   res.send(result);
 });
 
-require("dotenv").config();
-
 const mongouri = "mongodb://0.0.0.0:27017/cp";
 try {
   mongoose.connect(mongouri, {
@@ -144,8 +142,6 @@ mongoose.connection.on("connected", () => {
   });
   console.log(bucket);
 });
-
-
 
 const storage = new GridFsStorage({
   url: mongouri,
@@ -180,7 +176,7 @@ router.get("/fileinfo/:filename", (req, res) => {
     });
 });
 
-router.post("/upload", upload.single("file"), (req, res) => {
+router.post("/upload", upload.array("file"), (req, res) => {
   res.status(200).send("File uploaded successfully");
 });
 

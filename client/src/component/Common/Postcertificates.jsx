@@ -1,15 +1,34 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export default function Postcertificates() {
   const [Certificate, setCertificate] = useState("");
-  const [Certificateimg, setCertificateimg] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const handlerest = () => {
     setCertificate("");
-    setCertificateimg(null);
+    setSelectedFiles([]);
   };
+
   const handleFileChange = (event) => {
-    setCertificateimg(event.target.files[0]);
+    setSelectedFiles(event.target.files);
   };
+
+  const addcertificates = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    for (let i = 0; i < selectedFiles.length; i++) {
+      formData.append(selectedFiles[i]);
+    }
+    axios
+      .post("/upload", formData)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <div className="flex justify-center container">
@@ -26,8 +45,10 @@ export default function Postcertificates() {
           <div className="flex px-2 py-2 bg-white text-gray-900 justify-center">
             <input
               type="file"
+              // value={Certificateimg}
               onChange={handleFileChange}
               className="file-input file-input-bordered file-input-info w-full bg-white text-gray-900 max-w-xs"
+              multiple
             />
           </div>
 
@@ -43,7 +64,7 @@ export default function Postcertificates() {
               <span class="relative">Reset</span>
             </button>
             <button
-              // onClick={Addevent}
+              onClick={addcertificates}
               class="px-5 ml-5 py-2.5 relative rounded group  text-white font-medium inline-block"
             >
               <span class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-purple-600 to-blue-500"></span>
