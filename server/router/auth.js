@@ -161,19 +161,31 @@ const upload = multer({
   storage,
 });
 
-router.get("/fileinfo/:filename", (req, res) => {
-  const file = bucket
-    .find({
-      filename: req.params.filename,
-    })
-    .toArray((err, files) => {
-      if (!files || files.length === 0) {
-        return res.status(404).json({
-          err: "no files exist",
-        });
-      }
-      bucket.openDownloadStreamByName(req.params.filename).pipe(res);
-    });
+// router.get("/fileinfo/:filename", (req, res) => {
+//   const file = bucket
+//     .find({
+//       filename: req.params.filename,
+//     })
+//     .toArray((err, files) => {
+//       if (!files || files.length === 0) {
+//         return res.status(404).json({
+//           err: "no files exist",
+//         });
+//       }
+//       res.set("Content-Type", "application/pdf");
+//       bucket.openDownloadStreamByName(req.params.filename).pipe(res);
+//     });
+// });
+router.get('/fileinfo/:name', (req, res) => {
+  const { name } = req.params;
+  const downloadStream = bucket.openDownloadStreamByName(name);
+
+  downloadStream.on('error', err => {
+    res.status(404).send('PDF not found');
+  });
+
+  res.set('Content-Type', 'application/pdf');
+  downloadStream.pipe(res);
 });
 
 router.post("/upload", upload.array("file"), (req, res) => {

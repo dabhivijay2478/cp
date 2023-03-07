@@ -1,5 +1,5 @@
 import Register from "./component/Register";
-import "./App.css"
+import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Login from "./component/Login";
 import Admindash from "./component/Admin/Admindash";
@@ -11,7 +11,9 @@ import Addevent from "./component/Common/Addevent";
 import Postcertificates from "./component/Common/Postcertificates";
 import Adminhome from "./component/Admin/Adminhome";
 import StudentReport from "./component/Common/StudentReport";
-
+import Showcertificate from "./component/user/ShowCertificate";
+import Appp from "./component/user/Appp";
+import PdfViewer from "./component/user/PdfViewer";
 function App() {
   return (
     <>
@@ -30,6 +32,9 @@ function App() {
 
           <Route exact path="*" element={<Errorpage />} />
         </Route>
+        <Route exact path="/User" element={<Appp />} />
+        <Route exact path="/pdf" element={<PdfViewer />} />
+
         <Route path="*" element={<Errorpage />} />
       </Routes>
     </>

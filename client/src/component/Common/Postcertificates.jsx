@@ -17,7 +17,7 @@ export default function Postcertificates() {
     event.preventDefault();
     const formData = new FormData();
     for (let i = 0; i < selectedFiles.length; i++) {
-      formData.append(selectedFiles[i]);
+      formData.append("file", selectedFiles[i]);
     }
     axios
       .post("/upload", formData)

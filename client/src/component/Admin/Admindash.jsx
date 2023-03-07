@@ -112,12 +112,6 @@ export default function Admindash() {
                 <span className="flex-1 ml-3 ">Sign Up</span>
               </NavLink>
             </li>
-            <li>
-              <div className="flex items-center px-3 text-white py-2 dark:text-white hover:bg-green-400 rounded-lg dark:hover:bg-cyan-400 overflow-hidden">
-                <span className="flex-1 ml-3 ">Dark Mode</span>
-                <input type="checkbox" class="toggle toggle-accent" />
-              </div>
-            </li>
           </ul>
         </div>
       </aside>
