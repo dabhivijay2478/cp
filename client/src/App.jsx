@@ -1,5 +1,5 @@
 import Register from "./component/Register";
-
+import "./App.css"
 import { Route, Routes } from "react-router-dom";
 import Login from "./component/Login";
 import Admindash from "./component/Admin/Admindash";

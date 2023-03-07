@@ -36,6 +36,9 @@ export default function Adduser() {
 
     if (res.status === 400 || !data) {
       window.alert("Invaild");
+    }
+    else if (res.status === 422 || !data) {
+      window.alert("Bad");
     } else {
       window.alert("SucessFully Add");
       history("/Admindash");

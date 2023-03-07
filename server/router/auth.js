@@ -1,5 +1,7 @@
 const bycrypt = require("bcrypt");
 const express = require("express");
+const mongoose = require("mongoose");
+
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 require("../db/connect");
@@ -8,8 +10,8 @@ router.get("/", (req, res) => {
   res.send("vijay router");
 });
 router.post("/signupserver", async (req, res) => {
-  const { email, password} = req.body;
-  if (!email ||  !password ) {
+  const { email, password } = req.body;
+  if (!email || !password) {
     return res.status(422).json({ error: "Something Error" });
   }
 
@@ -66,4 +68,52 @@ router.post("/loginserver", async (req, res) => {
     console.log(error);
   }
 });
+
+const Addeventschema = require("../models/addeventschema");
+
+router.post("/addnewevent", async (req, res) => {
+  const { EventName, HandlerName, Descrption, Contact, Certifiacate } =
+    req.body;
+
+  if (!EventName || !HandlerName || !Descrption || !Contact || !Certifiacate) {
+    return res.status(422).json({ error: "Something Error" });
+  }
+
+  try {
+    const eventexsits = await Addeventschema.findOne({
+      EventName: EventName,
+    }).then(async (eventexsits) => {
+      if (eventexsits) {
+        return res.status(422).json({ error: "Event Already Exits" });
+      }
+
+      const Event = new Addeventschema({
+        EventName,
+        HandlerName,
+        Descrption,
+        Contact,
+        Certifiacate,
+      });
+      await Event.save();
+
+      // if (userRegister) {
+      res.status(201).json({ message: "Add Event SucessFully Added!" });
+      // }
+      // else
+      // {
+      // res.status(201).json({message:"failed"})
+      // }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+const data = require("../models/reportschema");
+router.get("/data", async (req, res) => {
+  const result = await data.find({});
+
+  res.send(result);
+});
+
 module.exports = router;
