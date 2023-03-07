@@ -16,3 +16,11 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+mongoose.connection.on("connected", () => {
+  var db = mongoose.connections[0].db;
+  let bucket = new mongoose.mongo.GridFSBucket(db, {
+    bucketName: "newBucket",
+  });
+  console.log(bucket);
+});
