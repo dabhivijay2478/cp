@@ -1,50 +1,66 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { pdf } from "@react-pdf/renderer";
-import { Document, Page } from "react-pdf";
 
+import { Viewer } from "@react-pdf-viewer/core";
+
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+
+import { Worker } from "@react-pdf-viewer/core";
 export default function PdfViewer({}) {
-  const [pdfData, setPdfData] = useState(null);
-  const [numPages, setNumPages] = useState(null);
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
-  const loadPdf = async () => {
-    const filename = "2022.pdf";
-    const response = await fetch(`/fileinfo/${filename}`);
-    const data = await response.blob();
-    const pdfURL = URL.createObjectURL(data);
-    setPdfData(pdfURL);
-    pdf(URL.createObjectURL(data)).then((res) => {
-      setNumPages(res.numPages);
-    });
+  const [viewPdf, setViewPdf] = useState(null);
 
-    const onDocumentLoadSuccess = ({ numPages }) => {
-        setNumPages(numPages);
-      };
-    
-  };
+  useEffect(() => {
+    const fetchpdf = (e) => {
+      const pdfurl = "2022.pdf";
+      axios
+        .get(`/fileinfo/${pdfurl}`, { responseType: "arraybuffer" })
+        .then((res) => {
+          const blob = new Blob([res.data], { type: "application/pdf" });
+          const url = URL.createObjectURL(blob);
+          setViewPdf(url);
+        })
+        .catch((err) => console.error(err));
+    };
+
+    fetchpdf();
+  }, []);
 
   return (
-    <div>
-      <button
-        onClick={loadPdf}
-        class="px-5 ml-5 py-2.5 relative rounded group  text-white font-medium inline-block"
-      >
-        <span class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-purple-600 to-blue-500"></span>
-        <span class="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-purple-600 to-blue-500"></span>
-        <span class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-purple-600 to-blue-500"></span>
-        <span class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-purple-600 from-blue-500"></span>
-        <span class="relative">Search</span>
-      </button>
-      {pdfData && (
-        <Document
-          file={pdfData}
-          onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-        >
-          {Array.from(new Array(numPages), (el, index) => (
-            <Page key={`page_${index + 1}`} pageNumber={index + 1} />
-          ))}
-        </Document>
-      )}
-    </div>
+    <>
+      <div className="container">
+        <br></br>
+
+        <h4>View PDF</h4>
+        <div className="pdf-container">
+          {/* show pdf conditionally (if we have one)  */}
+          {viewPdf && (
+            <>
+              <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
+                <div
+                  className="ml-44 w-full flex justify-center "
+                  style={{
+                    border: "1px solid rgba(0, 0, 0, 0.3)",
+                    height: "750px",
+                  }}
+                >
+                  <Viewer
+                    fileUrl={viewPdf}
+                    plugins={[defaultLayoutPluginInstance]}
+                  />
+                </div>
+              </Worker>
+            </>
+          )}
+
+          {/* if we dont have pdf or viewPdf state is null */}
+          {!viewPdf && <>No pdf file selected</>}
+        </div>
+      </div>
+    </>
   );
 }
