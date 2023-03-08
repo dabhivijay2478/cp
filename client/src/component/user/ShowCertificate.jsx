@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { Viewer } from "@react-pdf-viewer/core";
-import { ToolbarProps } from '@react-pdf-viewer/default-layout';
+
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 
 import "@react-pdf-viewer/core/lib/styles/index.css";
@@ -74,7 +74,7 @@ export default function ShowCertificate() {
             <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
               <Viewer
                 fileUrl={viewPdf}
-                // plugins={[defaultLayoutPluginInstance]}
+                plugins={[defaultLayoutPluginInstance]}
                 scale="page-width"
               />
             </Worker>

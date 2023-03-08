@@ -12,7 +12,8 @@ import Postcertificates from "./component/Common/Postcertificates";
 import Adminhome from "./component/Admin/Adminhome";
 import StudentReport from "./component/Common/StudentReport";
 import Showcertificate from "./component/user/ShowCertificate";
-import PdfViewer from "./component/user/PdfViewer";
+
+import Userdash from "./component/user/Userdash";
 function App() {
   return (
     <>
@@ -31,8 +32,10 @@ function App() {
 
           <Route exact path="*" element={<Errorpage />} />
         </Route>
-        <Route exact path="/User" element={<Showcertificate />} />
-        <Route exact path="/pdf" element={<PdfViewer />} />
+
+        <Route exact path="/User" element={<Userdash />}>
+          <Route exact path="pdf" element={<Showcertificate />} />
+        </Route>
 
         <Route path="*" element={<Errorpage />} />
       </Routes>
