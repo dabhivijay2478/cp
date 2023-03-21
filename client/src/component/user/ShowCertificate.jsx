@@ -15,6 +15,7 @@ export default function ShowCertificate() {
   const [pdf, setPdf] = useState(null);
   const handlerest = () => {
     setPdfurl("");
+    
   };
   const [viewPdf, setViewPdf] = useState(null);
 

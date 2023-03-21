@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Loginimg from "../assets/login.png";
+
 import { NavLink, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 export default function Login() {
@@ -9,25 +10,36 @@ export default function Login() {
 
   const loginuser = async (e) => {
     e.preventDefault();
-    const res = await fetch("/loginserver", {
+    const response = await fetch("/loginserver", {
       method: "POST",
       changeOrigin: true,
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email,
-        password,
+        Email: email,
+        Password: password,
       }),
     });
-    const data = res.json();
+    const data = await response.json();
+    console.log(`User role: ${data.Role}`);
 
-    if (res.status === 400 || !data) {
+    const role = await data.Role;
+    console.log(role);
+    if (response.status === 400 || !data) {
       window.alert("Invaild");
     } else {
       Cookies.set("isLoggedIn", true, { expires: 1 });
       window.alert("Sucess");
-      history("/Admindash");
+      if (role == "Admin") {
+        history("/Admindash");
+      } else if (role == "ClubAdmin") {
+        history("/ClubAdmin");
+      } else if (role == "Student") {
+        history("/user");
+      } else {
+        history("*");
+      }
     }
   };
 
@@ -93,21 +105,13 @@ export default function Login() {
                     Forgot password?
                   </NavLink>
                 </div>
+
                 <button
                   type="submit"
                   class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 hover:bg-green-500 dark:focus:ring-primary-800"
                 >
                   Sign in
                 </button>
-                <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Don’t have an account yet?{" "}
-                  <NavLink
-                    to="/Register"
-                    class="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                  >
-                    Sign up
-                  </NavLink>
-                </p>
               </form>
             </div>
           </div>

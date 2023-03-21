@@ -15,7 +15,7 @@ export default function Adduser() {
 
   const adduser = async (e) => {
     e.preventDefault();
-    const res = await fetch("/addnewuser", {
+    const res = await fetch("/signupserver", {
       method: "POST",
       changeOrigin: true,
       headers: {

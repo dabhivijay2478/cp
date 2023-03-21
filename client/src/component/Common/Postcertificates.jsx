@@ -49,6 +49,7 @@ export default function Postcertificates() {
               onChange={handleFileChange}
               className="file-input file-input-bordered file-input-info w-full bg-white text-gray-900 max-w-xs"
               multiple
+              required
             />
           </div>
 

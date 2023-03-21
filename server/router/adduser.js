@@ -55,7 +55,6 @@ router.post("/addnewuser", async (req, res) => {
   }
 });
 
-
 const Addnewclub = require("../models/addclubschema");
 
 router.post("/addnewclub", async (req, res) => {
