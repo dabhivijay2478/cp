@@ -16,6 +16,7 @@ import Showcertificate from "./component/user/ShowCertificate";
 import Userdash from "./component/user/Userdash";
 import UserHome from "./component/user/UserHome";
 import Clubadmin from "./component/Clubadmin/Clubadmin";
+import Contactus from "./component/user/Contactus";
 function App() {
   return (
     <>
@@ -48,6 +49,8 @@ function App() {
         <Route exact path="/User" element={<Userdash />}>
           <Route exact path="" element={<UserHome />} />
           <Route exact path="pdf" element={<Showcertificate />} />
+          <Route exact path="Contactus" element={<Contactus />} />
+
         </Route>
         //Errorpage Route
         <Route path="*" element={<Errorpage />} />

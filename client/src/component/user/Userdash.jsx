@@ -41,14 +41,19 @@ export default function Userdash() {
               className=" menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <NavLink to="/User" className="px-2 py-3">
+                <NavLink to="" className="px-2 py-3">
                   Home
                 </NavLink>
               </li>
 
               <li>
                 <NavLink to="/User/pdf" className="px-2 py-3">
-                  Show Pdf
+                  Certificate's
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/User/Contactus" className="px-2 py-3">
+                  Contact Us
                 </NavLink>
               </li>
             </ul>
@@ -67,13 +72,24 @@ export default function Userdash() {
 
             <li>
               <NavLink to="/User/pdf" className="px-2 py-3">
-                Show Pdf
+              Certificate's 
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/User/Contactus" className="px-2 py-3">
+                Contact Us
               </NavLink>
             </li>
           </ul>
         </div>
         <div className="navbar-end">
-          <button className="btn dark:hover:bg-red-500">Log Out</button>
+          <button
+            className="btn dark:hover:text-red-500"
+            onClick={handleLogout}
+          >
+            <i class="fa-solid fa-right-from-bracket px-2 py-1 "></i>
+            Log Out
+          </button>
         </div>
       </div>
       <div className="p-4  ">
