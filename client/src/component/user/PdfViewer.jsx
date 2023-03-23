@@ -9,58 +9,55 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
 import { Worker } from "@react-pdf-viewer/core";
-export default function PdfViewer({}) {
+
+const PDFViewer = ({ pdfUrl }) => {
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
-  const [viewPdf, setViewPdf] = useState(null);
+  return (
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden m-4">
+      <div className="p-4">
+        <h3 className="font-medium text-lg mb-2">PDF Document</h3>
+        <p className="text-gray-600 text-sm">
+          {(pdfUrl.length / 1024).toFixed(2)} KB
+        </p>
+      </div>
+      <div className="p-4">
+      {pdfUrl && (
+        <>
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
+            <Viewer
+              fileUrl={pdfUrl}
+              // plugins={[defaultLayoutPluginInstance]}
+              scale="page-width"
+            />
+          </Worker>
+        </>
+      )}
+
+      {!pdfUrl && <>No pdf file selected</>}
+      </div>
+    </div>
+  );
+};
+
+const PDFList = () => {
+  const [pdfs, setPdfs] = useState([]);
 
   useEffect(() => {
-    const fetchpdf = (e) => {
-      const pdfurl = "2022.pdf";
-      axios
-        .get(`/fileinfo/${pdfurl}`, { responseType: "arraybuffer" })
-        .then((res) => {
-          const blob = new Blob([res.data], { type: "application/pdf" });
-          const url = URL.createObjectURL(blob);
-          setViewPdf(url);
-        })
-        .catch((err) => console.error(err));
-    };
-
-    fetchpdf();
+    axios
+      .get("/pdfs")
+      .then((res) => setPdfs(res.data))
+      .catch((err) => console.log(err));
+      
   }, []);
 
   return (
-    <>
-      <div className="container">
-        <br></br>
-
-        <h4>View PDF</h4>
-        <div className="pdf-container">
-          {/* show pdf conditionally (if we have one)  */}
-          {viewPdf && (
-            <>
-              <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
-                <div
-                  className="ml-44 w-full flex justify-center "
-                  style={{
-                    border: "1px solid rgba(0, 0, 0, 0.3)",
-                    height: "750px",
-                  }}
-                >
-                  <Viewer
-                    fileUrl={viewPdf}
-                    plugins={[defaultLayoutPluginInstance]}
-                  />
-                </div>
-              </Worker>
-            </>
-          )}
-
-          {/* if we dont have pdf or viewPdf state is null */}
-          {!viewPdf && <>No pdf file selected</>}
-        </div>
-      </div>
-    </>
+    <div className="flex flex-wrap justify-center">
+      {pdfs.map((pdf) => (
+        <PDFViewer key={pdf._id} pdfUrl={`/pdfs/${pdf.filename}`} />
+      ))}
+    </div>
   );
-}
+};
+
+export default PDFList;
