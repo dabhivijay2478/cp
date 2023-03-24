@@ -51,13 +51,14 @@ function App() {
         // User Routes
         <Route exact path="/User" element={<Userdash />}>
           <Route exact path="" element={<UserHome />} />
-          <Route exact path="pdf" element={<PDFList />} />
           <Route exact path="Certificate" element={<ShowCertificate />} />
 
           <Route exact path="Contactus" element={<Contactus />} />
         </Route>
         //Errorpage Route
         <Route path="*" element={<Errorpage />} />
+        //test
+        <Route path="/pdf" element={<PdfViewer />} />
       </Routes>
     </>
   );

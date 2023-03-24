@@ -50,11 +50,7 @@ export default function Userdash() {
                   Certificate's
                 </NavLink>
               </li>
-              <li>
-                <NavLink to="/User/pdf" className="px-2 py-3">
-                  Test
-                </NavLink>
-              </li>
+
               <li>
                 <NavLink to="/User/Contactus" className="px-2 py-3">
                   Contact Us
@@ -79,11 +75,7 @@ export default function Userdash() {
                 Certificate's
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/User/pdf" className="px-2 py-3">
-                Test
-              </NavLink>
-            </li>
+
             <li>
               <NavLink to="/User/Contactus" className="px-2 py-3">
                 Contact Us

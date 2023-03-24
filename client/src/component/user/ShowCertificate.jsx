@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import "./user.css";
 import { Viewer } from "@react-pdf-viewer/core";
 
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
@@ -11,16 +11,21 @@ import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { Worker } from "@react-pdf-viewer/core";
 export default function ShowCertificate() {
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
-  const [pdfurl, setPdfurl] = useState("");
-  const [pdf, setPdf] = useState(null);
-  const handlerest = () => {
-    setPdfurl("");
-    
-  };
-  const [viewPdf, setViewPdf] = useState(null);
+  const [pdfurl, setPdfurl] = useState(null);
 
+  const [viewPdf, setViewPdf] = useState(null);
+  const [certificate, setCertificate] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/pdfs")
+      .then((res) => setCertificate(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+  console.log(pdfurl);
   const fetchpdf = (e) => {
-    const pdffile = `${pdfurl}.pdf`;
+    const pdffile = `${pdfurl}`;
+
     axios
       .get(`/fileinfo/${pdffile}`, { responseType: "arraybuffer" })
       .then((res) => {
@@ -33,56 +38,54 @@ export default function ShowCertificate() {
 
   return (
     <>
-      <div className="flex justify-center container">
-        <div className="card w-full  bg-white border-double  container  shadow-lg ">
-          <div className="flex px-2 py-3 justify-center">
-            <input
-              type="text"
-              value={pdfurl}
-              onChange={(e) => setPdfurl(e.target.value)}
-              placeholder="Enter Certificate Name"
-              className="input input-bordered  input-accent w-full max-w-xs mt-2 px-3 py-2 bg-white text-gray-900"
-            />
-            <div className="px-2 py-2">
-              <button
-                onClick={fetchpdf}
-                class="px-5 ml-5 py-2.5 relative rounded group  text-white font-medium inline-block"
-              >
-                <span class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-purple-600 to-blue-500"></span>
-                <span class="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-purple-600 to-blue-500"></span>
-                <span class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-purple-600 to-blue-500"></span>
-                <span class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-purple-600 from-blue-500"></span>
-                <span class="relative">Search</span>
-              </button>
-              <button
-                onClick={handlerest}
-                class="px-5 py-2.5 ml-5 relative rounded group  text-white font-medium inline-block"
-              >
-                <span class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-purple-600 to-blue-500"></span>
-                <span class="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-purple-600 to-blue-500"></span>
-                <span class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-purple-600 to-blue-500"></span>
-                <span class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-purple-600 from-blue-500"></span>
-                <span class="relative">Reset</span>
-              </button>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-10 py-9">
+        {certificate.map((file) => (
+          <div class="p-4 max-w-sm" key={file._id}>
+            <div class="max-w-sm rounded overflow-hidden shadow-xl m-4 shadow-cyan-400">
+              <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2">{file.filename}</div>
+                <p class="text-gray-700 text-base">
+                  <label
+                    class="btn dark:hover:text-red-500"
+                    htmlFor="my-modal-3"
+                    onClick={() => setPdfurl(file.filename)}
+                  >
+                    <i class="fa-sharp fa-regular fa-file px-2 py-3"></i>
+                    <i onClick={fetchpdf}> open Certificate</i>
+                  </label>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
 
-      <div class="flex flex-col justify-center items-center  ">
-        {viewPdf && (
-          <>
-            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
-              <Viewer
-                fileUrl={viewPdf}
-                plugins={[defaultLayoutPluginInstance]}
-                scale="page-width"
-              />
-            </Worker>
-          </>
-        )}
+      <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+      <div className="modal bg-fixed">
+        <div className="modal-box relative w-3/20 max-w-full">
+          <label
+            htmlFor="my-modal-3"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
+          >
+            ✕
+          </label>
 
-        {!viewPdf && <>No pdf file selected</>}
+          <div className="max-w-7xl ">
+            {viewPdf && (
+              <>
+                <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
+                  <Viewer
+                    fileUrl={viewPdf}
+                    // plugins={[defaultLayoutPluginInstance]}
+                    scale="page-width"
+                  />
+                </Worker>
+              </>
+            )}
+
+            {!viewPdf && <>No pdf file selected</>}
+          </div>
+        </div>
       </div>
     </>
   );
