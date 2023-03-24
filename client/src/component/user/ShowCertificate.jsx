@@ -86,6 +86,12 @@ export default function ShowCertificate() {
             {!viewPdf && <>No pdf file selected</>}
           </div>
         </div>
+        <label
+          htmlFor="my-modal-3"
+          className="btn btn-sm  bg-cyan-400 text-slate-900 px-2  dark:hover:bg-red-500 absolute right-2 bottom-2"
+        >
+          Close Modal
+        </label>
       </div>
     </>
   );
