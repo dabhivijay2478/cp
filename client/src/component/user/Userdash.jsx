@@ -45,10 +45,14 @@ export default function Userdash() {
                   Home
                 </NavLink>
               </li>
-
+              <li>
+                <NavLink to="/User/Certificate" className="px-2 py-3">
+                  Certificate's
+                </NavLink>
+              </li>
               <li>
                 <NavLink to="/User/pdf" className="px-2 py-3">
-                  Certificate's
+                  Test
                 </NavLink>
               </li>
               <li>
@@ -71,8 +75,13 @@ export default function Userdash() {
             </li>
 
             <li>
+              <NavLink to="/User/Certificate" className="px-2 py-3">
+                Certificate's
+              </NavLink>
+            </li>
+            <li>
               <NavLink to="/User/pdf" className="px-2 py-3">
-              Certificate's 
+                Test
               </NavLink>
             </li>
             <li>

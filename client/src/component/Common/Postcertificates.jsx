@@ -23,6 +23,7 @@ export default function Postcertificates() {
       .post("/upload", formData)
       .then((response) => {
         console.log(response.data);
+        window.alert(response.data);
       })
       .catch((error) => {
         console.log(error);

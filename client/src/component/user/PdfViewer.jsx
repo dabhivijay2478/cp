@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import { Viewer } from "@react-pdf-viewer/core";
 
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
@@ -9,55 +8,58 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
 import { Worker } from "@react-pdf-viewer/core";
-
-const PDFViewer = ({ pdfUrl }) => {
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
-
-  return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden m-4">
-      <div className="p-4">
-        <h3 className="font-medium text-lg mb-2">PDF Document</h3>
-        <p className="text-gray-600 text-sm">
-          {(pdfUrl.length / 1024).toFixed(2)} KB
-        </p>
-      </div>
-      <div className="p-4">
-      {pdfUrl && (
-        <>
-          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
-            <Viewer
-              fileUrl={pdfUrl}
-              // plugins={[defaultLayoutPluginInstance]}
-              scale="page-width"
-            />
-          </Worker>
-        </>
-      )}
-
-      {!pdfUrl && <>No pdf file selected</>}
-      </div>
-    </div>
-  );
-};
-
-const PDFList = () => {
-  const [pdfs, setPdfs] = useState([]);
-
+export default function PdfViewer() {
+  const [certificate, setCertificate] = useState([]);
   useEffect(() => {
     axios
       .get("/pdfs")
-      .then((res) => setPdfs(res.data))
+      .then((res) => setCertificate(res.data))
       .catch((err) => console.log(err));
-      
   }, []);
 
   return (
-    <div className="flex flex-wrap justify-center">
-      {pdfs.map((pdf) => (
-        <PDFViewer key={pdf._id} pdfUrl={`/pdfs/${pdf.filename}`} />
+    <>
+      {certificate.map((card) => (
+        <div class="flex flex-wrap justify-center mt-10">
+          <div class="p-4 max-w-sm">
+            <div key={card._id}>
+              <div className="max-w-sm rounded overflow-hidden shadow-lg m-4">
+                <div className="px-6 py-4">
+                  <div className="font-bold text-xl mb-2">{card.filename}</div>
+                  <p className="text-gray-700 text-base">
+                    <button
+                      className="btn dark:hover:text-red-500"
+                      // onClick={handleLogout}
+                    >
+                      <i class="fa-sharp fa-regular fa-file px-2 py-3"></i>
+                      <label htmlFor="my-modal-3">open Certificate</label>
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       ))}
-    </div>
-  );
-};
 
-export default PDFList;
+      <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+      <div className="modal">
+        <div className="modal-box relative">
+          <label
+            htmlFor="my-modal-3"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
+          >
+            ✕
+          </label>
+          <h3 className="text-lg font-bold">
+            Congratulations random Internet user!
+          </h3>
+          <p className="py-4">
+            You've been selected for a chance to get one year of subscription to
+            use Wikipedia for free!
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}

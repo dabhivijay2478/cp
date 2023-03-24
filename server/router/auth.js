@@ -184,6 +184,21 @@ const upload = multer({
   storage,
 });
 
+router.get("/pdfs", (req, res) => {
+  bucket.find({ contentType: "application/pdf" }).toArray((err, files) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Error fetching PDF files",
+        error: err,
+      });
+    }
+    res.set("Content-Type", "application/pdf");
+  
+    return res.send(files);
+  });
+});
+
+
 // router.get("/fileinfo/:filename", (req, res) => {
 //   const file = bucket
 //     .find({
@@ -200,19 +215,6 @@ const upload = multer({
 //     });
 // });
 
-router.get("/pdfs", (req, res) => {
-  bucket.find({ contentType: "application/pdf" }).toArray((err, files) => {
-    if (err) {
-      return res.status(500).json({
-        message: "Error fetching PDF files",
-        error: err,
-      });
-    }
-    res.set("Content-Type", "application/pdf");
-  
-    return res.send(files);
-  });
-});
 
 router.get("/fileinfo/:name", (req, res) => {
   const { name } = req.params;
