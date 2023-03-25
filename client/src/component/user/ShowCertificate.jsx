@@ -61,11 +61,11 @@ export default function ShowCertificate() {
       </div>
 
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-      <div className="modal bg-fixed">
+      <div className="modal bg-fixed ">
         <div className="modal-box relative w-3/20 max-w-full">
           <label
             htmlFor="my-modal-3"
-            className="btn btn-sm btn-circle absolute right-2 top-2"
+            className="btn btn-sm btn-circle absolute right-2 top-2 "
           >
             ✕
           </label>

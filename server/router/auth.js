@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 router.post("/signupserver", async (req, res) => {
   const {
     Name,
-    Password,
+    EnrollmentNo,
     Email,
     PhoneNO,
     Class,
@@ -24,21 +24,22 @@ router.post("/signupserver", async (req, res) => {
     ClubName,
     FavTech,
     Role,
+    Password,
   } = req.body;
   if (!Email || !Password) {
     return res.status(422).json({ error: "Something Error" });
   }
 
   try {
-    const userexits = await User.findOne({ Email: Email }).then(
+    const userexits = await User.findOne({ EnrollmentNo: EnrollmentNo }).then(
       async (userexits) => {
         if (userexits) {
-          return res.status(422).json({ error: "Email exits" });
+          return res.status(422).json({ error: "User already exits" });
         }
 
         const user = new User({
           Name,
-          Password,
+          EnrollmentNo,
           Email,
           PhoneNO,
           Class,
@@ -46,6 +47,7 @@ router.post("/signupserver", async (req, res) => {
           ClubName,
           FavTech,
           Role,
+          Password,
         });
         await user.save();
 
@@ -193,11 +195,10 @@ router.get("/pdfs", (req, res) => {
       });
     }
     res.set("Content-Type", "application/pdf");
-  
+
     return res.send(files);
   });
 });
-
 
 router.get("/fileinfo/:filename", (req, res) => {
   const file = bucket
@@ -215,7 +216,6 @@ router.get("/fileinfo/:filename", (req, res) => {
     });
 });
 
-
 // router.get("/fileinfo/:name", (req, res) => {
 //   const { name } = req.params;
 //   const downloadStream = bucket.openDownloadStreamByName(name);
@@ -230,6 +230,41 @@ router.get("/fileinfo/:filename", (req, res) => {
 
 router.post("/upload", upload.array("file"), (req, res) => {
   res.status(200).send("File uploaded successfully");
+});
+
+// const csvtojson = require("csvtojson");
+
+router.post("/addmutilpe", async (req, res) => {
+  try {
+    // const users = await csvtojson().fromString(req.body);
+    const users = await req.body;
+    for (let i = 0; i < users.length; i++) {
+      const userExists = await User.findOne({ Email: users[i].Email });
+      if (userExists) {
+        console.log(`User with email ${users[i].Email} already exists`);
+        continue;
+      }
+
+      const user = new User({
+        Name: users[i].Name,
+        Password: users[i].Password,
+        Email: users[i].Email,
+        PhoneNO: users[i].PhoneNO,
+        Class: users[i].Class,
+        Batch: users[i].Batch,
+        ClubName: users[i].ClubName,
+        FavTech: users[i].FavTech,
+        Role: users[i].Role,
+      });
+
+      await user.save();
+    }
+
+    res.status(200).json({ message: "Users added successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 module.exports = router;

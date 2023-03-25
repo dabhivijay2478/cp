@@ -8,11 +8,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
-  Password: {
+  EnrollmentNo: {
     type: String,
     required: true,
   },
+
   Email: {
     type: String,
     required: true,
@@ -42,7 +42,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
+  Password: {
+    type: String,
+    required: true,
+  },
   tokens: [
     {
       token: {

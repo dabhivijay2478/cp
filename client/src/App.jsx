@@ -20,6 +20,7 @@ import Contactus from "./component/user/Contactus";
 import PDFList from "./component/user/PdfViewer";
 import PdfViewer from "./component/user/PdfViewer";
 import ShowCertificate from "./component/user/ShowCertificate";
+import Testuser from "./component/Common/Testuser";
 function App() {
   return (
     <>
@@ -59,6 +60,7 @@ function App() {
         <Route path="*" element={<Errorpage />} />
         //test
         <Route path="/pdf" element={<PdfViewer />} />
+        <Route path="/testuser" element={<Testuser />} />
       </Routes>
     </>
   );
