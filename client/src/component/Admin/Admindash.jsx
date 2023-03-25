@@ -50,54 +50,54 @@ export default function Admindash() {
             <li>
               <NavLink
                 to=""
-                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
+                className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800   rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
-                <i className="fa-solid fa-house"></i>
+                <i className="fa-solid fa-house dark:hover:text-green-500"></i>
                 <span className="ml-3">Dashboard</span>
               </NavLink>
             </li>
             <li>
               <NavLink
                 to="/Admindash/Adduser"
-                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
+                className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
-                <i className="fa-solid fa-user-plus"></i>
+                <i className="fa-solid fa-user-plus dark:hover:text-green-500"></i>
                 <span className=" ml-3 ">Add User</span>
               </NavLink>
             </li>
             <li>
               <NavLink
                 to="/Admindash/Addclub"
-                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
+                className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
-                <i className="fa-solid fa-square-plus"></i>
+                <i className="fa-solid fa-square-plus dark:hover:text-green-500"></i>
                 <span className=" ml-3 ">Add Club</span>
               </NavLink>
             </li>
             <li>
               <NavLink
                 to="/Admindash/Addevent"
-                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
+                className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
-                <i className="fa-solid fa-calendar-plus"></i>
+                <i className="fa-solid fa-calendar-plus dark:hover:text-green-500"></i>
                 <span className=" ml-3 ">Add Event</span>
               </NavLink>
             </li>
             <li>
               <NavLink
                 to="/Admindash/Postcertificates"
-                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
+                className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
-                <i className="fa-solid fa-certificate"></i>
+                <i className="fa-solid fa-certificate dark:hover:text-green-500"></i>
                 <span className=" ml-3 ">Post Certificate's</span>
               </NavLink>
             </li>
             <li>
               <NavLink
                 to="/Admindash/StudentReport"
-                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
+                className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
-                <i class="fa-solid fa-chart-simple"></i>
+                <i class="fa-solid fa-chart-simple dark:hover:text-green-500"></i>
                 <span className=" ml-3 ">StudentReport</span>
               </NavLink>
             </li>
@@ -106,9 +106,9 @@ export default function Admindash() {
               <NavLink
                 to="/"
                 onClick={handleLogout}
-                className="flex items-center px-3 text-white py-2 dark:text-white hover:bg-green-400 rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
+                className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800 hover:bg-green-400 rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
-                <i className="fa-solid fa-right-from-bracket"></i>
+                <i className="fa-solid fa-right-from-bracket dark:hover:text-green-500"></i>
                 <span className="flex-1 ml-3 ">Sign Up</span>
               </NavLink>
             </li>

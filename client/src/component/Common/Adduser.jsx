@@ -114,8 +114,18 @@ export default function Testuser() {
                   ✕
                 </label>
                 <div>
-                  <input type="file" onChange={handleFileInputChange} />
-                  <button onClick={handleAddUsers}>Add Users</button>
+                  <input
+                    type="file"
+                    className="file-input file-input-bordered file-input-success w-full max-w-xs bg-white"
+                    onChange={handleFileInputChange}
+                  />
+
+                  <button
+                    onClick={handleAddUsers}
+                    className="btn btn-ghost dark:hover:bg-cyan-700 px-2 py-3 ml-2"
+                  >
+                    <label htmlFor="my-modal-3">Add Users</label>
+                  </button>
                 </div>
               </div>
             </div>

@@ -247,7 +247,7 @@ router.post("/addmutilpe", async (req, res) => {
 
       const user = new User({
         Name: users[i].Name,
-        Password: users[i].Password,
+        EnrollmentNo: users[i].EnrollmentNo,
         Email: users[i].Email,
         PhoneNO: users[i].PhoneNO,
         Class: users[i].Class,
@@ -255,6 +255,7 @@ router.post("/addmutilpe", async (req, res) => {
         ClubName: users[i].ClubName,
         FavTech: users[i].FavTech,
         Role: users[i].Role,
+        Password: users[i].Password,
       });
 
       await user.save();
