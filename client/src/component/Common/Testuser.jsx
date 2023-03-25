@@ -15,7 +15,6 @@ export default function Testuser() {
   const [FavTech, setFavTech] = useState("");
   const [Role, setRole] = useState("");
   const [Password, setPassword] = useState("");
-
   const [file, setFile] = useState(null);
 
   const handleFileInputChange = (event) => {
@@ -57,7 +56,7 @@ export default function Testuser() {
         ClubName,
         FavTech,
         Role,
-        Password,
+        Password: EnrollmentNo,
       }),
     });
     const data = res.json();
@@ -152,7 +151,6 @@ export default function Testuser() {
                     id="EnrollmentNo"
                     value={EnrollmentNo}
                     onChange={(e) => setEnrollmentNo(e.target.value)}
-                    // readOnly
                   />
                 </div>
 
@@ -265,9 +263,8 @@ export default function Testuser() {
                     placeholder="password"
                     type="text"
                     id="password"
-                    value={Password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    // readOnly
+                    value={EnrollmentNo}
+                    readOnly
                   />
                 </div>
 
