@@ -40,35 +40,61 @@ export default function Testuser() {
 
   const adduser = async (e) => {
     e.preventDefault();
-    const res = await fetch("/signupserver", {
+    // const res = await fetch("/signupserver", {
+    //   method: "POST",
+    //   changeOrigin: true,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     Name,
+    //     EnrollmentNo,
+    //     Email,
+    //     PhoneNO,
+    //     Class,
+    //     Batch,
+    //     ClubName,
+    //     FavTech,
+    //     Role,
+    //     Password: EnrollmentNo,
+    //   }),
+    // });
+    // const data = res.json();
+
+    const mail = await fetch("/sendemail", {
       method: "POST",
       changeOrigin: true,
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        Name,
-        EnrollmentNo,
-        Email,
-        PhoneNO,
-        Class,
-        Batch,
-        ClubName,
-        FavTech,
-        Role,
-        Password: EnrollmentNo,
+        ToEmail: Email,
+        User: EnrollmentNo,
       }),
     });
-    const data = res.json();
-
-    if (res.status === 400 || !data) {
+    const maildata = mail.json();
+    if (mail.status === 400 || !maildata) {
       window.alert("Invaild");
-    } else if (res.status === 422 || !data) {
+    } else if (mail.status === 422 || !maildata) {
       window.alert("Bad");
     } else {
-      window.alert("SucessFully Add");
-      history("/Admindash");
+      window.alert("Send Email");
+      // window.alert("SucessFully Add");
+
+      console.log("Send Email");
+      // history("/Admindash");
     }
+    // if (res.status === 400 || !data || !maildata) {
+    //   window.alert("Invaild");
+    // } else if (res.status === 422 || !data || !maildata) {
+    //   window.alert("Bad");
+    // } else {
+    //   window.alert("Send Email");
+    //   window.alert("SucessFully Add");
+
+    //   console.log("Send Email");
+    //   history("/Admindash");
+    // }
   };
 
   return (

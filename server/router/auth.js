@@ -271,24 +271,28 @@ router.post("/addmutilpe", async (req, res) => {
   }
 });
 
-
-
 router.get("/sendemail", (req, res) => {
+  const FromEmail = process.env.MAIL_USERNAME;
+
+  const Password = process.env.MAIL_PASSWORD;
+
+  const { ToEmail, User } = req.body;
+  console.log(ToEmail);
   let transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
 
     auth: {
-      user: "dabhivijay2478@gmail.com",
-      pass: "sviitlclybysnojh",
+      user: FromEmail,
+      pass: Password,
     },
   });
 
   let mailOptions = {
-    from: "dabhivijay2478@gmail.com",
-    to: "vijaydabhi0428@gmail.com",
-    subject: "Hello from ExpressJS and Nodemailer",
-    text: "This is a test email sent using ExpressJS and Nodemailer!",
+    from: FromEmail,
+    to: ToEmail,
+    subject: `Your Account successfully Created using This Email ID ${ToEmail}`,
+    text: `Your UserName Is ${User}`,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
