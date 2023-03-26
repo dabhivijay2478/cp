@@ -6,13 +6,13 @@ export default function Admindash() {
   const nav = useNavigate();
 
   useEffect(() => {
-    const isLoggedIn = Cookies.get("isLoggedIn");
+    const isLoggedIn = Cookies.get("Admin");
     if (!isLoggedIn) {
       return nav("/");
     }
   }, []);
   const handleLogout = async () => {
-    Cookies.remove("isLoggedIn");
+    Cookies.remove("Admin");
     window.alert("Log Out");
   };
   return (

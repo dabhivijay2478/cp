@@ -29,7 +29,7 @@ export default function Login() {
     if (response.status === 400 || !data) {
       window.alert("Invaild");
     } else {
-      Cookies.set("isLoggedIn", true, { expires: 1 });
+      Cookies.set(role, true, { expires: 1 });
       window.alert("Sucess");
       if (role == "Admin") {
         history("/Admindash");

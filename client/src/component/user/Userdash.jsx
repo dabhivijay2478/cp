@@ -6,13 +6,13 @@ export default function Userdash() {
   const nav = useNavigate();
 
   useEffect(() => {
-    const isLoggedIn = Cookies.get("isLoggedIn");
+    const isLoggedIn = Cookies.get("Student");
     if (!isLoggedIn) {
       return nav("/");
     }
   }, []);
   const handleLogout = async () => {
-    Cookies.remove("isLoggedIn");
+    Cookies.remove("Student");
     window.alert("Log Out");
   };
   return (

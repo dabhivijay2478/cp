@@ -2,6 +2,9 @@ const bycrypt = require("bcrypt");
 const express = require("express");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const dotenv = require("dotenv");
+dotenv.config({ path: "./email.env" });
 const router = express.Router();
 require("../db/connect");
 const multer = require("multer");
@@ -266,6 +269,37 @@ router.post("/addmutilpe", async (req, res) => {
     console.log(error);
     res.status(500).json({ message: "Internal server error" });
   }
+});
+
+
+
+router.get("/sendemail", (req, res) => {
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+
+    auth: {
+      user: "dabhivijay2478@gmail.com",
+      pass: "sviitlclybysnojh",
+    },
+  });
+
+  let mailOptions = {
+    from: "dabhivijay2478@gmail.com",
+    to: "vijaydabhi0428@gmail.com",
+    subject: "Hello from ExpressJS and Nodemailer",
+    text: "This is a test email sent using ExpressJS and Nodemailer!",
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+      res.status(500).send(error);
+    } else {
+      console.log("Email sent: " + info.response);
+      res.status(200).send("Email sent successfully!");
+    }
+  });
 });
 
 module.exports = router;
