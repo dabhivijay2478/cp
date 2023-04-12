@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState, useRef } from "react";
 
-export default function StudentReport() {
+export default function Admincontactusreport() {
   const [mongoData, setMongoData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
@@ -9,7 +9,7 @@ export default function StudentReport() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("/data");
+      const response = await fetch("/contactusreport");
       const result = await response.json();
       setMongoData(result);
     }
@@ -27,18 +27,10 @@ export default function StudentReport() {
             item.EnrollmentNo.toString().includes(searchTermLower)) ||
           (typeof item.Email === "string" &&
             item.Email.toLowerCase().includes(searchTermLower)) ||
-          (typeof item.PhoneNO === "number" &&
-            item.PhoneNO.toString().includes(searchTermLower)) ||
-          (typeof item.Class === "string" &&
-            item.Class.toLowerCase().includes(searchTermLower)) ||
-          (typeof item.Batch === "string" &&
-            item.Batch.toLowerCase().includes(searchTermLower)) ||
           (typeof item.ClubName === "string" &&
             item.ClubName.toLowerCase().includes(searchTermLower)) ||
-          (typeof item.FavTech === "string" &&
-            item.FavTech.toLowerCase().includes(searchTermLower)) ||
-          (typeof item.Role === "string" &&
-            item.Role.toLowerCase().includes(searchTermLower))
+          (typeof item.Message === "string" &&
+            item.Message.toLowerCase().includes(searchTermLower))
         );
       });
       setFilteredData(filteredData);
@@ -47,7 +39,7 @@ export default function StudentReport() {
   }, [mongoData, searchTerm]);
 
   const handleKeyDown = (event) => {
-    if (event.ctrlKey && event.key === "k") {
+    if (event.ctrlKey && event.keycode === "k") {
       event.preventDefault();
       searchInputRef.current.focus();
     }
@@ -64,7 +56,7 @@ export default function StudentReport() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             ref={searchInputRef}
-          />
+          />{" "}
           <i> CTRL+K</i>
         </div>
         <table className="table table-zebra w-full">
@@ -75,28 +67,19 @@ export default function StudentReport() {
               <th>Name</th>
               <th>EnrollmentNo</th>
               <th>Email</th>
-              <th>PhoneNO</th>
-              <th>Class</th>
-              <th>Batch</th>
               <th>ClubName</th>
-              <th>FavTech</th>
-              <th>Role</th>
+              <th>Message</th>
             </tr>
           </thead>
           <tbody>
             {filteredData.map((item, index) => (
               <tr key={index}>
                 <td></td>
-
                 <td>{item.Name}</td>
                 <td>{item.EnrollmentNo}</td>
                 <td>{item.Email}</td>
-                <td>{item.PhoneNO}</td>
-                <td>{item.Class}</td>
-                <td>{item.Batch}</td>
                 <td>{item.ClubName}</td>
-                <td>{item.FavTech}</td>
-                <td>{item.Role}</td>
+                <td>{item.Message}</td>
               </tr>
             ))}
           </tbody>

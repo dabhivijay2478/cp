@@ -1,30 +1,31 @@
 const mongoose = require("mongoose");
-const addeventschema = new mongoose.Schema({
-  ClubName: {
+const adduserchema = new mongoose.Schema({
+  Name: {
     type: String,
     required: true,
   },
-  EventName: {
-    type: String,
+  EnrollmentNo: {
+    type: Number,
     required: true,
   },
-  HandlerName: {
+
+  Email: {
     type: String,
     required: true,
   },
 
-  Descrption: {
+  ClubName: {
     type: String,
     required: true,
   },
-  Venue: {
+  Subject: {
     type: String,
     required: true,
   },
-  Certifiacate: {
+  Message: {
     type: String,
     required: true,
   },
 });
-const addevent = mongoose.model("addevent", addeventschema);
-module.exports = addevent;
+const adduser = mongoose.model("contact", adduserchema);
+module.exports = adduser;

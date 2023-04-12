@@ -17,7 +17,7 @@ export default function Userdash() {
   };
   return (
     <>
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-base-100 fixed">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -93,7 +93,7 @@ export default function Userdash() {
           </button>
         </div>
       </div>
-      <div className="p-4  ">
+      <div className="px-5 py-4  ">
         <Outlet />
       </div>
     </>

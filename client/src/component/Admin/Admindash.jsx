@@ -52,7 +52,7 @@ export default function Admindash() {
                 to=""
                 className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800   rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
-                <i className="fa-solid fa-house dark:hover:text-green-500"></i>
+                <i className="fa-solid fa-house dark:hover:text-slate-800"></i>
                 <span className="ml-3">Dashboard</span>
               </NavLink>
             </li>
@@ -61,7 +61,7 @@ export default function Admindash() {
                 to="/Admindash/Adduser"
                 className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
-                <i className="fa-solid fa-user-plus dark:hover:text-green-500"></i>
+                <i className="fa-solid fa-user-plus dark:hover:text-slate-800"></i>
                 <span className=" ml-3 ">Add User</span>
               </NavLink>
             </li>
@@ -70,7 +70,7 @@ export default function Admindash() {
                 to="/Admindash/Addclub"
                 className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
-                <i className="fa-solid fa-square-plus dark:hover:text-green-500"></i>
+                <i className="fa-solid fa-square-plus dark:hover:text-slate-800"></i>
                 <span className=" ml-3 ">Add Club</span>
               </NavLink>
             </li>
@@ -79,7 +79,7 @@ export default function Admindash() {
                 to="/Admindash/Addevent"
                 className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
-                <i className="fa-solid fa-calendar-plus dark:hover:text-green-500"></i>
+                <i className="fa-solid fa-calendar-plus dark:hover:text-slate-800"></i>
                 <span className=" ml-3 ">Add Event</span>
               </NavLink>
             </li>
@@ -88,7 +88,7 @@ export default function Admindash() {
                 to="/Admindash/Postcertificates"
                 className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
-                <i className="fa-solid fa-certificate dark:hover:text-green-500"></i>
+                <i className="fa-solid fa-certificate dark:hover:text-slate-800"></i>
                 <span className=" ml-3 ">Post Certificate's</span>
               </NavLink>
             </li>
@@ -97,8 +97,27 @@ export default function Admindash() {
                 to="/Admindash/StudentReport"
                 className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
-                <i class="fa-solid fa-chart-simple dark:hover:text-green-500"></i>
+                <i class="fa-solid fa-chart-simple dark:hover:text-slate-800"></i>
                 <span className=" ml-3 ">StudentReport</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/Admindash/Eventreport"
+                className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
+              >
+                <i class="fa-solid fa-calendar-check dark:hover:text-slate-800"></i>
+                <span className=" ml-3 ">Event Report</span>
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to="/Admindash/AdminContactusreport"
+                className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
+              >
+                <i class="fa-solid fa-address-book  dark:hover:text-slate-800"></i>
+                <span className=" ml-3 ">Contact Us Report</span>
               </NavLink>
             </li>
 
@@ -108,7 +127,7 @@ export default function Admindash() {
                 onClick={handleLogout}
                 className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800 hover:bg-green-400 rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
-                <i className="fa-solid fa-right-from-bracket dark:hover:text-green-500"></i>
+                <i className="fa-solid fa-right-from-bracket dark:hover:text-slate-800"></i>
                 <span className="flex-1 ml-3 ">Sign Up</span>
               </NavLink>
             </li>

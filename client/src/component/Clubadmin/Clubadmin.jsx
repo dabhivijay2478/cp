@@ -6,13 +6,13 @@ export default function Clubadmin() {
   const nav = useNavigate();
 
   useEffect(() => {
-    const isLoggedIn = Cookies.get("isLoggedIn");
+    const isLoggedIn = Cookies.get("ClubAdmin");
     if (!isLoggedIn) {
       return nav("/");
     }
   }, []);
   const handleLogout = async () => {
-    Cookies.remove("isLoggedIn");
+    Cookies.remove("ClubAdmin");
     window.alert("Log Out");
   };
   return (

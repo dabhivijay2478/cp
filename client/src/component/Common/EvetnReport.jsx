@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState, useRef } from "react";
 
-export default function StudentReport() {
+export default function EvetnReport() {
   const [mongoData, setMongoData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
@@ -9,7 +9,7 @@ export default function StudentReport() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("/data");
+      const response = await fetch("/Eventreport");
       const result = await response.json();
       setMongoData(result);
     }
@@ -21,24 +21,18 @@ export default function StudentReport() {
       const filteredData = mongoData.filter((item) => {
         const searchTermLower = searchTerm.toLowerCase();
         return (
-          (typeof item.Name === "string" &&
-            item.Name.toLowerCase().includes(searchTermLower)) ||
-          (typeof item.EnrollmentNo === "number" &&
-            item.EnrollmentNo.toString().includes(searchTermLower)) ||
-          (typeof item.Email === "string" &&
-            item.Email.toLowerCase().includes(searchTermLower)) ||
-          (typeof item.PhoneNO === "number" &&
-            item.PhoneNO.toString().includes(searchTermLower)) ||
-          (typeof item.Class === "string" &&
-            item.Class.toLowerCase().includes(searchTermLower)) ||
-          (typeof item.Batch === "string" &&
-            item.Batch.toLowerCase().includes(searchTermLower)) ||
+          (typeof item.EventName === "string" &&
+            item.EventName.toLowerCase().includes(searchTermLower)) ||
+          (typeof item.HandlerName === "string" &&
+            item.HandlerName.toLowerCase().includes(searchTermLower)) ||
+          (typeof item.Descrption === "string" &&
+            item.Descrption.toLowerCase().includes(searchTermLower)) ||
+          (typeof item.Venue === "string" &&
+            item.Venue.toLowerCase().includes(searchTermLower)) ||
+          (typeof item.Certifiacate === "string" &&
+            item.Certifiacate.toLowerCase().includes(searchTermLower)) ||
           (typeof item.ClubName === "string" &&
-            item.ClubName.toLowerCase().includes(searchTermLower)) ||
-          (typeof item.FavTech === "string" &&
-            item.FavTech.toLowerCase().includes(searchTermLower)) ||
-          (typeof item.Role === "string" &&
-            item.Role.toLowerCase().includes(searchTermLower))
+            item.ClubName.toLowerCase().includes(searchTermLower))
         );
       });
       setFilteredData(filteredData);
@@ -72,15 +66,12 @@ export default function StudentReport() {
           <thead>
             <tr>
               <th></th>
-              <th>Name</th>
-              <th>EnrollmentNo</th>
-              <th>Email</th>
-              <th>PhoneNO</th>
-              <th>Class</th>
-              <th>Batch</th>
               <th>ClubName</th>
-              <th>FavTech</th>
-              <th>Role</th>
+              <th>EventName</th>
+              <th>HandlerName</th>
+              <th>Descrption</th>
+              <th>Venue</th>
+              <th>Certifiacate</th>
             </tr>
           </thead>
           <tbody>
@@ -88,15 +79,12 @@ export default function StudentReport() {
               <tr key={index}>
                 <td></td>
 
-                <td>{item.Name}</td>
-                <td>{item.EnrollmentNo}</td>
-                <td>{item.Email}</td>
-                <td>{item.PhoneNO}</td>
-                <td>{item.Class}</td>
-                <td>{item.Batch}</td>
                 <td>{item.ClubName}</td>
-                <td>{item.FavTech}</td>
-                <td>{item.Role}</td>
+                <td>{item.EventName}</td>
+                <td>{item.HandlerName}</td>
+                <td>{item.Descrption}</td>
+                <td>{item.Venue}</td>
+                <td>{item.Certifiacate}</td>
               </tr>
             ))}
           </tbody>

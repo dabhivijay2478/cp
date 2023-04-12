@@ -4,11 +4,11 @@ const adduserchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
-  Password: {
-    type: String,
+  EnrollmentNo: {
+    type: Number,
     required: true,
   },
+
   Email: {
     type: String,
     required: true,
@@ -33,6 +33,11 @@ const adduserchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+  Role: {
+    type: String,
+    required: true,
+  },
 });
-const adduser = mongoose.model("adduser", adduserchema);
+const adduser = mongoose.model("users", adduserchema);
 module.exports = adduser;

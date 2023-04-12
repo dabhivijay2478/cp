@@ -38,28 +38,29 @@ export default function ShowCertificate() {
 
   return (
     <>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-10 py-9">
-        {certificate.map((file) => (
-          <div class="p-4 max-w-sm" key={file._id}>
-            <div class="max-w-sm rounded overflow-hidden shadow-xl m-4 shadow-cyan-400">
-              <div class="px-6 py-4">
-                <div class="font-bold text-xl mb-2">{file.filename}</div>
-                <p class="text-gray-700 text-base">
-                  <label
-                    class="btn dark:hover:text-red-500"
-                    htmlFor="my-modal-3"
-                    onClick={() => setPdfurl(file.filename)}
-                  >
-                    <i class="fa-sharp fa-regular fa-file px-2 py-3"></i>
-                    <i onClick={fetchpdf}> open Certificate</i>
-                  </label>
-                </p>
+      <div className="mt-16">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-10 py-9 ">
+          {certificate.map((file) => (
+            <div class="p-4 max-w-sm" key={file._id}>
+              <div class="max-w-sm rounded overflow-hidden shadow-xl m-4 shadow-cyan-400">
+                <div class="px-6 py-4">
+                  <div class="font-bold text-xl mb-2">{file.filename}</div>
+                  <p class="text-gray-700 text-base">
+                    <label
+                      class="btn dark:hover:text-red-500"
+                      htmlFor="my-modal-3"
+                      onClick={() => setPdfurl(file.filename)}
+                    >
+                      <i class="fa-sharp fa-regular fa-file px-2 py-3"></i>
+                      <i onClick={fetchpdf}> open Certificate</i>
+                    </label>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />
       <div className="modal bg-fixed ">
         <div className="modal-box relative w-3/20 max-w-full">

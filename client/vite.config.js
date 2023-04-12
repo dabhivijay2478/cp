@@ -50,6 +50,18 @@ export default defineConfig({
         target: "http://localhost:5000",
         changeOrigin: true,
       },
+      "/Contactus": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
+      "/contactusreport": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
+      "/Eventreport": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
     },
   },
 });

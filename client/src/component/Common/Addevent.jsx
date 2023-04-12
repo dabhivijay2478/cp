@@ -4,18 +4,21 @@ import { useNavigate } from "react-router-dom";
 export default function Addevent() {
   const history = useNavigate();
   const [Certifiacate, setCertifiacate] = useState("");
+  const [ClubName, setClubname] = useState("");
   const [EventName, setEventName] = useState("");
   const [HandlerName, setHandlerName] = useState("");
   const [Descrption, setDescrption] = useState("");
-  const [Contact, setContact] = useState("");
+  const [Venue, setVenue] = useState("");
   const Certifiacatechange = (e) => {
     setCertifiacate(e.target.value);
   };
   const handlerest = () => {
+    setClubname("");
     setEventName("");
     setHandlerName("");
-    setContact("");
+    setVenue("");
     setDescrption("");
+    setCertifiacate("");
   };
   const Addevent = async (e) => {
     e.preventDefault();
@@ -26,10 +29,11 @@ export default function Addevent() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        ClubName,
         EventName,
         HandlerName,
         Descrption,
-        Contact,
+        Venue,
         Certifiacate,
       }),
     });
@@ -49,6 +53,15 @@ export default function Addevent() {
     <>
       <div className="flex justify-center container">
         <div className="card w-full  bg-white border-double  container  shadow-lg ">
+          <div className="flex px-2 py-3 justify-center">
+            <input
+              type="text"
+              value={ClubName}
+              onChange={(e) => setClubname(e.target.value)}
+              placeholder="Enter The Club Name"
+              className="input input-bordered  input-accent w-full max-w-xs mt-2 px-3 py-2 bg-white text-gray-900"
+            />
+          </div>
           <div className="flex px-2 py-3 justify-center">
             <input
               type="text"
@@ -79,9 +92,9 @@ export default function Addevent() {
           <div className="flex px-2 py-2 bg-white text-gray-900 justify-center">
             <input
               type="text"
-              value={Contact}
-              onChange={(e) => setContact(e.target.value)}
-              placeholder="contact"
+              value={Venue}
+              onChange={(e) => setVenue(e.target.value)}
+              placeholder="Venue"
               className="input input-bordered  input-accent w-full max-w-xs mt-2 px-3 py-2 bg-white text-gray-900"
             />
           </div>

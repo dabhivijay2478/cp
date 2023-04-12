@@ -12,6 +12,7 @@ const { GridFsStorage } = require("multer-gridfs-storage");
 
 const User = require("../models/useschema");
 const data = require("../models/adduserchema");
+const Contact = require("../models/contactusschema");
 
 router.get("/", (req, res) => {
   res.send("vijay router");
@@ -104,10 +105,10 @@ router.post("/loginserver", async (req, res) => {
 const Addeventschema = require("../models/addeventschema");
 
 router.post("/addnewevent", async (req, res) => {
-  const { EventName, HandlerName, Descrption, Contact, Certifiacate } =
+  const { ClubName, EventName, HandlerName, Descrption, Venue, Certifiacate } =
     req.body;
 
-  if (!EventName || !HandlerName || !Descrption || !Contact || !Certifiacate) {
+  if (!EventName || !HandlerName || !Descrption || !Venue || !Certifiacate) {
     return res.status(422).json({ error: "Something Error" });
   }
 
@@ -120,10 +121,11 @@ router.post("/addnewevent", async (req, res) => {
       }
 
       const Event = new Addeventschema({
+        ClubName,
         EventName,
         HandlerName,
         Descrption,
-        Contact,
+        Venue,
         Certifiacate,
       });
       await Event.save();
@@ -139,12 +141,6 @@ router.post("/addnewevent", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-});
-
-router.get("/data", async (req, res) => {
-  const result = await data.find({});
-
-  res.send(result);
 });
 
 const mongouri = "mongodb://0.0.0.0:27017/cp";
@@ -271,17 +267,15 @@ router.post("/addmutilpe", async (req, res) => {
   }
 });
 
-router.get("/sendemail", (req, res) => {
+router.post("/sendemail", async (req, res) => {
   const FromEmail = process.env.MAIL_USERNAME;
-
   const Password = process.env.MAIL_PASSWORD;
-
-  const { ToEmail, User } = req.body;
+  const { ToEmail, EnrollmentNo } = req.body;
   console.log(ToEmail);
+
   let transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
-
     auth: {
       user: FromEmail,
       pass: Password,
@@ -292,18 +286,61 @@ router.get("/sendemail", (req, res) => {
     from: FromEmail,
     to: ToEmail,
     subject: `Your Account successfully Created using This Email ID ${ToEmail}`,
-    text: `Your UserName Is ${User}`,
+    text: `Your UserName Is ${EnrollmentNo} `,
   };
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-      res.status(500).send(error);
-    } else {
-      console.log("Email sent: " + info.response);
-      res.status(200).send("Email sent successfully!");
-    }
-  });
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+    res.status(200).send("Email sent successfully!");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
+});
+
+router.get("/data", async (req, res) => {
+  const result = await data.find({});
+
+  res.send(result);
+});
+
+router.post("/Contactus", async (req, res) => {
+  const { Name, EnrollmentNo, Email, ClubName, Subject, Message } = req.body;
+
+  try {
+    const Contactus = new Contact({
+      Name,
+      EnrollmentNo,
+      Email,
+      ClubName,
+      Subject,
+      Message,
+    });
+    await Contactus.save();
+
+    // if (userRegister) {
+    res.status(201).json({ message: "Sucess" });
+    // }
+    // else
+    // {
+    // res.status(201).json({message:"failed"})
+    // }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/contactusreport", async (req, res) => {
+  const result = await Contact.find({});
+
+  res.send(result);
+});
+
+router.get("/Eventreport", async (req, res) => {
+  const result = await Addeventschema.find({});
+
+  res.send(result);
 });
 
 module.exports = router;

@@ -40,28 +40,41 @@ export default function Testuser() {
 
   const adduser = async (e) => {
     e.preventDefault();
-    // const res = await fetch("/signupserver", {
-    //   method: "POST",
-    //   changeOrigin: true,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     Name,
-    //     EnrollmentNo,
-    //     Email,
-    //     PhoneNO,
-    //     Class,
-    //     Batch,
-    //     ClubName,
-    //     FavTech,
-    //     Role,
-    //     Password: EnrollmentNo,
-    //   }),
-    // });
-    // const data = res.json();
+    const res = await fetch("/signupserver", {
+      method: "POST",
+      changeOrigin: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Name,
+        EnrollmentNo,
+        Email,
+        PhoneNO,
+        Class,
+        Batch,
+        ClubName,
+        FavTech,
+        Role,
+        Password: EnrollmentNo,
+      }),
+    });
+    const data = res.json();
 
-    const mail = await fetch("/sendemail", {
+    if (res.status === 400 || !data) {
+      window.alert("Invaild");
+    } else if (res.status === 422 || !data) {
+      window.alert("Bad");
+    } else {
+      window.alert("SucessFully Add");
+
+      history("/Admindash");
+    }
+  };
+
+  const sendEmail = async (e) => {
+    e.preventDefault();
+    const response = await fetch("/sendemail", {
       method: "POST",
       changeOrigin: true,
       headers: {
@@ -69,32 +82,19 @@ export default function Testuser() {
       },
       body: JSON.stringify({
         ToEmail: Email,
-        User: EnrollmentNo,
+        EnrollmentNo: EnrollmentNo,
       }),
     });
-    const maildata = mail.json();
-    if (mail.status === 400 || !maildata) {
+
+    const Maildata = response.json();
+
+    if (sendEmail.status === 400 || !Maildata) {
       window.alert("Invaild");
-    } else if (mail.status === 422 || !maildata) {
+    } else if (sendEmail.status === 422 || !Maildata) {
       window.alert("Bad");
     } else {
       window.alert("Send Email");
-      // window.alert("SucessFully Add");
-
-      console.log("Send Email");
-      // history("/Admindash");
     }
-    // if (res.status === 400 || !data || !maildata) {
-    //   window.alert("Invaild");
-    // } else if (res.status === 422 || !data || !maildata) {
-    //   window.alert("Bad");
-    // } else {
-    //   window.alert("Send Email");
-    //   window.alert("SucessFully Add");
-
-    //   console.log("Send Email");
-    //   history("/Admindash");
-    // }
   };
 
   return (
@@ -104,18 +104,16 @@ export default function Testuser() {
           <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
             <div class="lg:col-span-2 lg:py-12">
               <p class="max-w-xl text-lg">
-                At the same time, the fact that we are wholly owned and totally
-                independent from manufacturer and other group control gives you
-                confidence that we will only recommend what is right for you.
+              Ganpat University - U. V. Patel College of Engineering is an Institute situated inside Ganpat University campus at Ganpat Vidyanagar, Kherva, Mehsana in the state of Gujarat, India.
               </p>
 
               <div class="mt-8">
                 <a href="" class="text-2xl font-bold text-pink-600">
-                  0151 475 4450
+                 CMS
                 </a>
 
                 <address class="mt-2 not-italic">
-                  282 Kevin Brook, Imogeneborough, CA 58517
+                U. V. Patel College of Engineering, Ganpat Vidyanagar Mehsana-Gozaria, Highway, Kherva, Gujarat 384012
                 </address>
 
                 <div class="mt-4">
@@ -157,8 +155,8 @@ export default function Testuser() {
             </div>
             <div class="rounded-lg bg-white p-8 shadow-lg border dark:hover:border-blue-600 border-solid shadow-blue-500 lg:col-span-3 lg:p-12">
               <form
-                action="#"
-                // onSubmit={adduser}
+                // action="#"
+                // onSubmit={sendEmail}
                 method="POST"
                 class="space-y-4"
               >

@@ -21,6 +21,8 @@ import PDFList from "./component/user/PdfViewer";
 import PdfViewer from "./component/user/PdfViewer";
 import ShowCertificate from "./component/user/ShowCertificate";
 import Testuser from "./component/Common/Testuser";
+import Admincontactusreport from "./component/Admin/Admincontactusreport";
+import EvetnReport from "./component/Common/EvetnReport";
 function App() {
   return (
     <>
@@ -38,6 +40,8 @@ function App() {
           <Route exact path="Addevent" element={<Addevent />} />
           <Route exact path="Postcertificates" element={<Postcertificates />} />
           <Route exact path="StudentReport" element={<StudentReport />} />
+          <Route exact path="Eventreport" element={<EvetnReport />} />
+          <Route exact path="AdminContactusreport" element={<Admincontactusreport />} />
           <Route exact path="*" element={<Errorpage />} />
         </Route>
         // Clubadmin Routes
@@ -47,6 +51,7 @@ function App() {
           <Route exact path="Addevent" element={<Addevent />} />
           <Route exact path="Postcertificates" element={<Postcertificates />} />
           <Route exact path="StudentReport" element={<StudentReport />} />
+          
           <Route exact path="*" element={<Errorpage />} />
         </Route>
         // User Routes
@@ -60,7 +65,7 @@ function App() {
         <Route path="*" element={<Errorpage />} />
         //test
         <Route path="/pdf" element={<PdfViewer />} />
-        <Route path="/testuser" element={<Testuser />} />
+        <Route path="/mail" element={<Testuser />} />
       </Routes>
     </>
   );
