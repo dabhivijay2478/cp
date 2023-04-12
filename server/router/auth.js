@@ -285,8 +285,20 @@ router.post("/sendemail", async (req, res) => {
   let mailOptions = {
     from: FromEmail,
     to: ToEmail,
-    subject: `Your Account successfully Created using This Email ID ${ToEmail}`,
-    text: `Your UserName Is ${EnrollmentNo} `,
+    subject: "Your Account Has Been Created!",
+    html: `
+      <p>Dear ${ToEmail},</p>
+      <p>We're excited to inform you that your account for our service has been successfully created! You can now log in and start using the service.</p>
+      <p>To log in, please use the following credentials:</p>
+      <ul>
+        <li>Email: ${ToEmail}</li>
+        <li>Password: ${EnrollmentNo}</li>
+      </ul>
+      <p>If you have any questions or need assistance, please don't hesitate to contact our support team at [support email address or phone number]. We're here to help you get started and answer any questions you may have.</p>
+      <p>Before you start using the service, please take a moment to review our <a href="https://firebasestorage.googleapis.com/v0/b/cpprivacypolicy.appspot.com/o/Privacy%20Policy.pdf?alt=media&token=f121c1a3-854d-4d92-86cb-8707683296b2" target="_blank">privacy policy</a>  These documents explain your rights and responsibilities as a user of the service, and how we handle your personal information.</p>
+      <p>We're looking forward to helping you achieve your goals with our service. Thank you for choosing us!</p>
+      <p>Best regards,<br>[Dabhi Vijay]</p>
+    `,
   };
 
   try {

@@ -23,6 +23,7 @@ import ShowCertificate from "./component/user/ShowCertificate";
 import Testuser from "./component/Common/Testuser";
 import Admincontactusreport from "./component/Admin/Admincontactusreport";
 import EvetnReport from "./component/Common/EvetnReport";
+import PrivacyPolicy from "./component/Common/PrivacyPolicy ";
 function App() {
   return (
     <>
@@ -41,7 +42,11 @@ function App() {
           <Route exact path="Postcertificates" element={<Postcertificates />} />
           <Route exact path="StudentReport" element={<StudentReport />} />
           <Route exact path="Eventreport" element={<EvetnReport />} />
-          <Route exact path="AdminContactusreport" element={<Admincontactusreport />} />
+          <Route
+            exact
+            path="AdminContactusreport"
+            element={<Admincontactusreport />}
+          />
           <Route exact path="*" element={<Errorpage />} />
         </Route>
         // Clubadmin Routes
@@ -51,7 +56,7 @@ function App() {
           <Route exact path="Addevent" element={<Addevent />} />
           <Route exact path="Postcertificates" element={<Postcertificates />} />
           <Route exact path="StudentReport" element={<StudentReport />} />
-          
+
           <Route exact path="*" element={<Errorpage />} />
         </Route>
         // User Routes
@@ -60,12 +65,14 @@ function App() {
           <Route exact path="Certificate" element={<ShowCertificate />} />
 
           <Route exact path="Contactus" element={<Contactus />} />
+          <Route exact path="PrivacyPolicy" element={<PrivacyPolicy />} />
         </Route>
         //Errorpage Route
         <Route path="*" element={<Errorpage />} />
         //test
         <Route path="/pdf" element={<PdfViewer />} />
         <Route path="/mail" element={<Testuser />} />
+        <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
       </Routes>
     </>
   );

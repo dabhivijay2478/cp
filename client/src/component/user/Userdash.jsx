@@ -96,6 +96,16 @@ export default function Userdash() {
       <div className="px-5 py-4  ">
         <Outlet />
       </div>
+      <footer>
+        <div className="relative bottom-0 left-0 w-full px-2 py-2  flex justify-center">
+          <h1 className="text-center underline text-blue-500">
+            {" "}
+            <NavLink to="/User/PrivacyPolicy" className="px-2 py-3">
+              Privacy Policy
+            </NavLink>
+          </h1>
+        </div>
+      </footer>
     </>
   );
 }
