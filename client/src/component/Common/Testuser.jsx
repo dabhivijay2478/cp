@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import "./loader.css";
 export default function Testuser() {
   const [enrollmentNo, setEnrollmentNo] = useState("");
   const [toEmail, setToEmail] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const sendEmail = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     const response = await fetch("/sendemail", {
       method: "POST",
       changeOrigin: true,
@@ -28,6 +28,7 @@ export default function Testuser() {
       window.alert("Bad");
     } else {
       window.alert("Send Email");
+      setIsLoading(false);
     }
   };
 
@@ -79,7 +80,7 @@ export default function Testuser() {
                     onClick={sendEmail}
                     className="inline-block w-full rounded-lg dark:hover:bg-green-400 border-solid border border-blue-400 bg-blue-400 px-5 py-3 font-medium text-white sm:w-auto"
                   >
-                    Add User
+                    Send Mail
                   </button>
                 </div>
               </form>
@@ -87,6 +88,11 @@ export default function Testuser() {
           </div>
         </div>
       </section>
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-screen h-screen bg-opacity-50 bg-gray-900 flex justify-center items-center z-50">
+          <div className="loader w-10 h-5 flex justify-center"></div>
+        </div>
+      )}
     </>
   );
 }

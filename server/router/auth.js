@@ -1,3 +1,5 @@
+// Required libraries and modules
+
 const bycrypt = require("bcrypt");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -15,9 +17,14 @@ const User = require("../models/useschema");
 const data = require("../models/adduserchema");
 const Contact = require("../models/contactusschema");
 
+// Router for base path
+
 router.get("/", (req, res) => {
   res.send("vijay router");
 });
+
+// Router for signup server
+
 router.post("/signupserver", async (req, res) => {
   const {
     Name,
@@ -34,8 +41,8 @@ router.post("/signupserver", async (req, res) => {
   if (!Email || !Password) {
     return res.status(422).json({ error: "Something Error" });
   }
-
   try {
+    // Check if user with given enrollment number already exists
     const userexits = await User.findOne({ EnrollmentNo: EnrollmentNo }).then(
       async (userexits) => {
         if (userexits) {
@@ -56,13 +63,8 @@ router.post("/signupserver", async (req, res) => {
         });
         await user.save();
 
-        // if (userRegister) {
+        // Return success response
         res.status(201).json({ message: "Sucess" });
-        // }
-        // else
-        // {
-        // res.status(201).json({message:"failed"})
-        // }
       }
     );
   } catch (error) {
@@ -70,6 +72,8 @@ router.post("/signupserver", async (req, res) => {
   }
 });
 
+
+// Router for login server
 router.post("/loginserver", async (req, res) => {
   try {
     const { Password, Email } = req.body;
@@ -358,11 +362,11 @@ router.get("/Eventreport", async (req, res) => {
 
 router.put("/changepassword", async (req, res) => {
   try {
-    const { Password, Email, newPassword } = req.body;
-    if (!Email || !Password || !newPassword) {
+    const { Password, EnrollmentNo, newPassword } = req.body;
+    if (!EnrollmentNo || !Password || !newPassword) {
       return res.status(400).json({ error: "filled the data" });
     }
-    const userlogin = await User.findOne({ Email: Email });
+    const userlogin = await User.findOne({ EnrollmentNo: EnrollmentNo });
 
     if (userlogin) {
       const isMatch = await bycrypt.compare(Password, userlogin.Password);
@@ -378,6 +382,13 @@ router.put("/changepassword", async (req, res) => {
     console.log(error);
     res.status(500).json({ message: "Internal server error" });
   }
+});
+
+router.get("/users/:email", async (req, res) => {
+  const email = req.params.email;
+  const user = await User.findOne({ Email: email });
+  if (!user) return res.status(404).send("User not found.");
+  res.send(user);
 });
 
 module.exports = router;

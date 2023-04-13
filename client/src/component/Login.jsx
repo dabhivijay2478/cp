@@ -34,11 +34,13 @@ export default function Login() {
       window.alert("Sucess");
       if (role == "Admin") {
         history("/Admindash");
+        Cookies.set("Adminemail", email);
       } else if (role == "ClubAdmin") {
         history("/ClubAdmin");
+        Cookies.set("ClubAdminemail", email);
       } else if (role == "Student") {
         history(`/user`);
-        Cookies.set(email, true, { expires: 1 });
+        Cookies.set("Studentemail", email);
       } else {
         history("*");
       }

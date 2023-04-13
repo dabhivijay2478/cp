@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 export default function Postcertificates() {
+  const history = useNavigate();
+
   const [Certificate, setCertificate] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([]);
   const handlerest = () => {
@@ -24,6 +26,7 @@ export default function Postcertificates() {
       .then((response) => {
         console.log(response.data);
         window.alert(response.data);
+        history("/Admindash");
       })
       .catch((error) => {
         console.log(error);
@@ -34,15 +37,6 @@ export default function Postcertificates() {
     <>
       <div className="flex justify-center container">
         <div className="card w-full  bg-white border-double  container  shadow-lg ">
-          <div className="flex px-2 py-3 justify-center">
-            <input
-              type="text"
-              value={Certificate}
-              onChange={(e) => setCertificate(e.target.value)}
-              placeholder="Enter Certificate Info"
-              className="input input-bordered  input-accent w-full max-w-xs mt-2 px-3 py-2 bg-white text-gray-900"
-            />
-          </div>
           <div className="flex px-2 py-2 bg-white text-gray-900 justify-center">
             <input
               type="file"

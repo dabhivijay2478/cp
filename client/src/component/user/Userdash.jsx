@@ -11,11 +11,12 @@ export default function Userdash() {
       return nav("/");
     }
 
-    const useremail = Cookies.get("email");
+    const useremail = Cookies.get("Studentemail");
     console.log(useremail);
   }, []);
   const handleLogout = async () => {
     Cookies.remove("Student");
+    nav("/");
     window.alert("Log Out");
   };
   return (
@@ -48,6 +49,7 @@ export default function Userdash() {
                   Home
                 </NavLink>
               </li>
+
               <li>
                 <NavLink to="/User/Certificate" className="px-2 py-3">
                   Certificate's
@@ -57,6 +59,12 @@ export default function Userdash() {
               <li>
                 <NavLink to="/User/Contactus" className="px-2 py-3">
                   Contact Us
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink to="/User/Userprofile" className="px-2 py-3">
+                  Profile
                 </NavLink>
               </li>
             </ul>
@@ -92,7 +100,11 @@ export default function Userdash() {
             </li>
           </ul>
         </div>
+
         <div className="navbar-end">
+          <span class="animate-pulse inline-block px-3 text-blue-100 rounded-lg">
+            You loged using , {Cookies.get("Studentemail")}
+          </span>
           <button
             className="btn dark:hover:text-red-500"
             onClick={handleLogout}

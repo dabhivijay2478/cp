@@ -104,6 +104,12 @@ export default function Clubadmin() {
                 <span className="flex-1 ml-3 ">Sign Up</span>
               </NavLink>
             </li>
+            <li className="mt-5">
+              {" "}
+              <span class="animate-pulse inline-block px-3 text-blue-100 rounded-lg">
+                You loged using , {Cookies.get("ClubAdminemail")}
+              </span>
+            </li>
           </ul>
         </div>
       </aside>

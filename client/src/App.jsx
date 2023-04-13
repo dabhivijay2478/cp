@@ -25,6 +25,7 @@ import Admincontactusreport from "./component/Admin/Admincontactusreport";
 import EvetnReport from "./component/Common/EvetnReport";
 import PrivacyPolicy from "./component/Common/PrivacyPolicy ";
 import Userprofile from "./component/user/Userprofile";
+import Clubadminhome from "./component/Clubadmin/Clubadminhome";
 function App() {
   return (
     <>
@@ -52,7 +53,7 @@ function App() {
         </Route>
         // Clubadmin Routes
         <Route exact path="/Clubadmin" element={<Clubadmin />}>
-          <Route exact path="" element={<Adminhome />} />
+          <Route exact path="" element={<Clubadminhome />} />
           <Route exact path="Adduser" element={<Adduser />} />
           <Route exact path="Addevent" element={<Addevent />} />
           <Route exact path="Postcertificates" element={<Postcertificates />} />

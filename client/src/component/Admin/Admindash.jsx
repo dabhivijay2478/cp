@@ -131,6 +131,12 @@ export default function Admindash() {
                 <span className="flex-1 ml-3 ">Sign Up</span>
               </NavLink>
             </li>
+            <li className="mt-5">
+              {" "}
+              <span class="animate-pulse inline-block px-3 text-blue-100 rounded-lg">
+                You loged using , {Cookies.get("Adminemail")}
+              </span>
+            </li>
           </ul>
         </div>
       </aside>

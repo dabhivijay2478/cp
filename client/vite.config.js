@@ -62,6 +62,14 @@ export default defineConfig({
         target: "http://localhost:5000",
         changeOrigin: true,
       },
+      "/users": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
+      "/changepassword": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
     },
   },
 });
