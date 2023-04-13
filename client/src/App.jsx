@@ -24,6 +24,7 @@ import Testuser from "./component/Common/Testuser";
 import Admincontactusreport from "./component/Admin/Admincontactusreport";
 import EvetnReport from "./component/Common/EvetnReport";
 import PrivacyPolicy from "./component/Common/PrivacyPolicy ";
+import Userprofile from "./component/user/Userprofile";
 function App() {
   return (
     <>
@@ -63,7 +64,7 @@ function App() {
         <Route exact path="/User" element={<Userdash />}>
           <Route exact path="" element={<UserHome />} />
           <Route exact path="Certificate" element={<ShowCertificate />} />
-
+          <Route exact path="Userprofile" element={<Userprofile />} />
           <Route exact path="Contactus" element={<Contactus />} />
           <Route exact path="PrivacyPolicy" element={<PrivacyPolicy />} />
         </Route>

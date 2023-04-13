@@ -3,6 +3,7 @@ import Loginimg from "../assets/login.png";
 
 import { NavLink, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import Userprofile from "./user/Userprofile";
 export default function Login() {
   const history = useNavigate();
   const [email, setEmail] = useState("");
@@ -36,7 +37,8 @@ export default function Login() {
       } else if (role == "ClubAdmin") {
         history("/ClubAdmin");
       } else if (role == "Student") {
-        history("/user");
+        history(`/user`);
+        Cookies.set(email, true, { expires: 1 });
       } else {
         history("*");
       }

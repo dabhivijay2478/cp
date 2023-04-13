@@ -5,11 +5,12 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./email.env" });
+dotenv.config({ path: "./config.env" });
 const router = express.Router();
 require("../db/connect");
 const multer = require("multer");
 const { GridFsStorage } = require("multer-gridfs-storage");
-
+const { check, validationResult } = require("express-validator");
 const User = require("../models/useschema");
 const data = require("../models/adduserchema");
 const Contact = require("../models/contactusschema");
@@ -84,7 +85,7 @@ router.post("/loginserver", async (req, res) => {
         expires: new Date(Date.now() + 25892000000),
         httpOnly: true,
       });
-      console.log(token);
+      // console.log(token);
       if (!iMatch) {
         res.status(400).json({ error: "user error" });
       } else {
@@ -353,6 +354,30 @@ router.get("/Eventreport", async (req, res) => {
   const result = await Addeventschema.find({});
 
   res.send(result);
+});
+
+router.put("/changepassword", async (req, res) => {
+  try {
+    const { Password, Email, newPassword } = req.body;
+    if (!Email || !Password || !newPassword) {
+      return res.status(400).json({ error: "filled the data" });
+    }
+    const userlogin = await User.findOne({ Email: Email });
+
+    if (userlogin) {
+      const isMatch = await bycrypt.compare(Password, userlogin.Password);
+      if (!isMatch) {
+        return res.status(400).json({ message: "Invalid credentials" });
+      } else {
+        userlogin.Password = newPassword;
+        await userlogin.save();
+        res.status(200).json({ message: "Password changed successfully" });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 module.exports = router;

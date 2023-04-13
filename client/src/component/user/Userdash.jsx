@@ -10,6 +10,9 @@ export default function Userdash() {
     if (!isLoggedIn) {
       return nav("/");
     }
+
+    const useremail = Cookies.get("email");
+    console.log(useremail);
   }, []);
   const handleLogout = async () => {
     Cookies.remove("Student");
@@ -79,6 +82,12 @@ export default function Userdash() {
             <li>
               <NavLink to="/User/Contactus" className="px-2 py-3">
                 Contact Us
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/User/Userprofile" className="px-2 py-3">
+                Profile
               </NavLink>
             </li>
           </ul>
