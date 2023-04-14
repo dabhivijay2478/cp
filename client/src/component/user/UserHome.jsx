@@ -41,7 +41,7 @@ export default function UserHome() {
             </span>
           </p>
           <div className="card-actions justify-end">
-            <label htmlFor="my-modal-5" className="btn btn-primary">
+            <label htmlFor="registermodal" className="btn btn-primary">
               Register
             </label>
           </div>

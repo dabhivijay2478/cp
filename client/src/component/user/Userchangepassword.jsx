@@ -39,15 +39,15 @@ export default function UserChangepassword(props) {
     <>
       <div>
         <div>
-          {/* The button to open modal */}
+   
 
-          <input type="checkbox" id="my-modal" className="modal-toggle" />
-          <label htmlFor="my-modal" className="modal cursor-pointer">
+          <input type="checkbox" id="changepassword" className="modal-toggle" />
+          <label htmlFor="changepassword" className="modal cursor-pointer">
             <div className="modal-box">
               <h3 className="font-bold text-lg">
                 Change Password{" "}
                 <label
-                  htmlFor="my-modal"
+                  htmlFor="changepassword"
                   className="btn btn-sm btn-circle absolute right-2 top-2"
                 >
                   ✕
@@ -78,7 +78,7 @@ export default function UserChangepassword(props) {
               </p>
               <div className="modal-action">
                 <label
-                  htmlFor="my-modal"
+                  htmlFor="changepassword"
                   onClick={Changepassword}
                   className="btn btn-outline btn-accent"
                 >

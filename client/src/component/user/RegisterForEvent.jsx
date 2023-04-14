@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
+import "./changepasswordloader.css";
 export default function RegisterForEvent(props) {
   const history = useNavigate();
 
   const { eventName } = props;
   const { ClubNameprops } = props;
+  const [isLoading, setIsLoading] = useState(false);
 
   const [userData, setUserData] = useState({});
+
+  const Name = userData.Name;
+  const EnrollmentNo = userData.EnrollmentNo;
+  const [PhoneNO, setPhoneNO] = useState("");
+  const [Class, setClass] = useState("");
+  const [Batch, setBatch] = useState("");
+  const [ClubName, setClubName] = useState("");
+  const [FavTech, setFavTech] = useState("");
   const email = Cookies.get("Studentemail");
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -26,23 +38,12 @@ export default function RegisterForEvent(props) {
     }
   }, [email]);
 
-  const Name = userData.Name;
-  const EnrollmentNo = userData.EnrollmentNo;
-  const [PhoneNO, setPhoneNO] = useState("");
-  const [Class, setClass] = useState("");
-  const [Batch, setBatch] = useState("");
-  const [ClubName, setClubName] = useState("");
-  const [FavTech, setFavTech] = useState("");
   const registeruser = async (e) => {
     e.preventDefault();
-    // setIsLoading(true);
-    const registerres = await fetch("/registerstudentevent", {
-      method: "POST",
-      changeOrigin: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    setIsLoading(true);
+
+    try {
+      const registerresponse = await axios.post("/registerstudentevent", {
         EventName: eventName,
         Name,
         EnrollmentNo,
@@ -52,34 +53,39 @@ export default function RegisterForEvent(props) {
         Batch,
         ClubName,
         FavTech,
-      }),
-    });
+      });
 
-    const registerresponse = await registerres.json();
-
-    if (registeruser.status === 400 || !registerresponse) {
-      window.alert("Invaild");
-    } else if (registeruser.status === 422 || !registerresponse) {
-      window.alert("Vaildtion Error");
-    } else {
-      window.alert(`SucessFully You Register This Evetn ${eventName}`);
-      // setIsLoading(false);
-
-      history("/User");
+      if (registerresponse.status === 400) {
+        window.alert("Error occurred while registering");
+      } else {
+        window.alert(`Successfully registered for event ${eventName}`);
+        setIsLoading(false);
+        history("/User");
+      }
+    } catch (error) {
+      if (error.response.status === 400) {
+        window.alert("Server not found");
+      } else if (error.response.status === 422) {
+        window.alert("Validation error");
+      } else {
+        window.alert("Unknown error occurred while registering");
+      }
     }
   };
 
   return (
     <>
-      <input type="checkbox" id="my-modal-5" className="modal-toggle " />
-      <label htmlFor="my-modal-5" className="modal cursor-pointer">
+      <input type="checkbox" id="registermodal" className="modal-toggle " />
+      <label htmlFor="registermodal" className="modal cursor-">
         <div className="modal-box w-11/12 max-w-5xl">
-          <label
-            htmlFor="my-modal-5"
-            className="btn btn-sm btn-circle absolute right-2 top-2 "
-          >
-            ✕
-          </label>
+          <h3 className="font-bold text-lg">
+            <label
+              htmlFor="registermodal"
+              className="btn btn-sm btn-circle absolute right-2 top-2"
+            >
+              ✕
+            </label>
+          </h3>
           <h3 className="font-bold text-lg text-teal-500">
             Register For This Event : {eventName}
           </h3>
@@ -201,15 +207,20 @@ export default function RegisterForEvent(props) {
           </div>
           <div className="modal-action">
             <label
-              htmlFor="my-modal-5"
+              htmlFor="registermodal"
               onClick={registeruser}
-              className="btn btn-success dark:hover:bg-cyan-500"
+              className="btn btn-outline btn-accent"
             >
               Register For Event
             </label>
           </div>
         </div>
       </label>
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-screen h-screen bg-opacity-50 bg-gray-900 flex justify-center items-center z-50">
+          <div class="passloader"></div>
+        </div>
+      )}
     </>
   );
 }

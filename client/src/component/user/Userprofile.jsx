@@ -153,13 +153,13 @@ export default function UserProfile() {
 
             <div className="px-3 py-2">
               <label
-                htmlFor="my-modal"
+                htmlFor="changepassword"
                 className="btn btn-outline btn-success items-center px-3 py-2 mt-1 flex justify-center "
               >
                 Change Password
               </label>
               <label
-                htmlFor="my-modal-1"
+                htmlFor="updateprofile"
                 className="btn btn-outline  btn-info items-center px-3 py-2 mt-3 flex justify-center "
               >
                 Change Profile

@@ -2,14 +2,14 @@ import React from "react";
 
 export default function UpdateProfile(props) {
   const { Enrollment } = props;
-  const {Email} =props
+  const { Email } = props;
   return (
     <>
-      <input type="checkbox" id="my-modal-1" className="modal-toggle " />
-      <label htmlFor="my-modal-1" className="modal cursor-">
+      <input type="checkbox" id="updateprofile" className="modal-toggle " />
+      <label htmlFor="updateprofile" className="modal cursor-">
         <div className="modal-box w-11/12 max-w-5xl">
           <label
-            htmlFor="my-modal-1"
+            htmlFor="updateprofile"
             className="btn btn-sm btn-circle absolute right-2 top-2 "
           >
             ✕
@@ -21,7 +21,7 @@ export default function UpdateProfile(props) {
 
           <div className="modal-action">
             <label
-              htmlFor="my-modal-1"
+              htmlFor="updateprofile"
               className="btn btn-success dark:hover:bg-cyan-500"
             >
               Update Profile
