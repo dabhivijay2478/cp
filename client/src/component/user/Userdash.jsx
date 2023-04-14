@@ -67,6 +67,11 @@ export default function Userdash() {
                   Profile
                 </NavLink>
               </li>
+              <li>
+                <span class="animate-pulse inline-block px-3 text-blue-100 rounded-lg sm:hidden lg:hidden md:block">
+                  You logged in using, {Cookies.get("Studentemail")}
+                </span>
+              </li>
             </ul>
           </div>
           <NavLink to="" className=" normal-case text-xl">
@@ -101,9 +106,10 @@ export default function Userdash() {
           </ul>
         </div>
         <div className="navbar-end">
-          <span class="animate-pulse inline-block px-3 text-blue-100 rounded-lg">
-            You loged using , {Cookies.get("Studentemail")}
+          <span class="animate-pulse inline-block px-3 text-blue-100 rounded-lg hidden md:block">
+            You logged in using, {Cookies.get("Studentemail")}
           </span>
+
           <button
             className="btn dark:hover:text-red-500"
             onClick={handleLogout}
@@ -116,7 +122,7 @@ export default function Userdash() {
       <div className="px-5 py-4  ">
         <Outlet />
       </div>
-      <footer>
+      <footer className="footer footer-center p-4  mb-0 bottom-0 text-base-content">
         <div className="relative bottom-0 left-0 w-full px-2 py-2  flex justify-center">
           <h1 className="text-center underline text-blue-500">
             {" "}

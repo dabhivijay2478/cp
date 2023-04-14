@@ -1,10 +1,8 @@
 import React from "react";
-import Cookies from "js-cookie";
-import { useEffect, useState, useRef } from "react";
-
+import { useEffect, useState } from "react";
+import RegisterForEvent from "./RegisterForEvent";
 export default function UserHome() {
   const [lastevent, setlastevent] = useState({});
-
   useEffect(() => {
     async function fetchData() {
       const response = await fetch("/lastevent");
@@ -27,7 +25,9 @@ export default function UserHome() {
             <span className="text-teal-500">{lastevent.ClubName}</span>
             <br />
             Descrption :{" "}
-            <span className="text-teal-500 overflow-hidden">{lastevent.Descrption}</span>
+            <span className="text-teal-500 overflow-hidden">
+              {lastevent.Descrption}
+            </span>
             <br />
             HandlerName :{" "}
             <span className="text-teal-500">{lastevent.HandlerName}</span>
@@ -41,32 +41,17 @@ export default function UserHome() {
             </span>
           </p>
           <div className="card-actions justify-end">
-            <button className="btn btn-primary">Register</button>
-          </div>
-        </div>
-      </div>
-      <div className="card w-full bg-base-100 shadow-xl">
-        <div className="card-body">
-          <h2 className="card-title">Card title 2</h2>
-          <p>
-            If two witches would watch two watches, which witch would watch
-            which watch?
-          </p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
-          </div>
-        </div>
-      </div>
-      <div className="card w-full bg-base-100 shadow-xl">
-        <div className="card-body">
-          <h2 className="card-title">Card title 3</h2>
-          <p>How can a clam cram in a clean cream can?</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
+            <label htmlFor="my-modal-5" className="btn btn-primary">
+              Register
+            </label>
           </div>
         </div>
       </div>
       {/* Add more cards here */}{" "}
+      <RegisterForEvent
+        eventName={lastevent.EventName}
+        ClubNameprops={lastevent.ClubName}
+      />
     </div>
   );
 }

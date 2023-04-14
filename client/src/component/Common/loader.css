@@ -1,4 +1,4 @@
-.loader {
+.mailloader {
     position: relative;
     border-style: solid;
     box-sizing: border-box;
@@ -7,7 +7,7 @@
     animation: envFloating 1s ease-in infinite alternate;
   }
   
-  .loader:after {
+  .mailloader:after {
     content: "";
     position: absolute;
     right: 62px;

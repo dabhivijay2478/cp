@@ -74,6 +74,10 @@ export default defineConfig({
         target: "http://localhost:5000",
         changeOrigin: true,
       },
+      "/registerstudentevent": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
     },
   },
 });

@@ -90,7 +90,7 @@ export default function Testuser() {
       </section>
       {isLoading && (
         <div className="fixed top-0 left-0 w-screen h-screen bg-opacity-50 bg-gray-900 flex justify-center items-center z-50">
-          <div className="loader w-10 h-5 flex justify-center"></div>
+          <div className="mailloader w-10 h-5 flex justify-center"></div>
         </div>
       )}
     </>
