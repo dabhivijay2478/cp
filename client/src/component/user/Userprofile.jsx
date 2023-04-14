@@ -3,15 +3,17 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./loader.css";
 export default function UserProfile() {
   const nav = useNavigate();
 
   const [EnrollmentNo, setEnrollmentNo] = useState("");
   const [Currentpassword, setCurrentpassword] = useState("");
   const [newpassword, setnewpassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [userData, setUserData] = useState({});
-  const email = Cookies.get("email");
+  const email = Cookies.get("Studentemail");
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -30,11 +32,12 @@ export default function UserProfile() {
   }, [email]);
 
   const Changepassword = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.put(
         `/changepassword`,
         {
-          EnrollmentNo: EnrollmentNo,
+          EnrollmentNo: userData.EnrollmentNo,
           Password: Currentpassword,
           newPassword: newpassword,
         },
@@ -45,9 +48,12 @@ export default function UserProfile() {
         }
       );
       window.alert("Password changed successfully");
-      nav("/User")
+      setIsLoading(false);
+
+      nav("/User");
     } catch (error) {
       console.log(error);
+      
     }
   };
 
@@ -177,8 +183,9 @@ export default function UserProfile() {
                 type="text"
                 placeholder="Enter The Enrollment No"
                 className="input input-bordered input-accent w-full max-w-xs px-2 py-1 mt-1 mb-1"
-                value={EnrollmentNo}
+                value={userData.EnrollmentNo}
                 onChange={(e) => setEnrollmentNo(e.target.value)}
+                readOnly
               />{" "}
               <input
                 type="text"
@@ -207,6 +214,17 @@ export default function UserProfile() {
           </div>
         </div>
       </div>
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-screen h-screen bg-opacity-50 bg-gray-900 flex justify-center items-center z-50">
+          <div class="spinner">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

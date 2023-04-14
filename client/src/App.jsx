@@ -11,13 +11,11 @@ import Addevent from "./component/Common/Addevent";
 import Postcertificates from "./component/Common/Postcertificates";
 import Adminhome from "./component/Admin/Adminhome";
 import StudentReport from "./component/Common/StudentReport";
-import Showcertificate from "./component/user/ShowCertificate";
 
 import Userdash from "./component/user/Userdash";
 import UserHome from "./component/user/UserHome";
 import Clubadmin from "./component/Clubadmin/Clubadmin";
 import Contactus from "./component/user/Contactus";
-import PDFList from "./component/user/PdfViewer";
 import PdfViewer from "./component/user/PdfViewer";
 import ShowCertificate from "./component/user/ShowCertificate";
 import Testuser from "./component/Common/Testuser";

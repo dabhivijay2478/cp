@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./user.css";
 import { Viewer } from "@react-pdf-viewer/core";
 
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";

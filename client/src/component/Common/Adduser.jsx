@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import csvtojson from "csvtojson";
-import axios from "axios";
-export default function Testuser() {
+import "./adduser.css"
+export default function Adduser() {
   const history = useNavigate();
 
   const [Name, setName] = useState("");
@@ -16,6 +16,7 @@ export default function Testuser() {
   const [Role, setRole] = useState("");
   const [Password, setPassword] = useState("");
   const [file, setFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFileInputChange = (event) => {
     setFile(event.target.files[0]);
@@ -40,6 +41,8 @@ export default function Testuser() {
 
   const adduser = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+
     const res = await fetch("/signupserver", {
       method: "POST",
       changeOrigin: true,
@@ -67,6 +70,7 @@ export default function Testuser() {
       window.alert("Bad");
     } else {
       window.alert("SucessFully Add");
+      setIsLoading(false);
 
       history("/Admindash");
     }
@@ -104,16 +108,19 @@ export default function Testuser() {
           <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
             <div class="lg:col-span-2 lg:py-12">
               <p class="max-w-xl text-lg">
-              Ganpat University - U. V. Patel College of Engineering is an Institute situated inside Ganpat University campus at Ganpat Vidyanagar, Kherva, Mehsana in the state of Gujarat, India.
+                Ganpat University - U. V. Patel College of Engineering is an
+                Institute situated inside Ganpat University campus at Ganpat
+                Vidyanagar, Kherva, Mehsana in the state of Gujarat, India.
               </p>
 
               <div class="mt-8">
                 <a href="" class="text-2xl font-bold text-pink-600">
-                 CMS
+                  CMS
                 </a>
 
                 <address class="mt-2 not-italic">
-                U. V. Patel College of Engineering, Ganpat Vidyanagar Mehsana-Gozaria, Highway, Kherva, Gujarat 384012
+                  U. V. Patel College of Engineering, Ganpat Vidyanagar
+                  Mehsana-Gozaria, Highway, Kherva, Gujarat 384012
                 </address>
 
                 <div class="mt-4">
@@ -317,6 +324,17 @@ export default function Testuser() {
           </div>
         </div>
       </section>
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-screen h-screen bg-opacity-50 bg-gray-900 flex justify-center items-center z-50">
+          <div class="adduserloader">
+            <div class="dot dot-1"></div>
+            <div class="dot dot-2"></div>
+            <div class="dot dot-3"></div>
+            <div class="dot dot-4"></div>
+            <div class="dot dot-5"></div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

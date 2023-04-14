@@ -21,7 +21,7 @@ export default function Userdash() {
   };
   return (
     <>
-      <div className="navbar bg-base-100 fixed">
+      <div className="navbar bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -100,7 +100,6 @@ export default function Userdash() {
             </li>
           </ul>
         </div>
-
         <div className="navbar-end">
           <span class="animate-pulse inline-block px-3 text-blue-100 rounded-lg">
             You loged using , {Cookies.get("Studentemail")}
