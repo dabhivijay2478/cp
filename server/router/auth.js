@@ -16,7 +16,9 @@ const { check, validationResult } = require("express-validator");
 const User = require("../models/useschema");
 const data = require("../models/adduserchema");
 const Contact = require("../models/contactusschema");
+const Addeventschema = require("../models/addeventschema");
 
+const registerevent = require("../models/registerevent");
 // Router for base path
 
 router.get("/", (req, res) => {
@@ -72,7 +74,6 @@ router.post("/signupserver", async (req, res) => {
   }
 });
 
-
 // Router for login server
 router.post("/loginserver", async (req, res) => {
   try {
@@ -107,13 +108,25 @@ router.post("/loginserver", async (req, res) => {
   }
 });
 
-const Addeventschema = require("../models/addeventschema");
-
 router.post("/addnewevent", async (req, res) => {
-  const { ClubName, EventName, HandlerName, Descrption, Venue, Certifiacate } =
-    req.body;
+  const {
+    ClubName,
+    EventName,
+    HandlerName,
+    Descrption,
+    Venue,
+    Certifiacate,
+    Dates,
+  } = req.body;
 
-  if (!EventName || !HandlerName || !Descrption || !Venue || !Certifiacate) {
+  if (
+    !EventName ||
+    !HandlerName ||
+    !Descrption ||
+    !Venue ||
+    !Certifiacate ||
+    !Dates
+  ) {
     return res.status(422).json({ error: "Something Error" });
   }
 
@@ -132,6 +145,7 @@ router.post("/addnewevent", async (req, res) => {
         Descrption,
         Venue,
         Certifiacate,
+        Dates,
       });
       await Event.save();
 
@@ -389,6 +403,78 @@ router.get("/users/:email", async (req, res) => {
   const user = await User.findOne({ Email: email });
   if (!user) return res.status(404).send("User not found.");
   res.send(user);
+});
+
+router.get("/lastevent", async (req, res) => {
+  try {
+    const lastEvent = await Addeventschema.findOne().sort({ _id: -1 });
+    res.json(lastEvent);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+router.post("/registerstudentevent", async (req, res) => {
+  const {
+    EventName,
+    Name,
+    EnrollmentNo,
+    Email,
+    PhoneNO,
+    Class,
+    Batch,
+    ClubName,
+    FavTech,
+  } = req.body;
+
+  if (
+    !EventName ||
+    !Name ||
+    !EnrollmentNo ||
+    !Email ||
+    !PhoneNO ||
+    !Class ||
+    !Batch ||
+    !ClubName ||
+    !FavTech
+  ) {
+    return res.status(422).json({ error: "Something Error" });
+  }
+
+  try {
+    const eventExistsstudent = await registerevent
+      .findOne({
+        EnrollmentNo: EnrollmentNo,
+        EventName: EventName,
+      })
+      .then(async (eventExistsstudent) => {
+        if (eventExistsstudent) {
+          return res
+            .status(422)
+            .json({ error: "Student already registered for this event" });
+        }
+
+        const registereventstudent = new registerevent({
+          EventName,
+          Name,
+          EnrollmentNo,
+          Email,
+          PhoneNO,
+          Class,
+          Batch,
+          ClubName,
+          FavTech,
+        });
+        await registereventstudent.save();
+
+        res
+          .status(201)
+          .json({ message: "Register Student SucessFully Added!" });
+      });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = router;

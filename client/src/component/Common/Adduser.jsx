@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import csvtojson from "csvtojson";
-import "./adduser.css"
+import "./adduser.css";
 export default function Adduser() {
   const history = useNavigate();
 
@@ -42,7 +42,6 @@ export default function Adduser() {
   const adduser = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
     const res = await fetch("/signupserver", {
       method: "POST",
       changeOrigin: true,
@@ -62,22 +61,6 @@ export default function Adduser() {
         Password: EnrollmentNo,
       }),
     });
-    const data = res.json();
-
-    if (res.status === 400 || !data) {
-      window.alert("Invaild");
-    } else if (res.status === 422 || !data) {
-      window.alert("Bad");
-    } else {
-      window.alert("SucessFully Add");
-      setIsLoading(false);
-
-      history("/Admindash");
-    }
-  };
-
-  const sendEmail = async (e) => {
-    e.preventDefault();
     const response = await fetch("/sendemail", {
       method: "POST",
       changeOrigin: true,
@@ -90,14 +73,18 @@ export default function Adduser() {
       }),
     });
 
-    const Maildata = response.json();
+    const data = await res.json();
 
-    if (sendEmail.status === 400 || !Maildata) {
+    const Maildata = await response.json();
+    if (res.status === 400 || !data || !Maildata) {
       window.alert("Invaild");
-    } else if (sendEmail.status === 422 || !Maildata) {
+    } else if (res.status === 422 || !data || !Maildata) {
       window.alert("Bad");
     } else {
-      window.alert("Send Email");
+      window.alert("SucessFully Add and Send Email");
+      setIsLoading(false);
+
+      history("/Admindash");
     }
   };
 

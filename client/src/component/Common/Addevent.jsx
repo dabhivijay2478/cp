@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Datepicker from "react-tailwindcss-datepicker";
 
 export default function Addevent() {
   const history = useNavigate();
@@ -12,6 +13,15 @@ export default function Addevent() {
   const Certifiacatechange = (e) => {
     setCertifiacate(e.target.value);
   };
+
+  const [Dates, setDates] = useState({
+    startDate: null,
+  });
+  const handleDatesChange = (newDates) => {
+    console.log("newDates:", newDates);
+    setDates(newDates);
+  };
+
   const handlerest = () => {
     setClubname("");
     setEventName("");
@@ -35,6 +45,7 @@ export default function Addevent() {
         Descrption,
         Venue,
         Certifiacate,
+        Dates,
       }),
     });
     const data = res.json();
@@ -81,12 +92,13 @@ export default function Addevent() {
             />
           </div>
           <div className="flex px-2 py-2 bg-white text-gray-900 justify-center">
-            <input
+            <textarea
               type="text"
               value={Descrption}
+              rows={3}
               onChange={(e) => setDescrption(e.target.value)}
               placeholder="Enter The Descrption"
-              className="input input-bordered  input-accent w-full max-w-xs mt-2 px-3 py-2 bg-white text-gray-900"
+              className="textarea textarea-accent  input-accent w-full max-w-xs  mt-2 px-3 py-2 bg-white text-gray-900"
             />
           </div>
           <div className="flex px-2 py-2 bg-white text-gray-900 justify-center">
@@ -128,6 +140,20 @@ export default function Addevent() {
                 No
               </label>
             </h3>
+          </div>
+          <div className="flex px-2 py-3  justify-center  ">
+            <div className=" w-full bg-white max-w-xs text-black border rounded-lg border-purple-500">
+              <Datepicker
+                useRange={false}
+                asSingle={true}
+                inputClassName="font-normal  dark:bg-white  datepickertext dark:placeholder:input-primary dark:placeholder:text-gray-700"
+                displayFormat={"DD-MM-YYYY"}
+                primaryColor={"teal"}
+                value={Dates}
+                onChange={handleDatesChange}
+                // showShortcuts={true}
+              />
+            </div>
           </div>
           <div className="px-2 py-2">
             <button

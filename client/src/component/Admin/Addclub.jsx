@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useNavigate } from "react-router-dom";
-
+import "./addclub.css";
 export default function Addclub() {
-  const history = useNavigate();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [Dates, setDates] = useState({
     startDate: null,
@@ -19,6 +20,8 @@ export default function Addclub() {
 
   const addclub = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+
     const res = await fetch("/addnewclub", {
       method: "POST",
       changeOrigin: true,
@@ -32,7 +35,7 @@ export default function Addclub() {
         Dates,
       }),
     });
-    const data = res.json();
+    const data = await res.json();
 
     if (res.status === 400 || !data) {
       window.alert("Invaild");
@@ -40,7 +43,9 @@ export default function Addclub() {
       window.alert("Bad");
     } else {
       window.alert("SucessFully Add Club");
-      history("/Admindash");
+      setIsLoading(false);
+
+      navigate("/Admindash");
     }
   };
   const handlerest = () => {
@@ -118,6 +123,15 @@ export default function Addclub() {
           </div>
         </div>
       </div>
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-screen h-screen bg-opacity-50 bg-gray-900 flex justify-center items-center z-50">
+          <div class="three-body">
+            <div class="three-body__dot"></div>
+            <div class="three-body__dot"></div>
+            <div class="three-body__dot"></div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

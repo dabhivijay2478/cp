@@ -25,6 +25,10 @@ const addeventschema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  Dates: {
+    type: Object,
+    required: true,
+  },
 });
 const addevent = mongoose.model("addevent", addeventschema);
 module.exports = addevent;
