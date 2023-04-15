@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Viewer } from "@react-pdf-viewer/core";
+import Cookies from "js-cookie";
 
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 
@@ -10,18 +11,46 @@ import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { Worker } from "@react-pdf-viewer/core";
 export default function ShowCertificate() {
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
+  const [pdfs, setPdfs] = useState([]);
+  const [userData, setUserData] = useState({});
+  const email = Cookies.get("Studentemail");
+  const EnrollmentNo = userData.EnrollmentNo;
+  const [viewPdf, setViewPdf] = useState(null);
   const [pdfurl, setPdfurl] = useState(null);
 
-  const [viewPdf, setViewPdf] = useState(null);
-  const [certificate, setCertificate] = useState([]);
-
   useEffect(() => {
-    axios
-      .get("/pdfs")
-      .then((res) => setCertificate(res.data))
-      .catch((err) => console.log(err));
-  }, []);
-  console.log(pdfurl);
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`/users/${email}`);
+        const data = await response.json();
+        setUserData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (email) {
+      fetchUserData();
+    }
+    const fetchCertificatesByRollNo = async (rollNo) => {
+      try {
+        const response = await axios.get(`/certificates/${rollNo}`);
+        const files = response.data;
+        return files;
+      } catch (error) {
+        console.log(error);
+        return [];
+      }
+    };
+    const fetchPdfs = async () => {
+      const files = await fetchCertificatesByRollNo(EnrollmentNo);
+      setPdfs(files);
+    };
+
+    if (EnrollmentNo) {
+      fetchPdfs();
+    }
+  }, [EnrollmentNo]);
   const fetchpdf = (e) => {
     const pdffile = `${pdfurl}`;
 
@@ -39,7 +68,7 @@ export default function ShowCertificate() {
     <>
       <div className="mt-16">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-10 py-9 ">
-          {certificate.map((file) => (
+          {pdfs.map((file) => (
             <div class="p-4 max-w-sm" key={file._id}>
               <div class="max-w-sm rounded overflow-hidden shadow-xl m-4 shadow-cyan-400">
                 <div class="px-6 py-4">
@@ -51,7 +80,7 @@ export default function ShowCertificate() {
                       onClick={() => setPdfurl(file.filename)}
                     >
                       <i class="fa-sharp fa-regular fa-file px-2 py-3"></i>
-                      <i onClick={fetchpdf}> open Certificate</i>
+                      <i onClick={fetchpdf}>{`Open ${file.filename}`}</i>
                     </label>
                   </p>
                 </div>

@@ -86,6 +86,10 @@ export default defineConfig({
         target: "http://localhost:5000",
         changeOrigin: true,
       },
+      "/certificates": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
     },
   },
 });

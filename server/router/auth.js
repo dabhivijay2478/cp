@@ -181,7 +181,7 @@ mongoose.connection.on("connected", () => {
   var client = mongoose.connections[0].client;
   var db = mongoose.connections[0].db;
   bucket = new mongoose.mongo.GridFSBucket(db, {
-    bucketName: "newBucket",
+    bucketName: "certificates",
   });
   console.log(bucket);
 });
@@ -193,7 +193,7 @@ const storage = new GridFsStorage({
       const filename = file.originalname;
       const fileInfo = {
         filename: filename,
-        bucketName: "newBucket",
+        bucketName: "certificates",
       };
       resolve(fileInfo);
     });
@@ -218,21 +218,21 @@ router.get("/pdfs", (req, res) => {
   });
 });
 
-router.get("/fileinfo/:filename", (req, res) => {
-  const file = bucket
-    .find({
-      filename: req.params.filename,
-    })
-    .toArray((err, files) => {
-      if (!files || files.length === 0) {
-        return res.status(404).json({
-          err: "no files exist",
-        });
-      }
-      res.set("Content-Type", "application/pdf");
-      bucket.openDownloadStreamByName(req.params.filename).pipe(res);
-    });
-});
+// router.get("/fileinfo/:filename", (req, res) => {
+//   const file = bucket
+//     .find({
+//       filename: req.params.filename,
+//     })
+//     .toArray((err, files) => {
+//       if (!files || files.length === 0) {
+//         return res.status(404).json({
+//           err: "no files exist",
+//         });
+//       }
+//       res.set("Content-Type", "application/pdf");
+//       bucket.openDownloadStreamByName(req.params.filename).pipe(res);
+//     });
+// });
 
 // router.get("/fileinfo/:name", (req, res) => {
 //   const { name } = req.params;
@@ -495,6 +495,58 @@ router.get("/lastcontactus", async (req, res) => {
     console.error(err);
     res.status(500).json({ message: "Server Error" });
   }
+});
+
+
+const fetchCertificatesByRollNo = async (rollNo) => {
+  const files = await bucket.find({
+    filename: { $regex: new RegExp(`^${rollNo}`) }
+  }).toArray();
+  return files;
+}
+
+router.get("/certificates/:rollNo", async (req, res) => {
+  const { rollNo } = req.params;
+  try {
+    const files = await fetchCertificatesByRollNo(rollNo);
+    if (!files || files.length === 0) {
+      return res.status(404).json({
+        error: "No certificates found for the provided roll number",
+      });
+    }
+    res.status(200).json(files);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: "Failed to fetch certificates",
+    });
+  }
+});
+
+router.get("/fileinfo/:id/:filename", (req, res) => {
+  const file = bucket
+    .find({
+      _id: mongoose.Types.ObjectId(req.params.id),
+      filename: req.params.filename,
+      contentType: "application/pdf",
+    })
+    .toArray((err, files) => {
+      if (err) {
+        return res.status(500).json({
+          err: err.message,
+        });
+      }
+      if (!files || files.length === 0) {
+        return res.status(404).json({
+          err: "No files exist with the specified ID and filename",
+        });
+      }
+      const readstream = bucket.openDownloadStream(
+        mongoose.Types.ObjectId(req.params.id)
+      );
+      res.set("Content-Type", "application/pdf");
+      readstream.pipe(res);
+    });
 });
 
 module.exports = router;

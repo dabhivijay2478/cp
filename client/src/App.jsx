@@ -24,6 +24,7 @@ import EvetnReport from "./component/Common/EvetnReport";
 import PrivacyPolicy from "./component/Common/PrivacyPolicy ";
 import Userprofile from "./component/user/Userprofile";
 import Clubadminhome from "./component/Clubadmin/Clubadminhome";
+import Test from "./component/user/Test";
 function App() {
   return (
     <>
@@ -65,7 +66,10 @@ function App() {
           <Route exact path="Certificate" element={<ShowCertificate />} />
           <Route exact path="Userprofile" element={<Userprofile />} />
           <Route exact path="Contactus" element={<Contactus />} />
+          <Route exact path="test" element={<Test />} />
+
           <Route exact path="PrivacyPolicy" element={<PrivacyPolicy />} />
+          <Route path="*" element={<Errorpage />} />
         </Route>
         //Errorpage Route
         <Route path="*" element={<Errorpage />} />
