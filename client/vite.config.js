@@ -78,6 +78,14 @@ export default defineConfig({
         target: "http://localhost:5000",
         changeOrigin: true,
       },
+      "/lastregisterstudent": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
+      "/lastcontactus": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
     },
   },
 });

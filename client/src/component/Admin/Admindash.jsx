@@ -53,7 +53,7 @@ export default function Admindash() {
                 className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800   rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
                 <i className="fa-solid fa-house dark:hover:text-slate-800"></i>
-                <span className="ml-3">Dashboard</span>
+                <span className="ml-2">Dashboard</span>
               </NavLink>
             </li>
             <li>
@@ -62,7 +62,7 @@ export default function Admindash() {
                 className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
                 <i className="fa-solid fa-user-plus dark:hover:text-slate-800"></i>
-                <span className=" ml-3 ">Add User</span>
+                <span className=" ml-2 ">Add User</span>
               </NavLink>
             </li>
             <li>

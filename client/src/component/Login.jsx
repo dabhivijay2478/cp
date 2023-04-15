@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Loginimg from "../assets/login.png";
-
+import "./assets/login.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Userprofile from "./user/Userprofile";
@@ -8,9 +8,12 @@ export default function Login() {
   const history = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const loginuser = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+
     const response = await fetch("/loginserver", {
       method: "POST",
       changeOrigin: true,
@@ -29,27 +32,32 @@ export default function Login() {
     console.log(role);
     if (response.status === 400 || !data) {
       window.alert("Invaild");
+      setIsLoading(false);
     } else {
       Cookies.set(role, true, { expires: 1 });
       window.alert("Sucess");
       if (role == "Admin") {
         history("/Admindash");
         Cookies.set("Adminemail", email);
+        setIsLoading(false);
       } else if (role == "ClubAdmin") {
         history("/ClubAdmin");
         Cookies.set("ClubAdminemail", email);
+        setIsLoading(false);
       } else if (role == "Student") {
         history(`/user`);
         Cookies.set("Studentemail", email);
+        setIsLoading(false);
       } else {
         history("*");
+        setIsLoading(false);
       }
     }
   };
 
   return (
     <>
-      <section class="bg-white ">
+      <section class="bg-white fixed  w-screen h-screen   justify-center items-center z-50">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <span class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-gray-900">
             <img class="w-20 h-50 mr-2" src={Loginimg} alt="logo" />
@@ -121,6 +129,11 @@ export default function Login() {
           </div>
         </div>
       </section>
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-screen h-screen bg-opacity-50 bg-gray-900 flex justify-center items-center z-50">
+          <div class="spinner"></div>
+        </div>
+      )}
     </>
   );
 }

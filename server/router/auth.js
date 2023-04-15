@@ -477,4 +477,24 @@ router.post("/registerstudentevent", async (req, res) => {
   }
 });
 
+router.get("/lastregisterstudent", async (req, res) => {
+  try {
+    const lastregister = await registerevent.findOne().sort({ _id: -1 });
+    res.json(lastregister);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+router.get("/lastcontactus", async (req, res) => {
+  try {
+    const lastcontact = await Contact.findOne().sort({ _id: -1 });
+    res.json(lastcontact);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
 module.exports = router;
