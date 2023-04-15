@@ -9,6 +9,7 @@ export default function RegisterForEvent(props) {
 
   const { eventName } = props;
   const { ClubNameprops } = props;
+  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const [userData, setUserData] = useState({});
@@ -37,10 +38,15 @@ export default function RegisterForEvent(props) {
       fetchUserData();
     }
   }, [email]);
+  const handleModalToggle = () => {
+    setIsOpen(!isOpen);
+  };
 
   const registeruser = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
+    setIsOpen(false);
 
     try {
       const registerresponse = await axios.post("/registerstudentevent", {
@@ -60,6 +66,7 @@ export default function RegisterForEvent(props) {
       } else {
         window.alert(`Successfully registered for event ${eventName}`);
         setIsLoading(false);
+
         history("/User");
       }
     } catch (error) {
@@ -75,136 +82,142 @@ export default function RegisterForEvent(props) {
 
   return (
     <>
-      <input type="checkbox" id="registermodal" className="modal-toggle " />
-      <label htmlFor="registermodal" className="modal cursor-">
-        <div className="modal-box w-11/12 max-w-5xl">
-          <h3 className="font-bold text-lg">
-            <label
-              htmlFor="registermodal"
-              className="btn btn-sm btn-circle absolute right-2 top-2"
-            >
-              ✕
-            </label>
-          </h3>
+      <input
+        type="checkbox"
+        id="registermodal"
+        className="modal-toggle"
+        checked={isOpen}
+        onChange={handleModalToggle}
+      />
+      <label htmlFor="registermodal" className="modal cursor-pointer">
+        <div className="modal-box w-11/12 max-w-5xl ">
           <h3 className="font-bold text-lg text-teal-500">
             Register For This Event : {eventName}
           </h3>
-          <p className="py-4 text-sky-500">ClubName : {ClubNameprops}</p>
-          <div className="flex justify-center">
-            <form method="POST" class="space-y-4 text-slate-900 font-bold ">
-              <div>
-                <label class="sr-only" for="name">
-                  Name
-                </label>
-                <input
-                  value={userData.Name}
-                  class="w-full rounded-lg bg-white border-solid border border-blue-400   p-3 input input-bordered  input-primary text-sm"
-                  placeholder="Name"
-                  type="text"
-                  id="name"
-                />
-              </div>
-              <div>
-                <label class="sr-only" for="name">
-                  EnrollmentNo
-                </label>
-                <input
-                  class="w-full rounded-lg bg-white border-solid border border-blue-400  p-3 input input-bordered  input-primary text-sm"
-                  placeholder="EnrollmentNo"
-                  type="text"
-                  id="EnrollmentNo"
-                  value={userData.EnrollmentNo}
-                />
-              </div>
-
-              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <label
+            htmlFor="registermodal"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
+          >
+            ✕
+          </label>
+          ClubName : {ClubNameprops}
+          <p className="py-4">
+            <div className="flex justify-center">
+              <form method="POST" class="space-y-4 text-slate-900 font-bold ">
                 <div>
-                  <label class="sr-only" for="email">
-                    Email
+                  <label class="sr-only" for="name">
+                    Name
                   </label>
                   <input
-                    class="w-full rounded-lg bg-white border-solid border border-blue-400 p-3 input input-bordered  input-primary text-sm"
-                    placeholder="Email address"
-                    type="email"
-                    id="email"
-                    value={userData.Email}
-                  />
-                </div>
-
-                <div>
-                  <label class="sr-only" for="phone">
-                    Phone
-                  </label>
-                  <input
-                    class="w-full rounded-lg bg-white border-solid border border-blue-400 p-3 input input-bordered  input-primary text-sm"
-                    placeholder="Phone Number"
-                    type="tel"
-                    id="phone"
-                    value={PhoneNO}
-                    onChange={(e) => setPhoneNO(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
-                <div>
-                  <label class="sr-only" for="phone">
-                    class
-                  </label>
-                  <input
-                    class="w-full rounded-lg bg-white border-solid border border-blue-400 p-3 input input-bordered  input-primary text-sm"
-                    placeholder="class"
+                    value={userData.Name}
+                    class="w-full rounded-lg bg-white border-solid border border-blue-400   p-3 input input-bordered  input-primary text-sm"
+                    placeholder="Name"
                     type="text"
-                    id="phone"
-                    value={Class}
-                    onChange={(e) => setClass(e.target.value)}
+                    id="name"
                   />
                 </div>
-
                 <div>
-                  <label class="sr-only" for="phone">
-                    Batch
+                  <label class="sr-only" for="name">
+                    EnrollmentNo
                   </label>
                   <input
-                    class="w-full rounded-lg bg-white border-solid border border-blue-400 p-3 input input-bordered  input-primary text-sm"
-                    placeholder="Batch"
+                    class="w-full rounded-lg bg-white border-solid border border-blue-400  p-3 input input-bordered  input-primary text-sm"
+                    placeholder="EnrollmentNo"
                     type="text"
-                    id="phone"
-                    value={Batch}
-                    onChange={(e) => setBatch(e.target.value)}
+                    id="EnrollmentNo"
+                    value={userData.EnrollmentNo}
                   />
+                </div>
+
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div>
+                    <label class="sr-only" for="email">
+                      Email
+                    </label>
+                    <input
+                      class="w-full rounded-lg bg-white border-solid border border-blue-400 p-3 input input-bordered  input-primary text-sm"
+                      placeholder="Email address"
+                      type="email"
+                      id="email"
+                      value={userData.Email}
+                    />
+                  </div>
+
+                  <div>
+                    <label class="sr-only" for="phone">
+                      Phone
+                    </label>
+                    <input
+                      class="w-full rounded-lg bg-white border-solid border border-blue-400 p-3 input input-bordered  input-primary text-sm"
+                      placeholder="Phone Number"
+                      type="tel"
+                      id="phone"
+                      value={PhoneNO}
+                      onChange={(e) => setPhoneNO(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
+                  <div>
+                    <label class="sr-only" for="phone">
+                      class
+                    </label>
+                    <input
+                      class="w-full rounded-lg bg-white border-solid border border-blue-400 p-3 input input-bordered  input-primary text-sm"
+                      placeholder="class"
+                      type="text"
+                      id="phone"
+                      value={Class}
+                      onChange={(e) => setClass(e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label class="sr-only" for="phone">
+                      Batch
+                    </label>
+                    <input
+                      class="w-full rounded-lg bg-white border-solid border border-blue-400 p-3 input input-bordered  input-primary text-sm"
+                      placeholder="Batch"
+                      type="text"
+                      id="phone"
+                      value={Batch}
+                      onChange={(e) => setBatch(e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label class="sr-only" for="phone">
+                      Club Name
+                    </label>
+                    <input
+                      class="w-full rounded-lg bg-white border-solid border border-blue-400 p-3 input input-bordered  input-primary text-sm"
+                      placeholder="Club Name"
+                      type="tel"
+                      id="phone"
+                      value={ClubName}
+                      onChange={(e) => setClubName(e.target.value)}
+                    />
+                  </div>
                 </div>
 
                 <div>
-                  <label class="sr-only" for="phone">
-                    Club Name
+                  <label class="sr-only" for="favtech">
+                    Fav Tech
                   </label>
+
                   <input
                     class="w-full rounded-lg bg-white border-solid border border-blue-400 p-3 input input-bordered  input-primary text-sm"
-                    placeholder="Club Name"
-                    type="tel"
-                    id="phone"
-                    value={ClubName}
-                    onChange={(e) => setClubName(e.target.value)}
-                  />
+                    placeholder="Fav Tech"
+                    id="Fav Tech"
+                    value={FavTech}
+                    onChange={(e) => setFavTech(e.target.value)}
+                  ></input>
                 </div>
-              </div>
-
-              <div>
-                <label class="sr-only" for="favtech">
-                  Fav Tech
-                </label>
-
-                <input
-                  class="w-full rounded-lg bg-white border-solid border border-blue-400 p-3 input input-bordered  input-primary text-sm"
-                  placeholder="Fav Tech"
-                  id="Fav Tech"
-                  value={FavTech}
-                  onChange={(e) => setFavTech(e.target.value)}
-                ></input>
-              </div>
-            </form>
-          </div>
+              </form>
+            </div>
+          </p>
           <div className="modal-action">
             <label
               htmlFor="registermodal"

@@ -10,9 +10,14 @@ export default function UserChangepassword(props) {
   const [Currentpassword, setCurrentpassword] = useState("");
   const [newpassword, setnewpassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [changepasswordmodal, setChangepasswordmodal] = useState(false);
+  const Chnagepassmodal = () => {
+    setIsOpen(!isOpen);
+  };
   const Changepassword = async () => {
     setIsLoading(true);
+    setChangepasswordmodal(false);
+
     try {
       const response = await axios.put(
         `/changepassword`,
@@ -39,9 +44,13 @@ export default function UserChangepassword(props) {
     <>
       <div>
         <div>
-   
-
-          <input type="checkbox" id="changepassword" className="modal-toggle" />
+          <input
+            type="checkbox"
+            id="changepassword"
+            className="modal-toggle"
+            checked={changepasswordmodal}
+            onChange={Chnagepassmodal}
+          />
           <label htmlFor="changepassword" className="modal cursor-pointer">
             <div className="modal-box">
               <h3 className="font-bold text-lg">
@@ -78,7 +87,7 @@ export default function UserChangepassword(props) {
               </p>
               <div className="modal-action">
                 <label
-                  htmlFor="changepassword"
+                  // htmlFor="changepassword"
                   onClick={Changepassword}
                   className="btn btn-outline btn-accent"
                 >

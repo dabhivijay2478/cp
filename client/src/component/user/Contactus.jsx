@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./Contactuse.css";
 export default function Contactus() {
   const history = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [Name, setName] = useState("");
   const [EnrollmentNo, setEnrollmentNo] = useState("");
@@ -13,6 +14,7 @@ export default function Contactus() {
 
   const sendmessage = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const res = await fetch("/Contactus", {
       method: "POST",
       changeOrigin: true,
@@ -36,7 +38,7 @@ export default function Contactus() {
       window.alert("Bad");
     } else {
       window.alert("SucessFully Send Message");
-
+      setIsLoading(false);
       history("/User");
     }
   };
@@ -164,6 +166,28 @@ export default function Contactus() {
           </form>
         </div>
       </section>
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-screen h-screen bg-opacity-50 bg-gray-900 flex justify-center items-center z-50">
+          <div class="contactusloader">
+            <div class="contactusloaderdot"></div>
+          </div>
+          <div class="contactusloader">
+            <div class="contactusloaderdot"></div>
+          </div>
+          <div class="contactusloader">
+            <div class="contactusloaderdot"></div>
+          </div>
+          <div class="contactusloader">
+            <div class="contactusloaderdot"></div>
+          </div>
+          <div class="contactusloader">
+            <div class="contactusloaderdot"></div>
+          </div>
+          <div class="contactusloader">
+            <div class="contactusloaderdot"></div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
