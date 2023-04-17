@@ -4,15 +4,16 @@ import { useNavigate } from "react-router-dom";
 import "./changepasswordloader.css";
 import axios from "axios";
 
-export default function UserChangepassword(props) {
+export default function Userchangepassword(props) {
   const { Enrollment } = props;
   const nav = useNavigate();
   const [Currentpassword, setCurrentpassword] = useState("");
   const [newpassword, setnewpassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [changepasswordmodal, setChangepasswordmodal] = useState(false);
+
   const Chnagepassmodal = () => {
-    setIsOpen(!isOpen);
+    setChangepasswordmodal(!changepasswordmodal);
   };
   const Changepassword = async () => {
     setIsLoading(true);

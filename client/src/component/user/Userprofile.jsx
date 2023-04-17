@@ -1,8 +1,8 @@
 import React from "react";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
-import UserChangepassword from "./UserChangepassword";
 import UpdateProfile from "./UpdateProfile";
+import Userchangepassword from "./Userchangepassword";
 export default function UserProfile() {
   const [userData, setUserData] = useState({});
   const email = Cookies.get("Studentemail");
@@ -168,8 +168,8 @@ export default function UserProfile() {
           </div>
         </div>
       </div>
+      <Userchangepassword Enrollment={userData.EnrollmentNo} />
 
-      <UserChangepassword Enrollment={userData.EnrollmentNo} />
       <UpdateProfile
         Enrollment={userData.EnrollmentNo}
         Email={userData.Email}

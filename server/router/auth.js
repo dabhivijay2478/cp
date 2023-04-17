@@ -257,9 +257,13 @@ router.post("/addmutilpe", async (req, res) => {
     // const users = await csvtojson().fromString(req.body);
     const users = await req.body;
     for (let i = 0; i < users.length; i++) {
-      const userExists = await User.findOne({ Email: users[i].Email });
+      const userExists = await User.findOne({
+        EnrollmentNo: users[i].EnrollmentNo,
+      });
       if (userExists) {
-        console.log(`User with email ${users[i].Email} already exists`);
+        console.log(
+          `User with EnrollmentNo ${users[i].EnrollmentNo} already exists`
+        );
         continue;
       }
 
@@ -497,13 +501,14 @@ router.get("/lastcontactus", async (req, res) => {
   }
 });
 
-
 const fetchCertificatesByRollNo = async (rollNo) => {
-  const files = await bucket.find({
-    filename: { $regex: new RegExp(`^${rollNo}`) }
-  }).toArray();
+  const files = await bucket
+    .find({
+      filename: { $regex: new RegExp(`^${rollNo}`) },
+    })
+    .toArray();
   return files;
-}
+};
 
 router.get("/certificates/:rollNo", async (req, res) => {
   const { rollNo } = req.params;
