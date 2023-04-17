@@ -17,7 +17,7 @@ export default function Test() {
   const EnrollmentNo = userData.EnrollmentNo;
   const [viewPdf, setViewPdf] = useState(null);
   const [pdfurl, setPdfurl] = useState(null);
-
+  const [id, setId] = useState(null);
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -51,11 +51,9 @@ export default function Test() {
       fetchPdfs();
     }
   }, [EnrollmentNo]);
-  const fetchpdf = (e) => {
-    const pdffile = `${pdfurl}`;
-
+  const fetchpdf = (e, id, pdfurl) => {
     axios
-      .get(`/fileinfo/${pdffile}`, { responseType: "arraybuffer" })
+      .get(`/fileinfo/${id}/${pdfurl}`, { responseType: "arraybuffer" })
       .then((res) => {
         const blob = new Blob([res.data], { type: "application/pdf" });
         const url = URL.createObjectURL(blob);
@@ -80,7 +78,9 @@ export default function Test() {
                       onClick={() => setPdfurl(file.filename)}
                     >
                       <i class="fa-sharp fa-regular fa-file px-2 py-3"></i>
-                      <i onClick={fetchpdf}>{`Open ${file.filename}`}</i>
+                      <i onClick={(e) => fetchpdf(e, file._id, file.filename)}>
+                        {`Open ${file.filename}`}
+                      </i>
                     </label>
                   </p>
                 </div>
