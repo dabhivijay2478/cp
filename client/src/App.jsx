@@ -25,6 +25,7 @@ import PrivacyPolicy from "./component/Common/PrivacyPolicy ";
 import Userprofile from "./component/user/Userprofile";
 import Clubadminhome from "./component/Clubadmin/Clubadminhome";
 import Test from "./component/user/Test";
+import ClubStudenReport from "./component/Clubadmin/ClubStudenReport";
 function App() {
   return (
     <>
@@ -56,7 +57,7 @@ function App() {
           <Route exact path="Adduser" element={<Adduser />} />
           <Route exact path="Addevent" element={<Addevent />} />
           <Route exact path="Postcertificates" element={<Postcertificates />} />
-          <Route exact path="StudentReport" element={<StudentReport />} />
+          <Route exact path="StudentReport" element={<ClubStudenReport />} />
 
           <Route exact path="*" element={<Errorpage />} />
         </Route>

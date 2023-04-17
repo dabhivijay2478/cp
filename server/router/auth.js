@@ -250,8 +250,6 @@ router.post("/upload", upload.array("file"), (req, res) => {
   res.status(200).send("File uploaded successfully");
 });
 
-// const csvtojson = require("csvtojson");
-
 router.post("/addmutilpe", async (req, res) => {
   try {
     // const users = await csvtojson().fromString(req.body);
@@ -552,6 +550,18 @@ router.get("/fileinfo/:id/:filename", (req, res) => {
       res.set("Content-Type", "application/pdf");
       readstream.pipe(res);
     });
+});
+
+router.post("/ClubStudentReport", async (req, res) => {
+  const { ClubName } = req.body;
+
+  try {
+    const result = await User.find({ ClubName: ClubName });
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 module.exports = router;

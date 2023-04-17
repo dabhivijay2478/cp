@@ -121,6 +121,7 @@ export default function ShowCertificate() {
         >
           Close Modal
         </label>
+        
       </div>
     </>
   );

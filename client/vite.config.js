@@ -90,6 +90,10 @@ export default defineConfig({
         target: "http://localhost:5000",
         changeOrigin: true,
       },
+      "/ClubStudentReport": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
     },
   },
 });
