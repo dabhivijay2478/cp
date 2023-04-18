@@ -1,8 +1,11 @@
 import React from "react";
 import { useEffect, useState, useRef } from "react";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import UpdateStudentReport from "../Common/UpdateStudentReport";
 
 export default function ClubStudenReport() {
+  const Navigation = useNavigate();
   const [mongoData, setMongoData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
@@ -47,7 +50,7 @@ export default function ClubStudenReport() {
     }
 
     fetchData();
-  }, []);
+  }, [ClubName]);
 
   useEffect(() => {
     const filterData = () => {
@@ -86,6 +89,20 @@ export default function ClubStudenReport() {
     }
   };
   document.addEventListener("keydown", handleKeyDown);
+
+  async function handleDeleteUser(e, EnrollmentNo) {
+    try {
+      const response = await fetch(`/deleteuser/${EnrollmentNo}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      // window.alert("SucessFully Delete");
+      // Navigation("/ClubAdmin");
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <>
       {userData.ClubName && <span>{userData.ClubName}</span>}
@@ -115,6 +132,8 @@ export default function ClubStudenReport() {
               <th>ClubName</th>
               <th>FavTech</th>
               <th>Role</th>
+              <th>Update</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -131,6 +150,34 @@ export default function ClubStudenReport() {
                 <td>{item.ClubName}</td>
                 <td>{item.FavTech}</td>
                 <td>{item.Role}</td>
+                <td>
+                  <label
+                    htmlFor="UpdateStudentReport"
+                    className="btn btn-warning dark:hover:bg-teal-500"
+                  >
+                    Update
+                  </label>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-error dark:hover:bg-red-500"
+                    onClick={(e) => handleDeleteUser(e, item.EnrollmentNo)}
+                  >
+                    Delete
+                  </button>
+                </td>
+                <UpdateStudentReport
+                  Name={item.Name}
+                  EnrollmentNo={item.EnrollmentNo}
+                  Email={item.Email}
+                  PhoneNO={item.PhoneNO}
+                  Class={item.Class}
+                  Batch={item.Batch}
+                  ClubName={item.ClubName}
+                  FavTech={item.FavTech}
+                  Role="Student"
+                  Password={item.EnrollmentNo}
+                />
               </tr>
             ))}
           </tbody>

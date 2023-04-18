@@ -1,40 +1,82 @@
 import React from "react";
+import { useEffect, useState } from "react";
 
 export default function Clubadminhome() {
+  const [lastregister, setlastregister] = useState({});
+  const [lastcontactus, setlastcontactus] = useState({});
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("/lastregisterstudent");
+      const result = await response.json();
+      setlastregister(result);
+    }
+    async function fetchcontactus() {
+      const contactresponse = await fetch("/lastcontactus");
+      const contactresult = await contactresponse.json();
+      setlastcontactus(contactresult);
+    }
+    fetchData();
+    fetchcontactus();
+  }, []);
   return (
     <>
       <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="card w-full bg-base-100 shadow-xl">
           <div className="card-body">
-            <h2 className="card-title">Card title 1</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
-          </div>
-        </div>
-        <div className="card w-full bg-base-100 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">Card title 2</h2>
+            <h1 className="text-sky-500 text-lg">Last Register Student</h1>
+            <h2 className="card-title">
+              Event Name :{" "}
+              <span className="text-cyan-500">{lastregister.EventName}</span>
+            </h2>
             <p>
-              If two witches would watch two watches, which witch would watch
-              which watch?
+              {" "}
+              EnrollmentNo :{" "}
+              <span className="text-teal-500">{lastregister.EnrollmentNo}</span>
+              <br />
+              Email :{" "}
+              <span className="text-teal-500 overflow-hidden">
+                {lastregister.Email}
+              </span>
+              <br />
+              ClubName :{" "}
+              <span className="text-teal-500">{lastregister.ClubName}</span>
+              <br /> Name :{" "}
+              <span className="text-teal-500">{lastregister.Name}</span>
+              <br /> FavTech :{" "}
+              <span className="text-teal-500">{lastregister.FavTech}</span>
+              <br /> PhoneNO :{" "}
+              <span className="text-teal-500">{lastregister.PhoneNO}</span>
             </p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
           </div>
         </div>
         <div className="card w-full bg-base-100 shadow-xl">
           <div className="card-body">
-            <h2 className="card-title">Card title 3</h2>
-            <p>How can a clam cram in a clean cream can?</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
+            <h1 className="text-sky-500 text-lg">Last Contact Us</h1>
+            <h2 className="card-title">
+              EnrollmentNo :{" "}
+              <span className="text-teal-500">
+                {lastcontactus.EnrollmentNo}
+              </span>
+            </h2>
+            <p>
+              {" "}
+              Name : <span className="text-teal-500">{lastcontactus.Name}</span>
+              <br />
+              Email :{" "}
+              <span className="text-teal-500 overflow-hidden">
+                {lastcontactus.Email}
+              </span>
+              <br />
+              ClubName :{" "}
+              <span className="text-teal-500">{lastcontactus.ClubName}</span>
+              <br /> Subject :{" "}
+              <span className="text-teal-500">{lastcontactus.Subject}</span>
+              <br /> Message :{" "}
+              <span className="text-teal-500">{lastcontactus.Message}</span>
+            </p>
           </div>
         </div>
-        {/* Add more cards here */}{" "}
       </div>
     </>
   );

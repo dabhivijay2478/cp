@@ -94,6 +94,10 @@ export default defineConfig({
         target: "http://localhost:5000",
         changeOrigin: true,
       },
+      "/deleteuser": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
     },
   },
 });

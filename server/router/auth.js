@@ -564,4 +564,36 @@ router.post("/ClubStudentReport", async (req, res) => {
   }
 });
 
+
+router.delete('/deleteuser/:enrollmentNo', async (req, res) => {
+  try {
+    const user = await User.findOneAndDelete({ EnrollmentNo: req.params.enrollmentNo });
+    if (!user) {
+      return res.status(404).send({ error: 'User not found' });
+    }
+    res.send(user);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+
+
+router.put('/updateuser/:enrollmentNo', async (req, res) => {
+  try {
+    const enrollmentNo = req.params.enrollmentNo;
+    const updatedUser = await User.findOneAndUpdate(
+      { EnrollmentNo: enrollmentNo },
+      req.body,
+      { new: true }
+    );
+    if (!updatedUser) {
+      return res.status(404).send({ error: 'User not found' });
+    }
+    res.send(updatedUser);
+  } catch (err) {
+    res.status(400).send({ error: err.message });
+  }
+});
+
 module.exports = router;
