@@ -5,6 +5,7 @@ import UpdateStudentReport from "./UpdateStudentReport";
 
 export default function StudentReport() {
   const Navigation = useNavigate();
+  const [selectedRow, setSelectedRow] = useState(null);
 
   const [mongoData, setMongoData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -71,6 +72,11 @@ export default function StudentReport() {
       console.error(error);
     }
   }
+
+  const handleRowClick = (item) => {
+    setSelectedRow(item);
+  };
+
   return (
     <>
       <div className="overflow-x-auto">
@@ -121,10 +127,12 @@ export default function StudentReport() {
                   <label
                     htmlFor="UpdateStudentReport"
                     className="btn btn-warning dark:hover:bg-teal-500"
+                    onClick={() => handleRowClick(item)}
                   >
                     Update
                   </label>
                 </td>
+
                 <td>
                   <button
                     className="btn btn-error dark:hover:bg-red-500"
@@ -133,24 +141,12 @@ export default function StudentReport() {
                     Delete
                   </button>
                 </td>
-
-                <UpdateStudentReport
-                  Name={item.Name}
-                  EnrollmentNo={item.EnrollmentNo}
-                  Email={item.Email}
-                  PhoneNO={item.PhoneNO}
-                  Class={item.Class}
-                  Batch={item.Batch}
-                  ClubName={item.ClubName}
-                  FavTech={item.FavTech}
-                  Role={item.Role}
-                  Password={item.EnrollmentNo}
-                />
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      <UpdateStudentReport selectedRow={selectedRow} />
     </>
   );
 }

@@ -1,32 +1,38 @@
 import React from "react";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
-export default function UpdateStudentReport(props) {
-  const { Name } = props;
-  const { EnrollmentNo } = props;
-  const { Email } = props;
-  const { PhoneNO } = props;
-  const { Class } = props;
-  const { Batch } = props;
-  const { ClubName } = props;
-  const { FavTech } = props;
-  const { Role } = props;
-  const { Password } = props;
 
-  const [UpName, setUpName] = useState(Name);
-  const [UpEnrollmentNo, setUpEnrollmentNo] = useState(EnrollmentNo);
-  const [UpEmail, setUpEmail] = useState(Email);
-  const [UpPhoneNO, setUpPhoneNO] = useState(PhoneNO);
-  const [UpClass, setUpClass] = useState(Class);
-  const [UpBatch, setUpBatch] = useState(Batch);
-  const [UpClubName, setUpClubName] = useState(ClubName);
-  const [UpFavTech, setUpFavTech] = useState(FavTech);
-  const [UpRole, setUpRole] = useState(Role);
-  const [UpPassword, setUpPassword] = useState(Password);
+export default function UpdateStudentReport(props) {
+  const { selectedRow } = props;
+  console.log(selectedRow);
+  const [UpName, setUpName] = useState(selectedRow?.Name || '');
+  const [UpEnrollmentNo, setUpEnrollmentNo] = useState(selectedRow?.EnrollmentNo || '');
+  const [UpEmail, setUpEmail] = useState(selectedRow?.Email || '');
+  const [UpPhoneNO, setUpPhoneNO] = useState(selectedRow?.PhoneNO || '');
+  const [UpClass, setUpClass] = useState(selectedRow?.Class || '');
+  const [UpBatch, setUpBatch] = useState(selectedRow?.Batch || '');
+  const [UpClubName, setUpClubName] = useState(selectedRow?.ClubName || '');
+  const [UpFavTech, setUpFavTech] = useState(selectedRow?.FavTech || '');
+  const [UpRole, setUpRole] = useState(selectedRow?.Role || '');
+  const [UpPassword, setUpPassword] = useState(selectedRow?.EnrollmentNo || '');
+  
 
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    setUpName(selectedRow?.Name || '');
+    setUpEnrollmentNo(selectedRow?.EnrollmentNo || '');
+    setUpEmail(selectedRow?.Email || '');
+    setUpPhoneNO(selectedRow?.PhoneNO || '');
+    setUpClass(selectedRow?.Class || '');
+    setUpBatch(selectedRow?.Batch || '');
+    setUpClubName(selectedRow?.ClubName || '');
+    setUpFavTech(selectedRow?.FavTech || '');
+    setUpRole(selectedRow?.Role || '');
+    setUpPassword(selectedRow?.EnrollmentNo || '');
+  }, [selectedRow]);
+  
   const handleModalToggle = () => {
     setIsOpen(!isOpen);
   };
@@ -50,7 +56,7 @@ export default function UpdateStudentReport(props) {
           >
             ✕
           </label>
-          <span className="text-white">User EnrollmentNo: {EnrollmentNo}</span>
+          <span className="text-white">User EnrollmentNo: </span>
           <p className="py-4">
             <div className="flex justify-center">
               <form method="POST" class="space-y-4 text-slate-900 font-bold ">
@@ -63,7 +69,7 @@ export default function UpdateStudentReport(props) {
                     placeholder="Name"
                     type="text"
                     value={UpName}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => setUpName(e.target.value)}
                     id="name"
                   />
                 </div>
@@ -175,10 +181,10 @@ export default function UpdateStudentReport(props) {
 
                   <input
                     class="w-full rounded-lg bg-white border-solid border border-blue-400 p-3 input input-bordered  input-primary text-sm"
-                    placeholder="Fav Tech"
+                    placeholder="Role"
                     value={UpRole}
                     onChange={(e) => setUpRole(e.target.value)}
-                    id="Fav Tech"
+                    id="Role"
                   ></input>
                 </div>
                 <div>
@@ -188,10 +194,10 @@ export default function UpdateStudentReport(props) {
 
                   <input
                     class="w-full rounded-lg bg-white border-solid border border-blue-400 p-3 input input-bordered  input-primary text-sm"
-                    placeholder="Fav Tech"
+                    placeholder="Password"
                     value={UpPassword}
                     onChange={(e) => setUpPassword(e.target.value)}
-                    id="Fav Tech"
+                    id="Password"
                   ></input>
                 </div>
               </form>
