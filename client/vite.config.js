@@ -98,6 +98,10 @@ export default defineConfig({
         target: "http://localhost:5000",
         changeOrigin: true,
       },
+      "/updateuser": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
     },
   },
 });

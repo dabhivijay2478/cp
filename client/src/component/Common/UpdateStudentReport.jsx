@@ -1,40 +1,72 @@
 import React from "react";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
-
+import axios from "axios";
 export default function UpdateStudentReport(props) {
   const { selectedRow } = props;
-  console.log(selectedRow);
-  const [UpName, setUpName] = useState(selectedRow?.Name || '');
-  const [UpEnrollmentNo, setUpEnrollmentNo] = useState(selectedRow?.EnrollmentNo || '');
-  const [UpEmail, setUpEmail] = useState(selectedRow?.Email || '');
-  const [UpPhoneNO, setUpPhoneNO] = useState(selectedRow?.PhoneNO || '');
-  const [UpClass, setUpClass] = useState(selectedRow?.Class || '');
-  const [UpBatch, setUpBatch] = useState(selectedRow?.Batch || '');
-  const [UpClubName, setUpClubName] = useState(selectedRow?.ClubName || '');
-  const [UpFavTech, setUpFavTech] = useState(selectedRow?.FavTech || '');
-  const [UpRole, setUpRole] = useState(selectedRow?.Role || '');
-  const [UpPassword, setUpPassword] = useState(selectedRow?.EnrollmentNo || '');
-  
+  const [UpName, setUpName] = useState(selectedRow?.Name || "");
+  const [UpEnrollmentNo, setUpEnrollmentNo] = useState(
+    selectedRow?.EnrollmentNo || ""
+  );
+  const [UpEmail, setUpEmail] = useState(selectedRow?.Email || "");
+  const [UpPhoneNO, setUpPhoneNO] = useState(selectedRow?.PhoneNO || "");
+  const [UpClass, setUpClass] = useState(selectedRow?.Class || "");
+  const [UpBatch, setUpBatch] = useState(selectedRow?.Batch || "");
+  const [UpClubName, setUpClubName] = useState(selectedRow?.ClubName || "");
+  const [UpFavTech, setUpFavTech] = useState(selectedRow?.FavTech || "");
+  const [UpRole, setUpRole] = useState(selectedRow?.Role || "");
+  const [UpPassword, setUpPassword] = useState(selectedRow?.EnrollmentNo || "");
 
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setUpName(selectedRow?.Name || '');
-    setUpEnrollmentNo(selectedRow?.EnrollmentNo || '');
-    setUpEmail(selectedRow?.Email || '');
-    setUpPhoneNO(selectedRow?.PhoneNO || '');
-    setUpClass(selectedRow?.Class || '');
-    setUpBatch(selectedRow?.Batch || '');
-    setUpClubName(selectedRow?.ClubName || '');
-    setUpFavTech(selectedRow?.FavTech || '');
-    setUpRole(selectedRow?.Role || '');
-    setUpPassword(selectedRow?.EnrollmentNo || '');
+    setUpName(selectedRow?.Name || "");
+    setUpEnrollmentNo(selectedRow?.EnrollmentNo || "");
+    setUpEmail(selectedRow?.Email || "");
+    setUpPhoneNO(selectedRow?.PhoneNO || "");
+    setUpClass(selectedRow?.Class || "");
+    setUpBatch(selectedRow?.Batch || "");
+    setUpClubName(selectedRow?.ClubName || "");
+    setUpFavTech(selectedRow?.FavTech || "");
+    setUpRole(selectedRow?.Role || "");
+    setUpPassword(selectedRow?.EnrollmentNo || "");
   }, [selectedRow]);
-  
+
   const handleModalToggle = () => {
     setIsOpen(!isOpen);
+  };
+
+
+
+  const updateUser = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.put(`/updateuser/${UpEnrollmentNo}`, {
+        Name: UpName,
+        EnrollmentNo: UpEnrollmentNo,
+        Email: UpEmail,
+        PhoneNO: UpPhoneNO,
+        Class: UpClass,
+        Batch: UpBatch,
+        ClubName: UpClubName,
+        FavTech: UpFavTech,
+        Role: UpRole,
+        Password: UpPassword,
+      });
+
+      window.alert("Successfully Update User");
+      setIsLoading(false);
+      return response.data;
+    } catch (error) {
+      setIsLoading(false);
+      if (error.response.status === 400 || !error.response.data) {
+        window.alert("Server Error");
+      } else if (error.response.status === 422 || !error.response.data) {
+        window.alert("Data Not Valid!!");
+      }
+      throw error;
+    }
   };
   return (
     <>
@@ -84,6 +116,7 @@ export default function UpdateStudentReport(props) {
                     value={UpEnrollmentNo}
                     onChange={(e) => setUpName(e.target.value)}
                     id="EnrollmentNo"
+                    readOnly
                   />
                 </div>
 
@@ -206,7 +239,7 @@ export default function UpdateStudentReport(props) {
           <div className="modal-action">
             <label
               htmlFor="UpdateStudentReport"
-              // onClick={registeruser}
+              onClick={updateUser}
               className="btn btn-outline btn-accent"
             >
               Update
