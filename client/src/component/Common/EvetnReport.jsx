@@ -1,11 +1,15 @@
 import React from "react";
 import { useEffect, useState, useRef } from "react";
+import ReactPaginate from "react-paginate";
 
 export default function EvetnReport() {
   const [mongoData, setMongoData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const searchInputRef = useRef(null);
+  const [pageNumber, setPageNumber] = useState(0);
+  const itemsPerPage = 10;
+  const pageCount = Math.ceil(filteredData.length / itemsPerPage);
 
   useEffect(() => {
     async function fetchData() {
@@ -47,6 +51,16 @@ export default function EvetnReport() {
     }
   };
   document.addEventListener("keydown", handleKeyDown);
+
+  const handlePageClick = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
+  const getPaginatedData = () => {
+    const startIndex = pageNumber * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredData.slice(startIndex, endIndex);
+  };
   return (
     <>
       <div className="overflow-x-auto">
@@ -75,7 +89,7 @@ export default function EvetnReport() {
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((item, index) => (
+            {getPaginatedData().map((item, index) => (
               <tr key={index}>
                 <td></td>
 
@@ -89,6 +103,26 @@ export default function EvetnReport() {
             ))}
           </tbody>
         </table>
+        <ReactPaginate
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          renderOnZeroPageCount={null}
+          containerClassName="flex flex-col sm:flex-row justify-center items-center mt-4"
+          pageClassName="mx-1 rounded-lg py-1 px-3 text-white cursor-pointer"
+          activeClassName="bg-blue-500 text-white"
+          previousClassName="mx-1 rounded-lg py-1 px-3 text-blue-500 cursor-pointer"
+          nextClassName="mx-1 rounded-lg py-1 px-3 text-blue-500 cursor-pointer"
+          disabledClassName="opacity-50 cursor-not-allowed"
+          previousLinkClassName="btn dark:hover:bg-blue-500"
+          nextLinkClassName="btn dark:hover:bg-blue-500"
+        >
+          <div className="btn-group flex">
+            <button className="btn">«</button>
+            <button className="btn">Page {pageNumber + 1}</button>
+            <button className="btn">»</button>
+          </div>
+        </ReactPaginate>
       </div>
     </>
   );

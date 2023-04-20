@@ -3,13 +3,18 @@ import { useEffect, useState, useRef } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import UpdateStudentReport from "../Common/UpdateStudentReport";
+import ReactPaginate from "react-paginate";
 
 export default function ClubStudenReport() {
   const Navigation = useNavigate();
+  const [selectedRow, setSelectedRow] = useState(null);
+
   const [mongoData, setMongoData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
-  // const [clubName, setClubName] = useState("");
+  const [pageNumber, setPageNumber] = useState(0);
+  const itemsPerPage = 10;
+  const pageCount = Math.ceil(filteredData.length / itemsPerPage);
 
   const [userData, setUserData] = useState({});
   const email = Cookies.get("ClubAdminemail");
@@ -103,6 +108,19 @@ export default function ClubStudenReport() {
       console.error(error);
     }
   }
+
+  const handleRowClick = (item) => {
+    setSelectedRow(item);
+  };
+  const handlePageClick = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
+  const getPaginatedData = () => {
+    const startIndex = pageNumber * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredData.slice(startIndex, endIndex);
+  };
   return (
     <>
       {userData.ClubName && <span>{userData.ClubName}</span>}
@@ -137,7 +155,7 @@ export default function ClubStudenReport() {
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((item, index) => (
+            {getPaginatedData().map((item, index) => (
               <tr key={index}>
                 <td></td>
 
@@ -154,6 +172,7 @@ export default function ClubStudenReport() {
                   <label
                     htmlFor="UpdateStudentReport"
                     className="btn btn-warning dark:hover:bg-teal-500"
+                    onClick={() => handleRowClick(item)}
                   >
                     Update
                   </label>
@@ -166,23 +185,35 @@ export default function ClubStudenReport() {
                     Delete
                   </button>
                 </td>
-                <UpdateStudentReport
-                  Name={item.Name}
-                  EnrollmentNo={item.EnrollmentNo}
-                  Email={item.Email}
-                  PhoneNO={item.PhoneNO}
-                  Class={item.Class}
-                  Batch={item.Batch}
-                  ClubName={item.ClubName}
-                  FavTech={item.FavTech}
-                  Role="Student"
-                  Password={item.EnrollmentNo}
-                />
               </tr>
             ))}
           </tbody>
         </table>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="< previous"
+          renderOnZeroPageCount={null}
+          containerClassName="flex justify-center mt-4"
+          pageClassName="mx-1 rounded-lg py-1 px-3 text-blue-500 cursor-pointer"
+          activeClassName="bg-blue-500 text-white"
+          previousClassName="mx-1 rounded-lg py-1 px-3 text-blue-500 cursor-pointer"
+          nextClassName="mx-1 rounded-lg py-1 px-3 text-blue-500 cursor-pointer"
+          disabledClassName="opacity-50 cursor-not-allowed"
+          previousLinkClassName="btn"
+          nextLinkClassName="btn"
+        >
+          <div className="btn-group">
+            <button className="btn">«</button>
+            <button className="btn">Page {pageNumber + 1}</button>
+            <button className="btn">»</button>
+          </div>
+        </ReactPaginate>
       </div>
+      <UpdateStudentReport selectedRow={selectedRow} />
     </>
   );
 }
