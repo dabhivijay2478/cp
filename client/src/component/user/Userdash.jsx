@@ -103,11 +103,6 @@ export default function Userdash() {
                 Profile
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/User/test" className="px-2 py-3">
-                test
-              </NavLink>
-            </li>
           </ul>
         </div>
         <div className="navbar-end">

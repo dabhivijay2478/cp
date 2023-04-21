@@ -173,6 +173,14 @@ export default function UserProfile() {
       <UpdateProfile
         Enrollment={userData.EnrollmentNo}
         Email={userData.Email}
+        Name={userData.Name}
+        PhoneNO={userData.PhoneNO}
+        Class={userData.Class}
+        ClubName={userData.ClubName}
+        Batch={userData.Batch}
+        FavTech={userData.FavTech}
+        Role={userData.Role}
+        Password={userData.EnrollmentNo}
       />
     </>
   );

@@ -22,7 +22,7 @@ export default function Adminhome() {
   return (
     <>
       <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="card w-full bg-base-100 shadow-xl">
+        <div className="card w-full bg-base-100 shadow-xl border border-double border-emerald-300">
           <div className="card-body">
             <h1 className="text-sky-500 text-lg">Last Register Student</h1>
             <h2 className="card-title">
@@ -50,7 +50,7 @@ export default function Adminhome() {
             </p>
           </div>
         </div>
-        <div className="card w-full bg-base-100 shadow-xl">
+        <div className="card w-full bg-base-100 shadow-xl border border-double border-emerald-300">
           <div className="card-body">
             <h1 className="text-sky-500 text-lg">Last Contact Us</h1>
             <h2 className="card-title">

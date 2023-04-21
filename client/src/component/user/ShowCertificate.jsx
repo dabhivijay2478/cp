@@ -68,7 +68,7 @@ export default function ShowCertificate() {
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-10 py-9 ">
           {pdfs.map((file) => (
             <div class="p-4 max-w-sm" key={file._id}>
-              <div class="max-w-sm rounded overflow-hidden shadow-xl m-4 shadow-cyan-400">
+              <div class="max-w-sm rounded overflow-hidden shadow-xl m-4 shadow-cyan-300 border border-double border-emerald-300">
                 <div class="px-6 py-4">
                   <div class="font-bold text-xl mb-2">{file.filename}</div>
                   <p class="text-gray-700 text-base">
