@@ -7,99 +7,99 @@ export default defineConfig({
   server: {
     proxy: {
       "/signupserver": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/loginserver": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/addnewuser": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/addnewclub": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/addnewevent": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/data": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/upload": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/fileinfo": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/pdfs": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/addmutilpe": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/sendemail": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/Contactus": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/contactusreport": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/Eventreport": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/users": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/changepassword": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/lastevent": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/registerstudentevent": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/lastregisterstudent": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/lastcontactus": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/certificates": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/ClubStudentReport": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/deleteuser": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
       "/updateuser": {
-        target: "https://cpserver.onrender.com",
+        target: " http://localhost:5000",
         changeOrigin: true,
       },
     },

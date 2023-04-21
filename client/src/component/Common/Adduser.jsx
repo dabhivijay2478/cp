@@ -75,7 +75,7 @@ export default function Adduser() {
 
     const data = await res.json();
 
-    const Maildata = await response.json();
+    const Maildata = response.json();
     if (res.status === 400 || !data || !Maildata) {
       window.alert("Invaild");
     } else if (res.status === 422 || !data) {
