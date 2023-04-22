@@ -12,79 +12,88 @@ export default function Contactus() {
   const [Subject, setSubject] = useState("");
   const [Message, setMessage] = useState("");
 
-  // const [errors, setErrors] = useState({});
+  const [NameError, setNameError] = useState("");
+  const [EnrollmentNoError, setEnrollmentNoError] = useState("");
+  const [EmailError, setEmailError] = useState("");
+  const [ClubNameError, setClubNameError] = useState("");
+  const [SubjectError, setSubjectError] = useState("");
+  const [MessageError, setMessageError] = useState("");
+
+  const validateInput = () => {
+    setNameError("");
+    setEnrollmentNoError("");
+    setEmailError("");
+    setClubNameError("");
+    setSubjectError("");
+    setMessageError("");
+
+    let isError = false;
+
+    if (Name.trim() === "") {
+      setNameError("Name is required");
+      isError = true;
+    }
+
+    if (EnrollmentNo.trim() === "") {
+      setEnrollmentNoError("Enrollment No. is required");
+      isError = true;
+    }
+
+    if (!/\S+@\S+\.\S+/.test(Email)) {
+      setEmailError("Email is invalid");
+      isError = true;
+    }
+
+    if (ClubName.trim() === "") {
+      setClubNameError("Club Name is required");
+      isError = true;
+    }
+
+    if (Subject.trim() === "") {
+      setSubjectError("Subject is required");
+      isError = true;
+    }
+
+    if (Message.trim() === "") {
+      setMessageError("Message is required");
+      isError = true;
+    }
+
+    return !isError;
+  };
 
   const sendmessage = async (e) => {
     e.preventDefault();
+    if (!validateInput()) {
+      return;
+    }
     setIsLoading(true);
-    let isValid = true;
 
-    // Check if Name is not empty
-    if (!Name.trim()) {
-      window.alert("Name is required");
-      isValid = false;
-    }
+    const res = await fetch("/Contactus", {
+      method: "POST",
+      changeOrigin: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Name,
+        EnrollmentNo,
+        Email,
+        ClubName,
+        Subject,
+        Message,
+      }),
+    });
+    const data = await res.json();
 
-    // Check if EnrollmentNo is a number and not empty
-    if (!EnrollmentNo.trim() || isNaN(EnrollmentNo)) {
-      window.alert("EnrollmentNo is required and must be a number");
-      isValid = false;
-    }
-
-    // Check if Email is a valid email format
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!Email.trim() || !emailPattern.test(Email)) {
-      window.alert("Email is required and must be a valid email format");
-      isValid = false;
-    }
-
-    // Check if ClubName is not empty
-    if (!ClubName.trim()) {
-      window.alert("ClubName is required");
-      isValid = false;
-    }
-
-    // Check if Subject is not empty
-    if (!Subject.trim()) {
-      window.alert("Subject is required");
-      isValid = false;
-    }
-
-    // Check if Message is not empty
-    if (!Message.trim()) {
-      window.alert("Message is required");
-      isValid = false;
-    }
-
-    if (isValid) {
-      const res = await fetch("/Contactus", {
-        method: "POST",
-        changeOrigin: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          Name,
-          EnrollmentNo,
-          Email,
-          ClubName,
-          Subject,
-          Message,
-        }),
-      });
-      const data = res.json();
-
-      if (res.status === 400 || !data) {
-        window.alert("Invaild");
-      } else if (res.status === 422 || !data) {
-        window.alert("Bad");
-      } else {
-        window.alert("SucessFully Send Message");
-        setIsLoading(false);
-        history("/User");
-      }
+    if (res.status === 400 || !data) {
+      window.alert("Invaild");
+    } else if (res.status === 422 || !data) {
+      window.alert("Bad");
     } else {
+      window.alert("SucessFully Send Message");
       setIsLoading(false);
+      history("/User");
     }
   };
 
@@ -116,6 +125,9 @@ export default function Contactus() {
                 onChange={(e) => setName(e.target.value)}
                 required
               />
+              {NameError && (
+                <span className="error text-red-500">{NameError}</span>
+              )}
             </div>
             <div>
               <label
@@ -133,6 +145,9 @@ export default function Contactus() {
                 placeholder="Your EnrollmentNo"
                 required
               />
+              {EnrollmentNoError && (
+                <span className="error text-red-500">{EnrollmentNoError}</span>
+              )}
             </div>
             <div>
               <label
@@ -150,6 +165,9 @@ export default function Contactus() {
                 placeholder="youremail@gmail.com"
                 required
               />
+              {EmailError && (
+                <span className="error text-red-500">{EmailError}</span>
+              )}
             </div>
             <div>
               <label
@@ -167,6 +185,9 @@ export default function Contactus() {
                 placeholder="Your Clubname"
                 required
               />
+              {ClubNameError && (
+                <span className="error text-red-500">{ClubNameError}</span>
+              )}
             </div>
             <div>
               <label
@@ -184,6 +205,9 @@ export default function Contactus() {
                 placeholder="Let us know how we can help you"
                 required
               />
+              {SubjectError && (
+                <span className="error text-red-500">{SubjectError}</span>
+              )}
             </div>
 
             <div class="sm:col-span-2">
@@ -202,6 +226,9 @@ export default function Contactus() {
                 onChange={(e) => setMessage(e.target.value)}
                 required
               ></textarea>
+              {MessageError && (
+                <span className="error text-red-500">{MessageError}</span>
+              )}
             </div>
             <button
               type="submit"
