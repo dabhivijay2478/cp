@@ -1,7 +1,12 @@
 import React from "react";
 import { useEffect, useState, useRef } from "react";
 import ReactPaginate from "react-paginate";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
 export default function Admincontactusreport() {
+  const Navigation = useNavigate();
+
   const [mongoData, setMongoData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
@@ -58,6 +63,20 @@ export default function Admincontactusreport() {
     const endIndex = startIndex + itemsPerPage;
     return filteredData.slice(startIndex, endIndex);
   };
+
+  
+  async function handleDeleteContact(e, EnrollmentNo) {
+    e.preventDefault();
+    try {
+      const response = await axios.delete(`/deleteContactus/${EnrollmentNo}`);
+      const data = response.data;
+      window.alert("Successfully Delete The Contact US");
+      Navigation("/Admindash");
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <>
       <div className="overflow-x-auto">
@@ -82,6 +101,8 @@ export default function Admincontactusreport() {
               <th>Email</th>
               <th>ClubName</th>
               <th>Message</th>
+              <th>Delete</th>
+
             </tr>
           </thead>
           <tbody>
@@ -93,6 +114,27 @@ export default function Admincontactusreport() {
                 <td>{item.Email}</td>
                 <td>{item.ClubName}</td>
                 <td>{item.Message}</td>
+                <td>
+                  <button
+                    className="btn btn-square btn-outline dark:hover:bg-red-500"
+                    onClick={(e) => handleDeleteContact(e, item.EnrollmentNo)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

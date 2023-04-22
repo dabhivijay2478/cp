@@ -190,23 +190,20 @@ export default function ClubStudenReport() {
           </tbody>
         </table>
         <ReactPaginate
-          breakLabel="..."
-          nextLabel="next >"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={pageCount}
-          previousLabel="< previous"
           renderOnZeroPageCount={null}
-          containerClassName="flex justify-center mt-4"
-          pageClassName="mx-1 rounded-lg py-1 px-3 text-blue-500 cursor-pointer"
+          containerClassName="flex flex-col sm:flex-row justify-center items-center mt-4"
+          pageClassName="mx-1 rounded-lg py-1 px-3 text-white cursor-pointer"
           activeClassName="bg-blue-500 text-white"
           previousClassName="mx-1 rounded-lg py-1 px-3 text-blue-500 cursor-pointer"
           nextClassName="mx-1 rounded-lg py-1 px-3 text-blue-500 cursor-pointer"
           disabledClassName="opacity-50 cursor-not-allowed"
-          previousLinkClassName="btn"
-          nextLinkClassName="btn"
+          previousLinkClassName="btn dark:hover:bg-blue-500"
+          nextLinkClassName="btn dark:hover:bg-blue-500"
         >
-          <div className="btn-group">
+          <div className="btn-group flex">
             <button className="btn">«</button>
             <button className="btn">Page {pageNumber + 1}</button>
             <button className="btn">»</button>

@@ -102,6 +102,14 @@ export default defineConfig({
         target: " http://localhost:5000",
         changeOrigin: true,
       },
+      "/deleteevents": {
+        target: " http://localhost:5000",
+        changeOrigin: true,
+      },
+      "/deleteContactus": {
+        target: " http://localhost:5000",
+        changeOrigin: true,
+      },
     },
   },
 });

@@ -79,10 +79,6 @@ export default function Adduser() {
       setRoleError("Role is required.");
       isValid = false;
     }
-    if (Password === "") {
-      setPasswordError("Password is required.");
-      isValid = false;
-    }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(Email)) {
@@ -409,9 +405,6 @@ export default function Adduser() {
                     onChange={() => setPassword(EnrollmentNo)}
                     readOnly
                   />
-                  {PasswordError && (
-                    <span className="error text-red-500">{PasswordError}</span>
-                  )}
                 </div>
 
                 <div class="mt-4">

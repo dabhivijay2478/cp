@@ -1,8 +1,11 @@
 import React from "react";
 import { useEffect, useState, useRef } from "react";
 import ReactPaginate from "react-paginate";
-
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 export default function EvetnReport() {
+  const Navigation = useNavigate();
+
   const [mongoData, setMongoData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
@@ -61,6 +64,20 @@ export default function EvetnReport() {
     const endIndex = startIndex + itemsPerPage;
     return filteredData.slice(startIndex, endIndex);
   };
+
+
+  async function handleDeleteEvent(e, EventName) {
+    e.preventDefault();
+    try {
+      const response = await axios.delete(`/deleteevents/${EventName}`);
+      const data = response.data;
+      window.alert("Successfully Delete The Event");
+      Navigation("/Admindash");
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <>
       <div className="overflow-x-auto">
@@ -101,7 +118,10 @@ export default function EvetnReport() {
                 <td>{item.Venue}</td>
                 <td>{item.Certifiacate}</td>
                 <td>
-                  <button className="btn btn-square btn-outline">
+                  <button
+                    className="btn btn-square btn-outline dark:hover:bg-red-500"
+                    onClick={(e) => handleDeleteEvent(e, item.EventName)}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6"

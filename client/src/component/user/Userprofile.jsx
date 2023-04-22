@@ -26,7 +26,7 @@ export default function UserProfile() {
   return (
     <>
       <div className="mt-16 flex justify-center">
-        <div className="card w-11/12 bg-base-100 shadow-cyan-400 shadow-xl">
+        <div className="card w-11/12 bg-base-100  border border-double border-teal-500 shadow-xl">
           <div className="card-body grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
             <div class="rounded-lg p-8 shadow-lg border dark:hover:border-blue-600 border-solid shadow-blue-500 lg:col-span-3 lg:p-12">
               <form method="POST" class="space-y-4 font-bold text-slate-800">

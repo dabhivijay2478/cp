@@ -7,13 +7,12 @@ import "./changepasswordloader.css";
 export default function RegisterForEvent(props) {
   const history = useNavigate();
 
+  const email = Cookies.get("Studentemail");
   const { eventName } = props;
   const { ClubNameprops } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const [userData, setUserData] = useState({});
-
   const Name = userData.Name;
   const EnrollmentNo = userData.EnrollmentNo;
   const [PhoneNO, setPhoneNO] = useState("");
@@ -21,7 +20,100 @@ export default function RegisterForEvent(props) {
   const [Batch, setBatch] = useState("");
   const [ClubName, setClubName] = useState("");
   const [FavTech, setFavTech] = useState("");
-  const email = Cookies.get("Studentemail");
+  const [eventNameerror, seteventNameerror] = useState("");
+  const [ClubNamepropserror, setClubNamepropseroor] = useState("");
+
+  const [NameError, setNameError] = useState("");
+  const [EnrollmentNoError, setEnrollmentNoError] = useState("");
+  const [EmailError, setEmailError] = useState("");
+  const [PhoneNOError, setPhoneNOError] = useState("");
+  const [ClassError, setClassError] = useState("");
+  const [BatchError, setBatchError] = useState("");
+  const [ClubNameError, setClubNameError] = useState("");
+  const [FavTechError, setFavTechError] = useState("");
+  const [RoleError, setRoleError] = useState("");
+  const [PasswordError, setPasswordError] = useState("");
+
+  const validateInput = () => {
+    seteventNameerror("");
+    setClubNamepropseroor("");
+    setNameError("");
+    setEnrollmentNoError("");
+    setEmailError("");
+    setPhoneNOError("");
+    setClassError("");
+    setBatchError("");
+    setClubNameError("");
+    setFavTechError("");
+    setRoleError("");
+    setPasswordError("");
+
+    let isValid = true;
+
+    if (eventName === "") {
+      seteventNameerror("EventName is required.");
+      isValid = false;
+    }
+    if (ClubNameprops === "") {
+      setClubNamepropseroor("ClubName is required.");
+      isValid = false;
+    }
+
+    if (Name === "") {
+      setNameError("Name is required.");
+      isValid = false;
+    }
+    if (EnrollmentNo === "") {
+      setEnrollmentNoError("Enrollment number is required.");
+      isValid = false;
+    }
+    if (email === "") {
+      setEmailError("Email is required.");
+      isValid = false;
+    }
+    if (PhoneNO === "") {
+      setPhoneNOError("Phone number is required.");
+      isValid = false;
+    }
+    if (Class === "") {
+      setClassError("Class is required.");
+      isValid = false;
+    }
+    if (Batch === "") {
+      setBatchError("Batch is required.");
+      isValid = false;
+    }
+    if (ClubName === "") {
+      setClubNameError("Club name is required.");
+      isValid = false;
+    }
+    if (FavTech === "") {
+      setFavTechError("Favorite technology is required.");
+      isValid = false;
+    }
+    if (Role === "") {
+      setRoleError("Role is required.");
+      isValid = false;
+    }
+    if (Password === "") {
+      setPasswordError("Password is required.");
+      isValid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError("Invalid email format.");
+      isValid = false;
+    }
+
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(PhoneNO)) {
+      setPhoneNOError("Invalid phone number format.");
+      isValid = false;
+    }
+
+    return isValid;
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -44,6 +136,11 @@ export default function RegisterForEvent(props) {
 
   const registeruser = async (e) => {
     e.preventDefault();
+
+    if (!validateInput()) {
+      return;
+    }
+
     setIsLoading(true);
 
     setIsOpen(false);
@@ -115,6 +212,9 @@ export default function RegisterForEvent(props) {
                     type="text"
                     id="name"
                   />
+                  {NameError && (
+                    <span className="error text-red-500">{NameError}</span>
+                  )}
                 </div>
                 <div>
                   <label class="sr-only" for="name">
@@ -127,6 +227,9 @@ export default function RegisterForEvent(props) {
                     id="EnrollmentNo"
                     value={userData.EnrollmentNo}
                   />
+                  {EnrollmentNoError && (
+                    <span className="error text-red-500">{EnrollmentNoError}</span>
+                  )}
                 </div>
 
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -141,6 +244,9 @@ export default function RegisterForEvent(props) {
                       id="email"
                       value={userData.Email}
                     />
+                    {EmailError && (
+                      <span className="error text-red-500">{EmailError}</span>
+                    )}
                   </div>
 
                   <div>
@@ -155,6 +261,9 @@ export default function RegisterForEvent(props) {
                       value={PhoneNO}
                       onChange={(e) => setPhoneNO(e.target.value)}
                     />
+                    {PhoneNOError && (
+                      <span className="error text-red-500">{PhoneNOError}</span>
+                    )}
                   </div>
                 </div>
 
@@ -171,6 +280,9 @@ export default function RegisterForEvent(props) {
                       value={Class}
                       onChange={(e) => setClass(e.target.value)}
                     />
+                    {ClassError && (
+                      <span className="error text-red-500">{ClassError}</span>
+                    )}
                   </div>
 
                   <div>
@@ -185,6 +297,9 @@ export default function RegisterForEvent(props) {
                       value={Batch}
                       onChange={(e) => setBatch(e.target.value)}
                     />
+                    {BatchError && (
+                      <span className="error text-red-500">{BatchError}</span>
+                    )}
                   </div>
 
                   <div>
@@ -199,6 +314,11 @@ export default function RegisterForEvent(props) {
                       value={ClubName}
                       onChange={(e) => setClubName(e.target.value)}
                     />
+                    {ClubNameError && (
+                      <span className="error text-red-500">
+                        {ClubNameError}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -214,6 +334,9 @@ export default function RegisterForEvent(props) {
                     value={FavTech}
                     onChange={(e) => setFavTech(e.target.value)}
                   ></input>
+                  {FavTechError && (
+                    <span className="error text-red-500">{FavTechError}</span>
+                  )}
                 </div>
               </form>
             </div>
