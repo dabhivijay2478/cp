@@ -4,19 +4,100 @@ import csvtojson from "csvtojson";
 import "./adduser.css";
 export default function Adduser() {
   const history = useNavigate();
-
   const [Name, setName] = useState("");
+  const [NameError, setNameError] = useState("");
   const [EnrollmentNo, setEnrollmentNo] = useState("");
+  const [EnrollmentNoError, setEnrollmentNoError] = useState("");
   const [Email, setEmail] = useState("");
+  const [EmailError, setEmailError] = useState("");
   const [PhoneNO, setPhoneNO] = useState("");
+  const [PhoneNOError, setPhoneNOError] = useState("");
   const [Class, setClass] = useState("");
+  const [ClassError, setClassError] = useState("");
   const [Batch, setBatch] = useState("");
+  const [BatchError, setBatchError] = useState("");
   const [ClubName, setClubName] = useState("");
+  const [ClubNameError, setClubNameError] = useState("");
   const [FavTech, setFavTech] = useState("");
+  const [FavTechError, setFavTechError] = useState("");
   const [Role, setRole] = useState("");
+  const [RoleError, setRoleError] = useState("");
   const [Password, setPassword] = useState("");
+  const [PasswordError, setPasswordError] = useState("");
+
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const validateInput = () => {
+    // Reset all error messages
+    setNameError("");
+    setEnrollmentNoError("");
+    setEmailError("");
+    setPhoneNOError("");
+    setClassError("");
+    setBatchError("");
+    setClubNameError("");
+    setFavTechError("");
+    setRoleError("");
+    setPasswordError("");
+
+    let isValid = true;
+
+    if (Name === "") {
+      setNameError("Name is required.");
+      isValid = false;
+    }
+    if (EnrollmentNo === "") {
+      setEnrollmentNoError("Enrollment number is required.");
+      isValid = false;
+    }
+    if (Email === "") {
+      setEmailError("Email is required.");
+      isValid = false;
+    }
+    if (PhoneNO === "") {
+      setPhoneNOError("Phone number is required.");
+      isValid = false;
+    }
+    if (Class === "") {
+      setClassError("Class is required.");
+      isValid = false;
+    }
+    if (Batch === "") {
+      setBatchError("Batch is required.");
+      isValid = false;
+    }
+    if (ClubName === "") {
+      setClubNameError("Club name is required.");
+      isValid = false;
+    }
+    if (FavTech === "") {
+      setFavTechError("Favorite technology is required.");
+      isValid = false;
+    }
+    if (Role === "") {
+      setRoleError("Role is required.");
+      isValid = false;
+    }
+    if (Password === "") {
+      setPasswordError("Password is required.");
+      isValid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(Email)) {
+      setEmailError("Invalid email format.");
+      isValid = false;
+    }
+
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(PhoneNO)) {
+      setPhoneNOError("Invalid phone number format.");
+      isValid = false;
+    }
+
+    return isValid;
+  };
 
   const handleFileInputChange = (event) => {
     setFile(event.target.files[0]);
@@ -41,6 +122,10 @@ export default function Adduser() {
 
   const adduser = async (e) => {
     e.preventDefault();
+    if (!validateInput()) {
+      return;
+    }
+
     setIsLoading(true);
     const res = await fetch("/signupserver", {
       method: "POST",
@@ -167,6 +252,9 @@ export default function Adduser() {
                     type="text"
                     id="name"
                   />
+                  {NameError && (
+                    <span className="error text-red-500">{NameError}</span>
+                  )}
                 </div>
                 <div>
                   <label class="sr-only" for="name">
@@ -180,6 +268,9 @@ export default function Adduser() {
                     value={EnrollmentNo}
                     onChange={(e) => setEnrollmentNo(e.target.value)}
                   />
+                  {NameError && (
+                    <span className="error text-red-500">{NameError}</span>
+                  )}
                 </div>
 
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -195,6 +286,9 @@ export default function Adduser() {
                       value={Email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
+                    {EmailError && (
+                      <span className="error text-red-500">{EmailError}</span>
+                    )}
                   </div>
 
                   <div>
@@ -209,6 +303,9 @@ export default function Adduser() {
                       value={PhoneNO}
                       onChange={(e) => setPhoneNO(e.target.value)}
                     />
+                    {PhoneNOError && (
+                      <span className="error text-red-500">{PhoneNOError}</span>
+                    )}
                   </div>
                 </div>
 
@@ -225,6 +322,9 @@ export default function Adduser() {
                       value={Class}
                       onChange={(e) => setClass(e.target.value)}
                     />
+                    {ClassError && (
+                      <span className="error text-red-500">{ClassError}</span>
+                    )}
                   </div>
 
                   <div>
@@ -239,6 +339,9 @@ export default function Adduser() {
                       value={Batch}
                       onChange={(e) => setBatch(e.target.value)}
                     />
+                    {BatchError && (
+                      <span className="error text-red-500">{BatchError}</span>
+                    )}
                   </div>
 
                   <div>
@@ -253,6 +356,11 @@ export default function Adduser() {
                       value={ClubName}
                       onChange={(e) => setClubName(e.target.value)}
                     />
+                    {ClubNameError && (
+                      <span className="error text-red-500">
+                        {ClubNameError}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -268,6 +376,9 @@ export default function Adduser() {
                     value={FavTech}
                     onChange={(e) => setFavTech(e.target.value)}
                   ></input>
+                  {FavTechError && (
+                    <span className="error text-red-500">{FavTechError}</span>
+                  )}
                 </div>
                 <div>
                   <label class="sr-only" for="favtech">
@@ -281,6 +392,9 @@ export default function Adduser() {
                     value={Role}
                     onChange={(e) => setRole(e.target.value)}
                   ></input>
+                  {RoleError && (
+                    <span className="error text-red-500">{RoleError}</span>
+                  )}
                 </div>
                 <div>
                   <label class="sr-only" for="name">
@@ -295,6 +409,9 @@ export default function Adduser() {
                     onChange={() => setPassword(EnrollmentNo)}
                     readOnly
                   />
+                  {PasswordError && (
+                    <span className="error text-red-500">{PasswordError}</span>
+                  )}
                 </div>
 
                 <div class="mt-4">

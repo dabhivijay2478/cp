@@ -12,36 +12,82 @@ export default function Contactus() {
   const [Subject, setSubject] = useState("");
   const [Message, setMessage] = useState("");
 
+  // const [errors, setErrors] = useState({});
+
   const sendmessage = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const res = await fetch("/Contactus", {
-      method: "POST",
-      changeOrigin: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        Name,
-        EnrollmentNo,
-        Email,
-        ClubName,
-        Subject,
-        Message,
-      }),
-    });
-    const data = res.json();
+    let isValid = true;
 
-    if (res.status === 400 || !data) {
-      window.alert("Invaild");
-    } else if (res.status === 422 || !data) {
-      window.alert("Bad");
+    // Check if Name is not empty
+    if (!Name.trim()) {
+      window.alert("Name is required");
+      isValid = false;
+    }
+
+    // Check if EnrollmentNo is a number and not empty
+    if (!EnrollmentNo.trim() || isNaN(EnrollmentNo)) {
+      window.alert("EnrollmentNo is required and must be a number");
+      isValid = false;
+    }
+
+    // Check if Email is a valid email format
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!Email.trim() || !emailPattern.test(Email)) {
+      window.alert("Email is required and must be a valid email format");
+      isValid = false;
+    }
+
+    // Check if ClubName is not empty
+    if (!ClubName.trim()) {
+      window.alert("ClubName is required");
+      isValid = false;
+    }
+
+    // Check if Subject is not empty
+    if (!Subject.trim()) {
+      window.alert("Subject is required");
+      isValid = false;
+    }
+
+    // Check if Message is not empty
+    if (!Message.trim()) {
+      window.alert("Message is required");
+      isValid = false;
+    }
+
+    if (isValid) {
+      const res = await fetch("/Contactus", {
+        method: "POST",
+        changeOrigin: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          Name,
+          EnrollmentNo,
+          Email,
+          ClubName,
+          Subject,
+          Message,
+        }),
+      });
+      const data = res.json();
+
+      if (res.status === 400 || !data) {
+        window.alert("Invaild");
+      } else if (res.status === 422 || !data) {
+        window.alert("Bad");
+      } else {
+        window.alert("SucessFully Send Message");
+        setIsLoading(false);
+        history("/User");
+      }
     } else {
-      window.alert("SucessFully Send Message");
       setIsLoading(false);
-      history("/User");
     }
   };
+
   return (
     <>
       <section className="mt-16">
@@ -51,7 +97,7 @@ export default function Contactus() {
           </h2>
           <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">
             Got a technical issue? Want to send feedback about a beta feature?
-          <br/>  Let us know.
+            <br /> Let us know.
           </p>
           <form method="POST" class="space-y-8">
             <div>
@@ -154,6 +200,7 @@ export default function Contactus() {
                 placeholder="Your Message."
                 value={Message}
                 onChange={(e) => setMessage(e.target.value)}
+                required
               ></textarea>
             </div>
             <button

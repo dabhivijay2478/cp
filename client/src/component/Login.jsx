@@ -9,52 +9,92 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const validateInputs = () => {
+    let emailErrorMsg = "";
+    let passwordErrorMsg = "";
+    let isValid = true;
+
+    // Check if email is valid
+    if (!email) {
+      emailErrorMsg = "Email is required";
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      emailErrorMsg = "Invalid email address";
+      isValid = false;
+    }
+
+    // Check if password is valid
+    if (!password) {
+      passwordErrorMsg = "Password is required";
+      isValid = false;
+    } 
+    // else if (password.length < 4) {
+    //   passwordErrorMsg = "Password must be at least 6 characters";
+    //   isValid = false;
+    // }
+
+    // Set error messages in state
+    setEmailError(emailErrorMsg);
+    setPasswordError(passwordErrorMsg);
+
+    return isValid;
+  };
 
   const loginuser = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
 
-    const response = await fetch("/loginserver", {
-      method: "POST",
-      changeOrigin: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        Email: email,
-        Password: password,
-      }),
-    });
-    const data = await response.json();
-    console.log(`User role: ${data.Role}`);
+    if (validateInputs()) {
+      setIsLoading(true);
 
-    const role = await data.Role;
-    console.log(role);
-    if (response.status === 400 || !data) {
-      window.alert("Invaild");
-      setIsLoading(false);
-    } else {
-      Cookies.set(role, true, { expires: 1 });
-      window.alert("Sucess");
-      if (role == "Admin") {
-        history("/Admindash");
-        Cookies.set("Adminemail", email);
-        setIsLoading(false);
-      } else if (role == "ClubAdmin") {
-        history("/ClubAdmin");
-        Cookies.set("ClubAdminemail", email);
-        setIsLoading(false);
-      } else if (role == "Student") {
-        history(`/user`);
-        Cookies.set("Studentemail", email);
+      const response = await fetch("/loginserver", {
+        method: "POST",
+        changeOrigin: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          Email: email,
+          Password: password,
+        }),
+      });
+
+      const data = await response.json();
+      console.log(`User role: ${data.Role}`);
+
+      const role = await data.Role;
+      console.log(role);
+
+      if (response.status === 400 || !data) {
+        window.alert("Invalid email or password");
         setIsLoading(false);
       } else {
-        history("*");
+        Cookies.set(role, true, { expires: 1 });
+        window.alert("Success");
+
+        // Redirect user based on their role
+        switch (role) {
+          case "Admin":
+            history("/Admindash");
+            Cookies.set("Adminemail", email);
+            break;
+          case "ClubAdmin":
+            history("/ClubAdmin");
+            Cookies.set("ClubAdminemail", email);
+            break;
+          case "Student":
+            history(`/user`);
+            Cookies.set("Studentemail", email);
+            break;
+          default:
+            history("*");
+        }
+
         setIsLoading(false);
       }
     }
   };
-
   return (
     <>
       <section class="bg-white fixed  w-screen h-screen   justify-center items-center z-50">
@@ -90,6 +130,9 @@ export default function Login() {
                     placeholder="name@company.com"
                     required=""
                   />
+                  {emailError && (
+                    <span className="error text-red-500">{emailError}</span>
+                  )}
                 </div>
                 <div>
                   <label
@@ -108,14 +151,9 @@ export default function Login() {
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required=""
                   />
-                </div>
-                <div class="flex items-center justify-between">
-                  <NavLink
-                    to="#"
-                    class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-                  >
-                    Forgot password?
-                  </NavLink>
+                  {passwordError && (
+                    <span className="error text-red-500">{passwordError}</span>
+                  )}
                 </div>
 
                 <button

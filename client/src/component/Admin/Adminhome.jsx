@@ -53,7 +53,7 @@ export default function Adminhome() {
         <div className="card w-full bg-base-100 shadow-xl border border-double border-emerald-300">
           <div className="card-body">
             <h1 className="text-sky-500 text-lg">Last Contact Us</h1>
-            <h2 className="card-title">
+            <h2 className="card-title text-base">
               EnrollmentNo :{" "}
               <span className="text-teal-500">
                 {lastcontactus.EnrollmentNo}

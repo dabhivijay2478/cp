@@ -11,36 +11,61 @@ export default function Userchangepassword(props) {
   const [newpassword, setnewpassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [changepasswordmodal, setChangepasswordmodal] = useState(false);
+  const [currentPasswordError, setCurrentPasswordError] = useState("");
+  const [newPasswordError, setNewPasswordError] = useState("");
+
+  const validateInputs = () => {
+    let currentPasswordError = "";
+    let newPasswordError = "";
+
+    if (!Currentpassword) {
+      currentPasswordError = "Please enter your current password.";
+    }
+
+    if (!newpassword) {
+      newPasswordError = "Please enter a new password.";
+    } else if (newpassword.length < 8) {
+      newPasswordError = "Password must be at least 8 characters long.";
+    }
+
+    setCurrentPasswordError(currentPasswordError);
+    setNewPasswordError(newPasswordError);
+
+    return !currentPasswordError && !newPasswordError;
+  };
 
   const Chnagepassmodal = () => {
     setChangepasswordmodal(!changepasswordmodal);
   };
   const Changepassword = async () => {
-    setIsLoading(true);
-    setChangepasswordmodal(false);
+    if (validateInputs()) {
+      setIsLoading(true);
+      setChangepasswordmodal(false);
 
-    try {
-      const response = await axios.put(
-        `/changepassword`,
-        {
-          EnrollmentNo: Enrollment,
-          Password: Currentpassword,
-          newPassword: newpassword,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
+      try {
+        const response = await axios.put(
+          `/changepassword`,
+          {
+            EnrollmentNo: Enrollment,
+            Password: Currentpassword,
+            newPassword: newpassword,
           },
-        }
-      );
-      window.alert("Password changed successfully");
-      setIsLoading(false);
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        window.alert("Password changed successfully");
+        setIsLoading(false);
 
-      nav("/User");
-    } catch (error) {
-      console.log(error);
+        nav("/User");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
+
   return (
     <>
       <div>
@@ -78,6 +103,9 @@ export default function Userchangepassword(props) {
                   value={Currentpassword}
                   onChange={(e) => setCurrentpassword(e.target.value)}
                 />
+                {currentPasswordError && (
+                  <p className="text-sm text-red-500">{currentPasswordError}</p>
+                )}
                 <input
                   type="text"
                   placeholder="Enter The New Password"
@@ -85,6 +113,9 @@ export default function Userchangepassword(props) {
                   value={newpassword}
                   onChange={(e) => setnewpassword(e.target.value)}
                 />
+                {newPasswordError && (
+                  <p className="text-sm text-red-500">{newPasswordError}</p>
+                )}
               </p>
               <div className="modal-action">
                 <label
