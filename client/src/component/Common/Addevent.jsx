@@ -5,6 +5,7 @@ import Datepicker from "react-tailwindcss-datepicker";
 export default function Addevent() {
   const history = useNavigate();
   const [Certifiacate, setCertifiacate] = useState("");
+
   const [ClubName, setClubname] = useState("");
   const [EventName, setEventName] = useState("");
   const [HandlerName, setHandlerName] = useState("");
@@ -22,6 +23,68 @@ export default function Addevent() {
     setDates(newDates);
   };
 
+  const [clubNameError, setClubNameError] = useState("");
+  const [eventNameError, setEventNameError] = useState("");
+  const [handlerNameError, setHandlerNameError] = useState("");
+  const [descrptionError, setDescrptionError] = useState("");
+  const [venueError, setVenueError] = useState("");
+  const [datesError, setDatesError] = useState("");
+  const [Certifiacateerror, setCertifiacateerror] = useState("");
+  const validateForm = () => {
+    let isValid = true;
+
+    if (!ClubName) {
+      setClubNameError("Please enter Club Name");
+      isValid = false;
+    } else {
+      setClubNameError("");
+    }
+
+    if (!Certifiacate) {
+      setCertifiacateerror("Please Select the yes or no for certificate");
+      isValid = false;
+    } else {
+      setCertifiacateerror("");
+    }
+
+    if (!EventName) {
+      setEventNameError("Please enter Event Name");
+      isValid = false;
+    } else {
+      setEventNameError("");
+    }
+
+    if (!HandlerName) {
+      setHandlerNameError("Please enter Handler Name");
+      isValid = false;
+    } else {
+      setHandlerNameError("");
+    }
+
+    if (!Venue) {
+      setVenueError("Please enter Venue");
+      isValid = false;
+    } else {
+      setVenueError("");
+    }
+
+    if (!Descrption) {
+      setDescrptionError("Please enter Description");
+      isValid = false;
+    } else {
+      setDescrptionError("");
+    }
+
+    if (!Dates.startDate) {
+      setDatesError("Please select a date");
+      isValid = false;
+    } else {
+      setDatesError("");
+    }
+
+    return isValid;
+  };
+
   const handlerest = () => {
     setClubname("");
     setEventName("");
@@ -32,6 +95,9 @@ export default function Addevent() {
   };
   const Addevent = async (e) => {
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
     const res = await fetch("/addnewevent", {
       method: "POST",
       changeOrigin: true,
@@ -48,7 +114,7 @@ export default function Addevent() {
         Dates,
       }),
     });
-    const data = res.json();
+    const data = await res.json();
 
     if (res.status === 400 || !data) {
       window.alert("Invaild");
@@ -62,8 +128,8 @@ export default function Addevent() {
 
   return (
     <>
-      <div className="flex justify-center container">
-        <div className="card w-full  bg-white border-double  container  shadow-lg ">
+      <div className="flex justify-center">
+        <div className="card bg-white border-double container shadow-lg w-full md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg">
           <div className="flex px-2 py-3 justify-center">
             <input
               type="text"
@@ -72,6 +138,11 @@ export default function Addevent() {
               placeholder="Enter The Club Name"
               className="input input-bordered  input-accent w-full max-w-xs mt-2 px-3 py-2 bg-white text-gray-900"
             />
+          </div>
+          <div className="flex px-2 py-3  justify-center  ">
+            {clubNameError && (
+              <span className="error text-red-500">{clubNameError}</span>
+            )}
           </div>
           <div className="flex px-2 py-3 justify-center">
             <input
@@ -82,6 +153,11 @@ export default function Addevent() {
               className="input input-bordered  input-accent w-full max-w-xs mt-2 px-3 py-2 bg-white text-gray-900"
             />
           </div>
+          <div className="flex px-2 py-3  justify-center  ">
+            {eventNameError && (
+              <span className="error text-red-500">{eventNameError}</span>
+            )}
+          </div>
           <div className="flex px-2 py-2 bg-white text-gray-900 justify-center">
             <input
               type="text"
@@ -90,6 +166,11 @@ export default function Addevent() {
               placeholder="Enter The Handler Name"
               className="input input-bordered  input-accent w-full max-w-xs mt-2 px-3 py-2 bg-white text-gray-900"
             />
+          </div>
+          <div className="flex px-2 py-3  justify-center  ">
+            {handlerNameError && (
+              <span className="error text-red-500">{handlerNameError}</span>
+            )}
           </div>
           <div className="flex px-2 py-2 bg-white text-gray-900 justify-center">
             <textarea
@@ -101,6 +182,11 @@ export default function Addevent() {
               className="textarea textarea-accent  input-accent w-full max-w-xs  mt-2 px-3 py-2 bg-white text-gray-900"
             />
           </div>
+          <div className="flex px-2 py-3  justify-center  ">
+            {descrptionError && (
+              <span className="error text-red-500">{descrptionError}</span>
+            )}
+          </div>
           <div className="flex px-2 py-2 bg-white text-gray-900 justify-center">
             <input
               type="text"
@@ -109,6 +195,11 @@ export default function Addevent() {
               placeholder="Venue"
               className="input input-bordered  input-accent w-full max-w-xs mt-2 px-3 py-2 bg-white text-gray-900"
             />
+          </div>
+          <div className="flex px-2 py-3  justify-center  ">
+            {venueError && (
+              <span className="error text-red-500">{venueError}</span>
+            )}
           </div>
           <div className="flex px-2 py-2  text-gray-900 justify-center">
             <h3 class="mb-4 font-normal text-green input input-bordered  input-accent w-full max-w-xs mt-2 px-3 py-2 bg-white text-gray-900">
@@ -142,6 +233,11 @@ export default function Addevent() {
             </h3>
           </div>
           <div className="flex px-2 py-3  justify-center  ">
+            {Certifiacateerror && (
+              <span className="error text-red-500">{Certifiacateerror}</span>
+            )}
+          </div>
+          <div className="flex px-2 py-3  justify-center  ">
             <div className=" w-full bg-white max-w-xs text-black border rounded-lg border-purple-500">
               <Datepicker
                 useRange={false}
@@ -154,6 +250,11 @@ export default function Addevent() {
                 // showShortcuts={true}
               />
             </div>
+          </div>
+          <div className="flex px-2 py-3  justify-center  ">
+            {datesError && (
+              <span className="error text-red-500">{datesError}</span>
+            )}
           </div>
           <div className="px-2 py-2">
             <button

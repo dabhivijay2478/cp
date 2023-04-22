@@ -18,10 +18,45 @@ export default function Addclub() {
   const [Student, setStudent] = useState("");
   const [ClubName, setClubName] = useState("");
 
+  const [clubNameError, setClubNameError] = useState("");
+  const [facultyError, setFacultyError] = useState("");
+  const [studentError, setStudentError] = useState("");
+  const [datesError, setDatesError] = useState("");
+
+  const validateInput = () => {
+    let formValid = true;
+    if (!ClubName.trim()) {
+      setClubNameError("Club Name is required.");
+      formValid = false;
+    } else {
+      setClubNameError("");
+    }
+    if (!Factulty.trim()) {
+      setFacultyError("Main Handler Factulty is required.");
+      formValid = false;
+    } else {
+      setFacultyError("");
+    }
+    if (!Student.trim()) {
+      setStudentError("Main Handler Student is required.");
+      formValid = false;
+    } else {
+      setStudentError("");
+    }
+    if (!Dates.startDate) {
+      setDatesError("Date is required.");
+      formValid = false;
+    } else {
+      setDatesError("");
+    }
+  };
   const addclub = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+    if (!validateInput()) {
+      setIsLoading(false);
+      return;
+    }
     const res = await fetch("/addnewclub", {
       method: "POST",
       changeOrigin: true,
@@ -69,6 +104,12 @@ export default function Addclub() {
             />
           </div>
           <div className="flex px-2 py-3 justify-center">
+            {" "}
+            {clubNameError && (
+              <span className="error text-red-500">{clubNameError}</span>
+            )}
+          </div>
+          <div className="flex px-2 py-3 justify-center">
             <input
               type="text"
               value={Factulty}
@@ -76,6 +117,11 @@ export default function Addclub() {
               placeholder="Main Handler Factulty"
               className="input input-bordered  input-primary w-full bg-white max-w-xs text-black"
             />
+          </div>
+          <div className="flex px-2 py-3 justify-center">
+            {facultyError && (
+              <span className="error text-red-500">{facultyError}</span>
+            )}
           </div>
           <div className="flex px-2 py-3 justify-center">
             <input
@@ -86,7 +132,11 @@ export default function Addclub() {
               className="input input-bordered  input-primary w-full bg-white max-w-xs text-black"
             />
           </div>
-
+          <div className="flex px-2 py-3 justify-center">
+            {studentError && (
+              <span className="error text-red-500">{studentError}</span>
+            )}
+          </div>
           <div className="flex px-2 py-3  justify-center  ">
             <div className=" w-full bg-white max-w-xs text-black border rounded-lg border-purple-500">
               <Datepicker
@@ -100,6 +150,12 @@ export default function Addclub() {
                 // showShortcuts={true}
               />
             </div>
+          </div>
+          .
+          <div className="flex px-2 py-3 justify-center">
+            {datesError && (
+              <span className="error text-red-500">{datesError}</span>
+            )}
           </div>
           <div>
             <button
