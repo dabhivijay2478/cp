@@ -62,6 +62,10 @@ export default defineConfig({
         target: " http://localhost:5000",
         changeOrigin: true,
       },
+      "/clubreport": {
+        target: " http://localhost:5000",
+        changeOrigin: true,
+      },
       "/users": {
         target: " http://localhost:5000",
         changeOrigin: true,
@@ -107,6 +111,10 @@ export default defineConfig({
         changeOrigin: true,
       },
       "/deleteContactus": {
+        target: " http://localhost:5000",
+        changeOrigin: true,
+      },
+      "/deleteClubName": {
         target: " http://localhost:5000",
         changeOrigin: true,
       },

@@ -24,31 +24,33 @@ export default function Addclub() {
   const [datesError, setDatesError] = useState("");
 
   const validateInput = () => {
-    let formValid = true;
-    if (!ClubName.trim()) {
+    let isValid = true;
+    if (ClubName === "") {
       setClubNameError("Club Name is required.");
-      formValid = false;
+      isValid = false;
     } else {
       setClubNameError("");
     }
-    if (!Factulty.trim()) {
+    if (Factulty === "") {
       setFacultyError("Main Handler Factulty is required.");
-      formValid = false;
+      isValid = false;
     } else {
       setFacultyError("");
     }
-    if (!Student.trim()) {
+    if (Student === "") {
       setStudentError("Main Handler Student is required.");
-      formValid = false;
+      isValid = false;
     } else {
       setStudentError("");
     }
     if (!Dates.startDate) {
-      setDatesError("Date is required.");
-      formValid = false;
+      setDatesError("Please select a date");
+      isValid = false;
     } else {
       setDatesError("");
     }
+
+    return isValid;
   };
   const addclub = async (e) => {
     e.preventDefault();
@@ -151,7 +153,7 @@ export default function Addclub() {
               />
             </div>
           </div>
-          .
+
           <div className="flex px-2 py-3 justify-center">
             {datesError && (
               <span className="error text-red-500">{datesError}</span>

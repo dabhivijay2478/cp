@@ -110,7 +110,15 @@ export default function Admindash() {
                 <span className=" ml-3 ">Event Report</span>
               </NavLink>
             </li>
-
+            <li>
+              <NavLink
+                to="/Admindash/ClubReport"
+                className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
+              >
+                <i class="fa-solid fa-cubes-stacked dark:hover:text-slate-800"></i>
+                <span className=" ml-3 ">Club Report</span>
+              </NavLink>
+            </li>
             <li>
               <NavLink
                 to="/Admindash/AdminContactusreport"

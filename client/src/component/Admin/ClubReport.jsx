@@ -3,7 +3,8 @@ import { useEffect, useState, useRef } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-export default function EvetnReport() {
+
+export default function ClubReport() {
   const Navigation = useNavigate();
 
   const [mongoData, setMongoData] = useState([]);
@@ -16,7 +17,7 @@ export default function EvetnReport() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("/Eventreport");
+      const response = await fetch("/clubreport");
       const result = await response.json();
       setMongoData(result);
     }
@@ -65,12 +66,12 @@ export default function EvetnReport() {
     return filteredData.slice(startIndex, endIndex);
   };
 
-  async function handleDeleteEvent(e, EventName) {
+  async function handleDeleteClubName(e, ClubName) {
     e.preventDefault();
     try {
-      const response = await axios.delete(`/deleteevents/${EventName}`);
+      const response = await axios.delete(`/deleteClubName/${ClubName}`);
       const data = response.data;
-      window.alert("Successfully Delete The Event");
+      window.alert("Successfully Delete The ClubName");
       Navigation("/Admindash");
       console.log(data);
     } catch (error) {
@@ -97,11 +98,9 @@ export default function EvetnReport() {
             <tr>
               <th></th>
               <th>ClubName</th>
-              <th>EventName</th>
-              <th>HandlerName</th>
-              <th>Descrption</th>
-              <th>Venue</th>
-              <th>Certifiacate</th>
+              <th>Factulty</th>
+              <th>Student</th>
+              <th>start Date</th>
               <th>Update</th>
               <th>Delete</th>
             </tr>
@@ -112,24 +111,22 @@ export default function EvetnReport() {
                 <td></td>
 
                 <td>{item.ClubName}</td>
-                <td>{item.EventName}</td>
-                <td>{item.HandlerName}</td>
-                <td>{item.Descrption}</td>
-                <td>{item.Venue}</td>
-                <td>{item.Certifiacate}</td>
+                <td>{item.Factulty}</td>
+                <td>{item.Student}</td>
+                <td>{item.Dates.startDate}</td>
                 <td>
-                <label
-                  htmlFor="updateevent"
-                  className="btn btn-outline btn-accent"
-                >
-                  Update
-                </label>
-              </td>
+                  <label
+                    htmlFor="updateclub"
+                    className="btn btn-outline btn-accent"
+                  >
+                    Update
+                  </label>
+                </td>
 
                 <td>
                   <button
                     className="btn btn-square btn-outline dark:hover:bg-red-500"
-                    onClick={(e) => handleDeleteEvent(e, item.EventName)}
+                    onClick={(e) => handleDeleteClubName(e, item.ClubName)}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -174,7 +171,7 @@ export default function EvetnReport() {
       </div>
 
       <div>
-        <input type="checkbox" id="updateevent" className="modal-toggle" />
+        <input type="checkbox" id="updateclub" className="modal-toggle" />
         <div className="modal">
           <div className="modal-box w-11/12 max-w-5xl">
             <h3 className="font-bold text-lg">
@@ -185,7 +182,7 @@ export default function EvetnReport() {
               to use Wikipedia for free!
             </p>
             <div className="modal-action">
-              <label htmlFor="updateevent" className="btn">
+              <label htmlFor="updateclub" className="btn">
                 Yay!
               </label>
             </div>
