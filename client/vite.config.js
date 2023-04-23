@@ -118,6 +118,14 @@ export default defineConfig({
         target: " http://localhost:5000",
         changeOrigin: true,
       },
+      "/updateevent": {
+        target: " http://localhost:5000",
+        changeOrigin: true,
+      },
+      "/updateclub": {
+        target: " http://localhost:5000",
+        changeOrigin: true,
+      },
     },
   },
 });

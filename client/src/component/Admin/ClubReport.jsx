@@ -3,9 +3,11 @@ import { useEffect, useState, useRef } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import UpdateClub from "./UpdateClub";
 
 export default function ClubReport() {
   const Navigation = useNavigate();
+  const [selectedRow, setSelectedRow] = useState(null);
 
   const [mongoData, setMongoData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -59,7 +61,9 @@ export default function ClubReport() {
   const handlePageClick = ({ selected }) => {
     setPageNumber(selected);
   };
-
+  const handleRowClick = (item) => {
+    setSelectedRow(item);
+  };
   const getPaginatedData = () => {
     const startIndex = pageNumber * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -115,12 +119,13 @@ export default function ClubReport() {
                 <td>{item.Student}</td>
                 <td>{item.Dates.startDate}</td>
                 <td>
-                  <label
-                    htmlFor="updateclub"
-                    className="btn btn-outline btn-accent"
-                  >
-                    Update
-                  </label>
+                <label
+                htmlFor="updateclub"
+                className="btn btn-outline btn-accent"
+                onClick={() => handleRowClick(item)}
+              >
+                Update
+              </label>
                 </td>
 
                 <td>
@@ -170,25 +175,7 @@ export default function ClubReport() {
         </ReactPaginate>
       </div>
 
-      <div>
-        <input type="checkbox" id="updateclub" className="modal-toggle" />
-        <div className="modal">
-          <div className="modal-box w-11/12 max-w-5xl">
-            <h3 className="font-bold text-lg">
-              Congratulations random Internet user!
-            </h3>
-            <p className="py-4">
-              You've been selected for a chance to get one year of subscription
-              to use Wikipedia for free!
-            </p>
-            <div className="modal-action">
-              <label htmlFor="updateclub" className="btn">
-                Yay!
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
+      <UpdateClub selectedRow={selectedRow} />
     </>
   );
 }
