@@ -264,8 +264,10 @@ export default function Adduser() {
                     value={EnrollmentNo}
                     onChange={(e) => setEnrollmentNo(e.target.value)}
                   />
-                  {NameError && (
-                    <span className="error text-red-500">{NameError}</span>
+                  {EnrollmentNoError && (
+                    <span className="error text-red-500">
+                      {EnrollmentNoError}
+                    </span>
                   )}
                 </div>
 
