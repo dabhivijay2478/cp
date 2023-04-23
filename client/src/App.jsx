@@ -27,6 +27,7 @@ import Clubadminhome from "./component/Clubadmin/Clubadminhome";
 import Test from "./component/user/Test";
 import ClubStudenReport from "./component/Clubadmin/ClubStudenReport";
 import ClubReport from "./component/Admin/ClubReport";
+import ClubEventreport from "./component/Clubadmin/ClubEventreport";
 function App() {
   return (
     <>
@@ -60,6 +61,8 @@ function App() {
           <Route exact path="Adduser" element={<Adduser />} />
           <Route exact path="Addevent" element={<Addevent />} />
           <Route exact path="Postcertificates" element={<Postcertificates />} />
+          <Route exact path="ClubEventReport" element={<ClubEventreport />} />
+
           <Route exact path="StudentReport" element={<ClubStudenReport />} />
 
           <Route exact path="*" element={<Errorpage />} />

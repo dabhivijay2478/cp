@@ -127,7 +127,7 @@ export default function UpdateEvent(props) {
       });
 
       window.alert("Successfully Update Event");
-      history("/Admindash");
+      // history("/Admindash");
 
       setIsLoading(false);
       return response.data;
@@ -170,6 +170,7 @@ export default function UpdateEvent(props) {
                     onChange={(e) => setClubname(e.target.value)}
                     placeholder="Enter The Club Name"
                     className="input input-bordered  input-accent w-full max-w-xs mt-2 px-3 py-2 bg-white text-gray-900"
+                    readOnly
                   />
                 </div>
                 <div className="flex px-2 py-3  justify-center  ">

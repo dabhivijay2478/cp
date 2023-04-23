@@ -1,25 +1,28 @@
 import React from "react";
 import { useEffect, useState, useRef } from "react";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
-import UpdateStudentReport from "../Common/UpdateStudentReport";
 import ReactPaginate from "react-paginate";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
-export default function ClubStudenReport() {
+import axios from "axios";
+import UpdateEvent from "../Common/UpdateEvent";
+
+export default function ClubEventreport() {
   const Navigation = useNavigate();
   const [selectedRow, setSelectedRow] = useState(null);
 
   const [mongoData, setMongoData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  const searchInputRef = useRef(null);
   const [pageNumber, setPageNumber] = useState(0);
   const itemsPerPage = 10;
   const pageCount = Math.ceil(filteredData.length / itemsPerPage);
-  const searchInputRef = useRef(null);
 
   const [userData, setUserData] = useState({});
   const email = Cookies.get("ClubAdminemail");
   const ClubName = userData.ClubName;
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -38,22 +41,10 @@ export default function ClubStudenReport() {
 
   useEffect(() => {
     async function fetchData() {
-      //   const response = await fetch("/ClubStudentReport");
-
-      const response = await fetch("/ClubStudentReport", {
-        method: "POST",
-        changeOrigin: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ClubName: ClubName,
-        }),
-      });
+      const response = await fetch(`/eventsbyclub/${ClubName}`);
       const result = await response.json();
       setMongoData(result);
     }
-
     fetchData();
   }, [ClubName]);
 
@@ -62,24 +53,18 @@ export default function ClubStudenReport() {
       const filteredData = mongoData.filter((item) => {
         const searchTermLower = searchTerm.toLowerCase();
         return (
-          (typeof item.Name === "string" &&
-            item.Name.toLowerCase().includes(searchTermLower)) ||
-          (typeof item.EnrollmentNo === "number" &&
-            item.EnrollmentNo.toString().includes(searchTermLower)) ||
-          (typeof item.Email === "string" &&
-            item.Email.toLowerCase().includes(searchTermLower)) ||
-          (typeof item.PhoneNO === "number" &&
-            item.PhoneNO.toString().includes(searchTermLower)) ||
-          (typeof item.Class === "string" &&
-            item.Class.toLowerCase().includes(searchTermLower)) ||
-          (typeof item.Batch === "string" &&
-            item.Batch.toLowerCase().includes(searchTermLower)) ||
+          (typeof item.EventName === "string" &&
+            item.EventName.toLowerCase().includes(searchTermLower)) ||
+          (typeof item.HandlerName === "string" &&
+            item.HandlerName.toLowerCase().includes(searchTermLower)) ||
+          (typeof item.Descrption === "string" &&
+            item.Descrption.toLowerCase().includes(searchTermLower)) ||
+          (typeof item.Venue === "string" &&
+            item.Venue.toLowerCase().includes(searchTermLower)) ||
+          (typeof item.Certifiacate === "string" &&
+            item.Certifiacate.toLowerCase().includes(searchTermLower)) ||
           (typeof item.ClubName === "string" &&
-            item.ClubName.toLowerCase().includes(searchTermLower)) ||
-          (typeof item.FavTech === "string" &&
-            item.FavTech.toLowerCase().includes(searchTermLower)) ||
-          (typeof item.Role === "string" &&
-            item.Role.toLowerCase().includes(searchTermLower))
+            item.ClubName.toLowerCase().includes(searchTermLower))
         );
       });
       setFilteredData(filteredData);
@@ -95,23 +80,6 @@ export default function ClubStudenReport() {
   };
   document.addEventListener("keydown", handleKeyDown);
 
-  async function handleDeleteUser(e, EnrollmentNo) {
-    try {
-      const response = await fetch(`/deleteuser/${EnrollmentNo}`, {
-        method: "DELETE",
-      });
-      const data = await response.json();
-      // window.alert("SucessFully Delete");
-      // Navigation("/ClubAdmin");
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  const handleRowClick = (item) => {
-    setSelectedRow(item);
-  };
   const handlePageClick = ({ selected }) => {
     setPageNumber(selected);
   };
@@ -121,9 +89,25 @@ export default function ClubStudenReport() {
     const endIndex = startIndex + itemsPerPage;
     return filteredData.slice(startIndex, endIndex);
   };
+
+  async function handleDeleteEvent(e, EventName) {
+    e.preventDefault();
+    try {
+      const response = await axios.delete(`/deleteevents/${EventName}`);
+      const data = response.data;
+      window.alert("Successfully Delete The Event");
+      Navigation("/Clubadmin");
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const handleRowClick = (item) => {
+    setSelectedRow(item);
+  };
   return (
     <>
-      {userData.ClubName && <span>{userData.ClubName}</span>}
       <div className="overflow-x-auto">
         <div className="px-3 py-4 ">
           <input
@@ -141,15 +125,14 @@ export default function ClubStudenReport() {
           <thead>
             <tr>
               <th></th>
-              <th>Name</th>
-              <th>EnrollmentNo</th>
-              <th>Email</th>
-              <th>PhoneNO</th>
-              <th>Class</th>
-              <th>Batch</th>
               <th>ClubName</th>
-              <th>FavTech</th>
-              <th>Role</th>
+              <th>EventName</th>
+              <th>HandlerName</th>
+              <th>Descrption</th>
+              <th>Venue</th>
+              <th>Certifiacate</th>
+              <th>Date</th>
+
               <th>Update</th>
               <th>Delete</th>
             </tr>
@@ -159,30 +142,43 @@ export default function ClubStudenReport() {
               <tr key={index}>
                 <td></td>
 
-                <td>{item.Name}</td>
-                <td>{item.EnrollmentNo}</td>
-                <td>{item.Email}</td>
-                <td>{item.PhoneNO}</td>
-                <td>{item.Class}</td>
-                <td>{item.Batch}</td>
                 <td>{item.ClubName}</td>
-                <td>{item.FavTech}</td>
-                <td>{item.Role}</td>
+                <td>{item.EventName}</td>
+                <td>{item.HandlerName}</td>
+                <td>{item.Descrption}</td>
+                <td>{item.Venue}</td>
+                <td>{item.Certifiacate}</td>
+                <td>{item.Dates.startDate}</td>
+
                 <td>
                   <label
-                    htmlFor="UpdateStudentReport"
-                    className="btn btn-warning dark:hover:bg-teal-500"
+                    htmlFor="updateevent"
+                    className="btn btn-outline btn-accent"
                     onClick={() => handleRowClick(item)}
                   >
                     Update
                   </label>
                 </td>
+
                 <td>
                   <button
-                    className="btn btn-error dark:hover:bg-red-500"
-                    onClick={(e) => handleDeleteUser(e, item.EnrollmentNo)}
+                    className="btn btn-square btn-outline dark:hover:bg-red-500"
+                    onClick={(e) => handleDeleteEvent(e, item.EventName)}
                   >
-                    Delete
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -210,7 +206,7 @@ export default function ClubStudenReport() {
           </div>
         </ReactPaginate>
       </div>
-      <UpdateStudentReport selectedRow={selectedRow} />
+      <UpdateEvent selectedRow={selectedRow} />
     </>
   );
 }

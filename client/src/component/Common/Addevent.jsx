@@ -120,15 +120,15 @@ export default function Addevent() {
 
     if (res.status === 400 || !data) {
       window.alert("Invaild");
-      setIsLoading(true);
+      setIsLoading(false);
     } else if (res.status === 422 || !data) {
-      window.alert("Bad");
-      setIsLoading(true);
+      window.alert("Already Event IS Added ");
+      setIsLoading(false);
     } else {
       window.alert("SucessFully Add Event");
 
-      setIsLoading(true);
-      history("/Admindash");
+      setIsLoading(false);
+      // history("/Admindash");
     }
   };
 

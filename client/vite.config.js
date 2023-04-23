@@ -126,6 +126,10 @@ export default defineConfig({
         target: " http://localhost:5000",
         changeOrigin: true,
       },
+      "/eventsbyclub": {
+        target: " http://localhost:5000",
+        changeOrigin: true,
+      },
     },
   },
 });

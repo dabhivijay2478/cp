@@ -93,7 +93,15 @@ export default function Clubadmin() {
                 <span className=" ml-3 ">StudentReport</span>
               </NavLink>
             </li>
-
+            <li>
+              <NavLink
+                to="/Clubadmin/ClubEventReport"
+                className="flex items-center px-3 text-white py-2 dark:text-white  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
+              >
+                <i class="fa-solid fa-chart-simple"></i>
+                <span className=" ml-3 ">Club Event Report</span>
+              </NavLink>
+            </li>
             <li>
               <NavLink
                 to="/"
