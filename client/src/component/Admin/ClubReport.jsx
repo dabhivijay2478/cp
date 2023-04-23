@@ -119,13 +119,13 @@ export default function ClubReport() {
                 <td>{item.Student}</td>
                 <td>{item.Dates.startDate}</td>
                 <td>
-                <label
-                htmlFor="updateclub"
-                className="btn btn-outline btn-accent"
-                onClick={() => handleRowClick(item)}
-              >
-                Update
-              </label>
+                  <label
+                    htmlFor="updateclub"
+                    className="btn btn-outline btn-accent"
+                    onClick={() => handleRowClick(item)}
+                  >
+                    Update
+                  </label>
                 </td>
 
                 <td>

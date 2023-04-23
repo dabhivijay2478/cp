@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useNavigate } from "react-router-dom";
-import "./addclub.css";
 import { useEffect } from "react";
 import axios from "axios";
-
+import "./loader.css";
 export default function UpdateClub(props) {
   const { selectedRow } = props;
   const history = useNavigate();
@@ -16,7 +15,11 @@ export default function UpdateClub(props) {
     console.log("newDates:", newDates);
     setDates(newDates);
   };
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const handleModalToggle = () => {
+    setIsOpen(!isOpen);
+  };
   const [Factulty, setFactulty] = useState(selectedRow?.Factulty || "");
   const [Student, setStudent] = useState(selectedRow?.Student || "");
   const [ClubName, setClubName] = useState(selectedRow?.ClubName || "");
@@ -62,11 +65,12 @@ export default function UpdateClub(props) {
   };
 
   const handleUpdateClub = async (e, ClubName) => {
-    // setIsLoading(true);
     e.preventDefault();
     if (!validateInput()) {
       return;
     }
+    setIsOpen(false);
+    setIsLoading(true);
     try {
       const response = await axios.put(`/updateclub/${ClubName}`, {
         ClubName,
@@ -78,10 +82,10 @@ export default function UpdateClub(props) {
       window.alert("Successfully Update Club");
       history("/Admindash");
 
-      //   setIsLoading(false);
+      setIsLoading(false);
       return response.data;
     } catch (error) {
-      //   setIsLoading(false);
+      setIsLoading(false);
       if (error.response.status === 400 || !error.response.data) {
         window.alert("Server Error");
       } else if (error.response.status === 422 || !error.response.data) {
@@ -93,7 +97,13 @@ export default function UpdateClub(props) {
   return (
     <>
       <div>
-        <input type="checkbox" id="updateclub" className="modal-toggle" />
+        <input
+          type="checkbox"
+          id="updateclub"
+          className="modal-toggle"
+          checked={isOpen}
+          onChange={handleModalToggle}
+        />
         <div className="modal">
           <div className="modal-box w-11/12 max-w-5xl">
             <h3 className="font-bold text-lg">Update Club</h3>
@@ -186,6 +196,17 @@ export default function UpdateClub(props) {
           </div>
         </div>
       </div>
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-screen h-screen bg-opacity-50 bg-gray-900 flex justify-center items-center z-50">
+          <div class="clubspinner">
+            <div class="clubspinnerdot"></div>
+            <div class="clubspinnerdot"></div>
+            <div class="clubspinnerdot"></div>
+            <div class="clubspinnerdot"></div>
+            <div class="clubspinnerdot"></div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

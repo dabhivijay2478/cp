@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Datepicker from "react-tailwindcss-datepicker";
-
+import "./update.css";
 export default function Addevent() {
   const history = useNavigate();
   const [Certifiacate, setCertifiacate] = useState("");
@@ -22,6 +22,7 @@ export default function Addevent() {
     console.log("newDates:", newDates);
     setDates(newDates);
   };
+  const [isLoading, setIsLoading] = useState(false);
 
   const [clubNameError, setClubNameError] = useState("");
   const [eventNameError, setEventNameError] = useState("");
@@ -98,6 +99,7 @@ export default function Addevent() {
     if (!validateForm()) {
       return;
     }
+    setIsLoading(true);
     const res = await fetch("/addnewevent", {
       method: "POST",
       changeOrigin: true,
@@ -118,10 +120,14 @@ export default function Addevent() {
 
     if (res.status === 400 || !data) {
       window.alert("Invaild");
+      setIsLoading(true);
     } else if (res.status === 422 || !data) {
       window.alert("Bad");
+      setIsLoading(true);
     } else {
       window.alert("SucessFully Add Event");
+
+      setIsLoading(true);
       history("/Admindash");
     }
   };
@@ -280,6 +286,14 @@ export default function Addevent() {
           </div>
         </div>
       </div>
+
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-screen h-screen bg-opacity-50 bg-gray-900 flex justify-center items-center z-50">
+          <div class="item">
+            <div class="loader-pulse"></div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

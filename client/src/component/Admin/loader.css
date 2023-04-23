@@ -1,0 +1,46 @@
+.clubspinner {
+    width: 60px;
+    height: 60px;
+    position: relative;
+   }
+   
+   .clubspinner .clubspinnerdot {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+   }
+   
+   .clubspinner .clubspinnerdot::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: rgb(12, 180, 231);
+   }
+   
+   @keyframes spin {
+    to {
+     transform: rotate(360deg);
+    }
+   }
+   
+   .clubspinner .clubspinnerdot {
+    animation: spin 2s infinite;
+   }
+   
+   .clubspinner .clubspinnerdot:nth-child(2) {
+    animation-delay: 100ms;
+   }
+   
+   .clubspinner .clubspinnerdot:nth-child(3) {
+    animation-delay: 200ms;
+   }
+   
+   .clubspinner .clubspinnerdot:nth-child(4) {
+    animation-delay: 300ms;
+   }
+   
+   .clubspinner .clubspinnerdot:nth-child(5) {
+    animation-delay: 400ms;
+   }

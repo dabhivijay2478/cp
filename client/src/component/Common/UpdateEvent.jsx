@@ -1,6 +1,5 @@
 import React from "react";
-
-import Cookies from "js-cookie";
+import "./update.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -24,15 +23,20 @@ export default function UpdateEvent(props) {
   const Certifiacatechange = (e) => {
     setCertifiacate(e.target.value);
   };
+  const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [Dates, setDates] = useState({
     startDate: null,
   });
+
   const handleDatesChange = (newDates) => {
     console.log("newDates:", newDates);
     setDates(newDates);
   };
-
+  const handleModalToggle = () => {
+    setIsOpen(!isOpen);
+  };
   useEffect(() => {
     setCertifiacate(selectedRow?.Certifiacate || "");
     setClubname(selectedRow?.ClubName || "");
@@ -105,11 +109,12 @@ export default function UpdateEvent(props) {
   };
 
   const handleUpdateEvent = async (e, eventname) => {
-    // setIsLoading(true);
     e.preventDefault();
     if (!validateForm()) {
       return;
     }
+    setIsOpen(false);
+    setIsLoading(true);
     try {
       const response = await axios.put(`/updateevent/${eventname}`, {
         ClubName,
@@ -124,7 +129,7 @@ export default function UpdateEvent(props) {
       window.alert("Successfully Update Event");
       history("/Admindash");
 
-      //   setIsLoading(false);
+      setIsLoading(false);
       return response.data;
     } catch (error) {
       setIsLoading(false);
@@ -140,7 +145,13 @@ export default function UpdateEvent(props) {
   return (
     <>
       <div>
-        <input type="checkbox" id="updateevent" className="modal-toggle" />
+        <input
+          type="checkbox"
+          id="updateevent"
+          className="modal-toggle"
+          checked={isOpen}
+          onChange={handleModalToggle}
+        />
         <div className="modal">
           <div className="modal-box w-11/12 max-w-5xl">
             <h3 className="font-bold text-lg">Update Event</h3>
@@ -304,6 +315,16 @@ export default function UpdateEvent(props) {
           </div>
         </div>
       </div>
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-screen h-screen bg-opacity-50 bg-gray-900 flex justify-center items-center z-50">
+          <div class="item">
+            <div class="loading">
+              <div class="d1"></div>
+              <div class="d2"></div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

@@ -17,8 +17,8 @@ export default function UpdateStudentReport(props) {
   const [UpRole, setUpRole] = useState(selectedRow?.Role || "");
   const [UpPassword, setUpPassword] = useState(selectedRow?.EnrollmentNo || "");
 
-  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const handleModalToggle = () => {
     setIsOpen(!isOpen);
   };
