@@ -28,6 +28,7 @@ import Test from "./component/user/Test";
 import ClubStudenReport from "./component/Clubadmin/ClubStudenReport";
 import ClubReport from "./component/Admin/ClubReport";
 import ClubEventreport from "./component/Clubadmin/ClubEventreport";
+import RegisterEventreport from "./component/Common/RegisterEventreport";
 function App() {
   return (
     <>
@@ -46,6 +47,8 @@ function App() {
           <Route exact path="Postcertificates" element={<Postcertificates />} />
           <Route exact path="StudentReport" element={<StudentReport />} />
           <Route exact path="Eventreport" element={<EvetnReport />} />
+          <Route exact path="RegisterEventreport" element={<RegisterEventreport />} />
+
           <Route exact path="ClubReport" element={<ClubReport />} />
 
           <Route

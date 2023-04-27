@@ -130,6 +130,14 @@ export default defineConfig({
         target: " http://localhost:5000",
         changeOrigin: true,
       },
+      "/registereventreport": {
+        target: " http://localhost:5000",
+        changeOrigin: true,
+      },
+      "/deleteregisterstudent": {
+        target: " http://localhost:5000",
+        changeOrigin: true,
+      },
     },
   },
 });

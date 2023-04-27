@@ -101,14 +101,38 @@ export default function Admindash() {
                 <span className=" ml-3 ">StudentReport</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/Admindash/Eventreport"
+            <li className="dropdown dropdown-hover">
+              <label
+                tabIndex={0}
                 className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
               >
                 <i class="fa-solid fa-calendar-check dark:hover:text-slate-800"></i>
-                <span className=" ml-3 ">Event Report</span>
-              </NavLink>
+                <span className=" ml-3 ">Event Report's</span>
+                <i class="fa-solid fa-chevron-down ml-1 dark:hover:text-slate-800"></i>
+              </label>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <NavLink
+                    to="/Admindash/Eventreport"
+                    className="flex items-center px-3 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
+                  >
+                    <i class="fa-solid fa-calendar-check dark:hover:text-slate-800"></i>
+                    <span className=" ml-3 ">Event Report</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/Admindash/RegisterEventreport"
+                    className="flex items-center px-3 mt-2 text-white py-2 dark:text-white dark:hover:text-gray-800  rounded-lg dark:hover:bg-cyan-400 overflow-hidden"
+                  >
+                    <i class="fa-solid fa-calendar-check dark:hover:text-slate-800"></i>
+                    <span className=" ml-3 ">Register Event Report</span>
+                  </NavLink>
+                </li>
+              </ul>
             </li>
             <li>
               <NavLink
